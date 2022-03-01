@@ -1,0 +1,25 @@
+Guten Morgen Herr Müller,
+Nachfolgend unsere Fragen zum morgigen Q&A:
+
+ 1) Wie muss der SCRUM-Teil des Projektes aufgebaut sein?
+    Wir haben bisher auf Basis einer Tabellenkalkulation ein Product-Backlog und eine vollständige Sprint-Planung vorgenommen.
+    Ist das ausreichend?
+ 2) Inwieweit sollen Beziehungen im Klassendiagramm "mit gesundem Menschenverstand" abgebildet werden?
+    Soll strikt nach Text gegangen werden oder selbstständig entschieden werden?
+    Z.B. bei der Unterscheidung von Assoziationen/Aggregationen/Kompositionen
+ 3) Sollen Bestandteile einer Klasse als Attribute aufgeführt werden?
+    Z.b. Dachlöscharm ist aufgebaut aus Segmenten --> Diese Segmente als Attribute aufführen
+ 4) Beim Aktivitätsdiagramm haben wir die Zustände aus der Spezifikation in eine neue Reihenfolge gebracht, um das Diagramm besser strukturieren zu können. Ist das in Ordnung, oder muss strikt die Reihenfolge aus der Spezifikation eingehalten werden?
+ 5) Müssen Operator und Driver im Klassendiagramm modelliert und auch im Programmcode implementiert werden?
+    Theoretisch gehören Sie nicht zum bestellten Endprodukt und simulieren den Endkunden.
+ 6) Wie ist das batteryManagement zu verstehen? In der Spezifikation ist es leider nicht näher erläutert.
+
+
+1) Scrum -> OK
+2) Strikt nach Text
+3) Nein
+4) Passt
+5) Ja
+6) batteryManagement --> siehe vpp
+7) Driver-/Operationsection --> Sitze --> Instrumente --> Was gehört wo dazu?
+8) S10 --> Fußnote 11 --> intelligent machen
