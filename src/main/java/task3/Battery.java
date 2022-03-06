@@ -13,6 +13,8 @@ public class Battery implements IStoreMedium {
     public Battery(Object subject, Integer length, Integer height, Integer width) {
         //super(length, height, width, subject);
 
+        this.mainCells = new ArrayList<>();
+
         //Instanziierung Topdown
         List<MainCell> topLevelCells = new ArrayList<>();
         List<SubCell> midLevelCells = new ArrayList<>();
