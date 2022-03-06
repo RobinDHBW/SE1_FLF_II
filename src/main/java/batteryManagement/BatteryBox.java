@@ -1,6 +1,7 @@
 package batteryManagement;
 
 import store.StoreMedium;
+import task3.Battery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,20 +38,20 @@ public class BatteryBox {
 
     public Double getRelativeFillState() {
         return batteryStore.stream()
-                .mapToDouble(StoreMedium::getRelativeFillState)
+                .mapToDouble(Battery::getRelativeFillState)
                 .average()
                 .orElse(0);
     }
 
     public Integer getAbsoluteFillState() {
         return batteryStore.stream()
-                .mapToInt(StoreMedium::getAbsoluteFillState)
+                .mapToInt(Battery::getAbsoluteFillState)
                 .sum();
     }
 
     public Integer getCapacity() {
         return batteryStore.stream()
-                .mapToInt(StoreMedium::getCapacity)
+                .mapToInt(Battery::getCapacity)
                 .sum();
     }
 }
