@@ -22,6 +22,25 @@ public class MainCell extends Cell {
         }
     }
 
+    public List<Object> remove(Integer quantity){
+        try{
+            List<Object> removed = new ArrayList<>();
+            if (getAbsoluteFillState() < quantity) throw new Exception("Not enough stored!");
+            for(SubCell c : cells){
+                if(quantity == 0) break;
+                Integer fillState = c.getAbsoluteFillState();
+                Integer toRemove = fillState >= quantity ? quantity : fillState;
+                removed.addAll(c.remove(toRemove));
+                quantity -= toRemove;
+            }
+            return removed;
+        }catch (Exception ex){
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     public void addCell(SubCell c) {
         cells.add(c);
     }
