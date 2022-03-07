@@ -61,6 +61,7 @@ public class Battery implements IStoreMedium {
     public List<Object> remove(Integer quantity) {
         List<Object> removedList = new ArrayList<>();
         for (MainCell m : mainCells) {
+            if (quantity==0) break;
             Coulomb removed = m.remove();
             if (Objects.nonNull(removed)) {
                 quantity--;

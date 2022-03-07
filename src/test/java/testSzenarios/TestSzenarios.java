@@ -198,6 +198,8 @@ public class TestSzenarios {
 
 
         Integer finalSetpointConsumption = setpointConsumption;
+        Integer capacity = this.flf.getDrive().getCapacity();
+        Integer fillState = this.flf.getDrive().getAbsoluteFillState();
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check steerLeft", () -> assertEquals(-5, steerState1)),
                 DynamicTest.dynamicTest("check steerStraight", () -> assertEquals(0, steerState2)),
