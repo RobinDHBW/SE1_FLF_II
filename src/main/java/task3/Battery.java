@@ -34,27 +34,33 @@ public class Battery implements IStoreMedium {
         //Zusammensetzung Bottom up
         int i = 0;
         int j = 0;
-        for (MainCell m : topLevelCells) {
-            int k = 0;
-            for (SubCell s : midLevelCells) {
-                for (int z = 0; z < 3; z++) {
-                    s.addCell(lowLevelCells.get(k++));
-                }
+        for (SubCell s : midLevelCells) {
+            for (int z = 0; z < height; z++) {
+                s.addCell(lowLevelCells.get(j++));
             }
-            for (int z = 0; z < 4; z++) {
+        }
+        for (MainCell m : topLevelCells) {
+            for (int z = 0; z < width; z++) {
                 m.addCell(midLevelCells.get(i++));
             }
-            this.mainCells.add(topLevelCells.get(j++));
+            this.mainCells.add(m);
         }
 
     }
 
     @Override
     public void fill(Object input, Integer quantity) {
-        for (MainCell m : mainCells) {
-            if (m.fill((Coulomb) input)) quantity--;
-            if (quantity == 0) return;
+        try{
+            for (MainCell m : mainCells) {
+                if (quantity == 0) return;
+                if (m.fill((Coulomb) input)) quantity--;
+            }
+            if(quantity>0) throw new Exception("Could not fill given quantity into battery, left:" + quantity);
+        }catch (Exception ex){
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
+
     }
 
     @Override

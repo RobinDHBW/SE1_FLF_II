@@ -45,7 +45,7 @@ public class CellContainer extends Cell{
     }
 
     public Integer getAbsoluteFillState() {
-        return cells.stream().filter(c -> c.isEmpty()).mapToInt(Cell::getCapacity).sum();
+        return cells.stream().filter(c -> !c.isEmpty()).mapToInt(Cell::getCapacity).sum();
     }
 
 }

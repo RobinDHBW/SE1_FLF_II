@@ -15,6 +15,8 @@ public enum BatteryManagement {
     }
 
     public void fillComplete() {
+        Integer cap = batteryBox.getCapacity();
+        Integer fill = batteryBox.getAbsoluteFillState();
         this.fill(batteryBox.getCapacity() - batteryBox.getAbsoluteFillState());
     }
 
