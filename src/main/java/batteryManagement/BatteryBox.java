@@ -18,7 +18,12 @@ public class BatteryBox {
 
     public void fill(Integer quantity) {
         for (Battery b : batteryStore) {
-            b.fill(new Coulomb(), quantity / batteryStore.size());
+            if(quantity == 0) return;
+            Integer cap = b.getCapacity() - b.getAbsoluteFillState();
+            Integer toFill = (cap >= quantity) ? quantity : cap;
+            b.fill(new Coulomb(), toFill);
+            quantity -= toFill;
+            //b.fill(new Coulomb(), quantity / batteryStore.size());
         }
     }
 

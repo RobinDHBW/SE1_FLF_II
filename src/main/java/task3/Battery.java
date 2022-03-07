@@ -71,7 +71,9 @@ public class Battery implements IStoreMedium {
             List<Object> removed = new ArrayList<>();
             if (getAbsoluteFillState() < quantity) throw new Exception("Not enough stored!");
             for(MainCell c : mainCells){
+                if(quantity ==0)break;
                 Integer fillState = c.getAbsoluteFillState();
+                if(fillState == 0)continue;
                 Integer toRemove = fillState >= quantity ? quantity : fillState;
                 removed.addAll(c.remove(toRemove));
                 quantity -= toRemove;

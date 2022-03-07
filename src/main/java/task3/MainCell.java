@@ -29,6 +29,7 @@ public class MainCell extends Cell {
             for(SubCell c : cells){
                 if(quantity == 0) break;
                 Integer fillState = c.getAbsoluteFillState();
+                if(fillState == 0)continue;
                 Integer toRemove = fillState >= quantity ? quantity : fillState;
                 removed.addAll(c.remove(toRemove));
                 quantity -= toRemove;
