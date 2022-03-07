@@ -26,13 +26,12 @@ public class Cell {
         return false;
     }
 
-    public Coulomb remove(){
+    public Integer remove(){
         if(Objects.nonNull(this.energy)){
-            Coulomb removed = this.energy;
             this.energy = null;
-            return removed;
+            return 1;
         }
-        return null;
+        return 0;
     }
 
     public Integer getCapacity(){
