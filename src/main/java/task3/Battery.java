@@ -51,11 +51,11 @@ public class Battery implements IStoreMedium {
     public void fill(Object input, Integer quantity) {
         try {
             for (MainCell m : mainCells) {
+                if(quantity == 0) return;
                 Integer cap = m.getCapacity() - m.getAbsoluteFillState();
-                for (int i = 0; i < cap; i++) {
-                    if (quantity == 0) return;
-                    if (m.fill((Coulomb) input)) quantity--;
-                }
+                Integer toFill = (cap >= quantity) ? quantity : cap;
+                m.fill((Coulomb) input, toFill);
+                quantity -= toFill;
             }
             if(quantity>0) throw new Exception("Could not fill given quantity into battery, left:" + quantity);
         } catch (Exception ex) {
@@ -92,6 +92,7 @@ public class Battery implements IStoreMedium {
 
     @Override
     public Integer getAbsoluteFillState() {
+        Integer fill = mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
         return mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
     }
 
