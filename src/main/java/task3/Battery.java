@@ -1,18 +1,14 @@
 package task3;
 
-import batteryManagement.Coulomb;
 import store.IStoreMedium;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Battery implements IStoreMedium {
     private List<MainCell> mainCells;
 
     public Battery(Object subject, Integer length, Integer height, Integer width) {
-        //super(length, height, width, subject);
-
         this.mainCells = new ArrayList<>();
 
         //Instanziierung Topdown
@@ -34,54 +30,85 @@ public class Battery implements IStoreMedium {
         //Zusammensetzung Bottom up
         int i = 0;
         int j = 0;
-        for (MainCell m : topLevelCells) {
-            int k = 0;
-            for (SubCell s : midLevelCells) {
-                for (int z = 0; z < 3; z++) {
-                    s.addCell(lowLevelCells.get(k++));
-                }
+        for (SubCell s : midLevelCells) {
+            for (int z = 0; z < height; z++) {
+                s.addCell(lowLevelCells.get(j++));
             }
-            for (int z = 0; z < 4; z++) {
+        }
+        for (MainCell m : topLevelCells) {
+            for (int z = 0; z < width; z++) {
                 m.addCell(midLevelCells.get(i++));
             }
-            this.mainCells.add(topLevelCells.get(j++));
+            this.mainCells.add(m);
         }
 
     }
 
     @Override
     public void fill(Object input, Integer quantity) {
-        for (MainCell m : mainCells) {
-            if (m.fill((Coulomb) input)) quantity--;
-            if (quantity == 0) return;
+        try {
+            for (MainCell m : mainCells) {
+                if(quantity == 0) return;
+                Integer cap = m.getCapacity() - m.getAbsoluteFillState();
+                Integer toFill = (cap >= quantity) ? quantity : cap;
+                m.fill((Coulomb) input, toFill);
+                quantity -= toFill;
+            }
+            if(quantity>0) throw new Exception("Could not fill given quantity into battery, left:" + quantity);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
+
     }
 
     @Override
     public List<Object> remove(Integer quantity) {
-        List<Object> removedList = new ArrayList<>();
-        for (MainCell m : mainCells) {
-            if (quantity==0) break;
-            Coulomb removed = m.remove();
-            if (Objects.nonNull(removed)) {
-                quantity--;
-                removedList.add(removed);
+        try{
+            List<Object> removed = new ArrayList<>();
+            if (getAbsoluteFillState() < quantity) throw new Exception("Not enough stored!");
+            for(MainCell c : mainCells){
+                if(quantity ==0)break;
+                Integer fillState = c.getAbsoluteFillState();
+                if(fillState == 0)continue;
+                Integer toRemove = fillState >= quantity ? quantity : fillState;
+                removed.addAll(c.remove(toRemove));
+                quantity -= toRemove;
             }
+            return removed;
+        }catch (Exception ex){
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+            return null;
         }
-        return removedList;
+//        List<Object> removedList = new ArrayList<>();
+//        Integer count = 0;
+//        for (MainCell m : mainCells) {
+//            Integer cap = m.getAbsoluteFillState();
+//
+//        }
+//
+//        for (int i = 0; i < count; i++) {
+//            removedList.add(new Coulomb());
+//        }
+//        return removedList;
     }
 
     @Override
     public Double getRelativeFillState() {
-        return 1.0 / (getCapacity() / getAbsoluteFillState());
+        Integer fillState = getAbsoluteFillState();
+        if(fillState == 0) return 0.0;
+        return 1.0 / (getCapacity() / fillState);
     }
 
     @Override
     public Integer getAbsoluteFillState() {
-        return mainCells.stream().mapToInt(CellContainer::getAbsoluteFillState).sum();
+        Integer fill1 = mainCells.get(1).getAbsoluteFillState();
+        Integer fill = mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
+        return mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
     }
 
     public Integer getCapacity() {
-        return mainCells.stream().mapToInt(CellContainer::getCapacity).sum();
+        return mainCells.stream().mapToInt(MainCell::getCapacity).sum();
     }
 }

@@ -260,6 +260,8 @@ public class TestSzenarios {
         }
 
         Integer finalSetpointConsumption = setpointConsumption;
+        Integer capacity = this.flf.getDrive().getCapacity();
+        Integer fillState = this.flf.getDrive().getAbsoluteFillState();
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check consumption", () -> assertEquals(finalSetpointConsumption, this.flf.getDrive().getCapacity() - this.flf.getDrive().getAbsoluteFillState()))
         );

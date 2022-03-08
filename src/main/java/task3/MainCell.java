@@ -1,8 +1,9 @@
 package task3;
 
-public class MainCell extends CellContainer{
 
-    public MainCell(Integer id){
+public class MainCell extends Cell {
+
+    public MainCell(Integer id) {
         super(id);
     }
 }
