@@ -1,5 +1,7 @@
 package configuration;
 
+import task4.EncryptionStrategy;
+
 public enum Configuration {
     instance;
     public final String flfIdentifier = "DUS | FLF-5";
@@ -9,4 +11,6 @@ public enum Configuration {
     public final Integer cellPerSubCell = 10;
     public final Integer subCellPerMainCell = 100;
     public final Integer mainCellPerBatterie = 100;
+
+    public final EncryptionStrategy encryptionStrategy = EncryptionStrategy.AES;
 }

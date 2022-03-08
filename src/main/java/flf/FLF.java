@@ -213,7 +213,7 @@ public class FLF {
             Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
             Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
-            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight);
+            CentralUnit centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy);
 
 
             ButtonPush doorToggleLeftInside = new ButtonPush(centralUnit) {

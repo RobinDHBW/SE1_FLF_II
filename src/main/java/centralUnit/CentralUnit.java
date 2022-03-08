@@ -10,6 +10,7 @@ import instruments.Speedometer;
 import lights.*;
 import person.Person;
 import tank.MixingProcessor;
+import task4.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class CentralUnit {
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
-    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private final ICryptoStrategy cryptoUnit;
     private final String cryptoCode = Configuration.instance.cuCode;
     private final ArrayList<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
@@ -48,7 +49,8 @@ public class CentralUnit {
             BatteryIndicator batteryIndicator,
             ArrayList<Person> authorizedPersons,
             Busdoor busdoorLeft,
-            Busdoor busdoorRight
+            Busdoor busdoorRight,
+            EncryptionStrategy encryptionStrategy
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -64,6 +66,14 @@ public class CentralUnit {
         this.authorizedPersons = authorizedPersons;
         this.busdoorLeft = busdoorLeft;
         this.busdoorRight = busdoorRight;
+
+        this.cryptoUnit = switch (encryptionStrategy) {
+            case AES -> new CryptoStrategyAES();
+            case RSA -> new CryptoStrategyRSA();
+            default -> new CryptoStrategyDES();
+        };
+
+
     }
 
     private Boolean validateAuth(String input) {

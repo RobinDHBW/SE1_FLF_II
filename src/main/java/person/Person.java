@@ -1,6 +1,7 @@
 package person;
 
-import centralUnit.CryptoUnit;
+import task4.CryptoStrategyDES;
+import task4.ICryptoStrategy;
 import configuration.Configuration;
 import idCard.IDCard;
 
@@ -8,7 +9,7 @@ public abstract class Person {
 
     protected final String name;
     protected final IDCard idCard;
-    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private final ICryptoStrategy cryptoUnit = new CryptoStrategyDES();
     protected Boolean isInVehicle = false;
 
     public Person(String name) {
