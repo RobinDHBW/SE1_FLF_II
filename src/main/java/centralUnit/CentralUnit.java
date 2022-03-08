@@ -31,7 +31,7 @@ public class CentralUnit {
     private final BatteryIndicator batteryIndicator;
     private final ICryptoStrategy cryptoUnit;
     private final String cryptoCode = Configuration.instance.cuCode;
-    private final ArrayList<Person> authorizedPersons;
+    private final List<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
     private final Busdoor busdoorRight;
 

@@ -20,7 +20,7 @@ public class CryptoStrategyRSA implements ICryptoStrategy {
     private KeyPair generateKeys() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(1024);
+            keyGen.initialize(2048);
             return  keyGen.generateKeyPair();
         }catch (Exception ex){
             System.err.println(ex.getMessage());
@@ -34,7 +34,7 @@ public class CryptoStrategyRSA implements ICryptoStrategy {
         try{
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.ENCRYPT_MODE, this.publicKey);
-            return cipher.doFinal(plain.getBytes()).toString();
+            return Base64.getEncoder().encodeToString(cipher.doFinal(plain.getBytes()));
         }catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();
@@ -47,7 +47,7 @@ public class CryptoStrategyRSA implements ICryptoStrategy {
         try{
             Cipher cipherInstance = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipherInstance.init(Cipher.DECRYPT_MODE, privateKey);
-            return new String(cipherInstance.doFinal(cipher.getBytes(StandardCharsets.UTF_8)));
+            return new String(cipherInstance.doFinal(Base64.getDecoder().decode(cipher)));
         }catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();

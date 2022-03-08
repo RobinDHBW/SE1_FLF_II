@@ -11,7 +11,7 @@ public abstract class Person {
 
     protected final String name;
     protected final IDCard idCard;
-    private final ICryptoStrategy cryptoUnit;// = new CryptoStrategyDES();
+    private final ICryptoStrategy cryptoUnit;
     protected Boolean isInVehicle = false;
 
     public Person(String name) {
