@@ -10,8 +10,6 @@ public class Battery implements IStoreMedium {
     private List<MainCell> mainCells;
 
     public Battery(Object subject, Integer length, Integer height, Integer width) {
-        //super(length, height, width, subject);
-
         this.mainCells = new ArrayList<>();
 
         //Instanziierung Topdown
@@ -99,7 +97,9 @@ public class Battery implements IStoreMedium {
 
     @Override
     public Double getRelativeFillState() {
-        return 1.0 / (getCapacity() / getAbsoluteFillState());
+        Integer fillState = getAbsoluteFillState();
+        if(fillState == 0) return 0.0;
+        return 1.0 / (getCapacity() / fillState);
     }
 
     @Override

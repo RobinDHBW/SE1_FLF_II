@@ -6,27 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainCell extends Cell {
-    protected List<SubCell> cells;
+    //protected List<SubCell> cells;
 
     public MainCell(Integer id) {
         super(id);
-        this.cells = new ArrayList<>();
+        //this.cells = new ArrayList<>();
     }
 
-    public void fill(Coulomb coulomb, Integer quantity) {
-        for (SubCell c : cells) {
-            Integer cap = c.getCapacity() - c.getAbsoluteFillState();
-            Integer toFill = (cap >= quantity) ? quantity : cap;
-            c.fill(coulomb, toFill);
-            quantity -= toFill;
-        }
-    }
+//    public void fill(Coulomb coulomb, Integer quantity) {
+//        for (Cell c : cells) {
+//            Integer cap = c.getCapacity() - c.getAbsoluteFillState();
+//            Integer toFill = (cap >= quantity) ? quantity : cap;
+//            c.fill(coulomb, toFill);
+//            quantity -= toFill;
+//        }
+//    }
 
     public List<Object> remove(Integer quantity){
         try{
             List<Object> removed = new ArrayList<>();
             if (getAbsoluteFillState() < quantity) throw new Exception("Not enough stored!");
-            for(SubCell c : cells){
+            for(Cell c : cells){
                 if(quantity == 0) break;
                 Integer fillState = c.getAbsoluteFillState();
                 if(fillState == 0)continue;
@@ -47,10 +47,10 @@ public class MainCell extends Cell {
     }
 
     public Integer getCapacity() {
-        return this.cells.stream().mapToInt(SubCell::getCapacity).sum();
+        return this.cells.stream().mapToInt(Cell::getCapacity).sum();
     }
 
     public Integer getAbsoluteFillState() {
-        return cells.stream().mapToInt(SubCell::getAbsoluteFillState).sum();
+        return cells.stream().mapToInt(Cell::getAbsoluteFillState).sum();
     }
 }
