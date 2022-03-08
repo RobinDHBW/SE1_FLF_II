@@ -14,7 +14,7 @@ public class TestTask3 {
 
     @BeforeEach
     void initRoutine() {
-        battery = new Battery(new Coulomb(),Configuration.instance.mainCellPerBatterie, Configuration.instance.cellPerSubCell, Configuration.instance.subCellPerMainCell);
+        battery = new Battery(Configuration.instance.mainCellPerBatterie, Configuration.instance.cellPerSubCell, Configuration.instance.subCellPerMainCell);
     }
 
     @Test

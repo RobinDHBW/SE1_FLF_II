@@ -1,9 +1,9 @@
-package centralUnit;
+package task4;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
-public class CryptoUnit {
+public class CryptoStrategyDES implements ICryptoStrategy {
     private final KeySchedule keySchedule = new KeySchedule();
     private final InitialPermutation initialPermutation = new InitialPermutation();
     private final FeistelNetwork feistelNetwork = new FeistelNetwork();
@@ -36,6 +36,7 @@ public class CryptoUnit {
         return new String(new BigInteger(input, 2).toByteArray());
     }
 
+    @Override
     public String decrypt(String cipher, String key) {
         StringBuilder res = new StringBuilder();
         int limit = cipher.length() % 64 > 0 ? (cipher.length() / 64) + 1 : cipher.length() / 64;
@@ -47,6 +48,7 @@ public class CryptoUnit {
         return res.toString();
     }
 
+    @Override
     public String encrypt(String plain, String key) {
         StringBuilder res = new StringBuilder();
         int limit = plain.length() % 8 > 0 ? (plain.length() / 8) + 1 : plain.length() / 8;

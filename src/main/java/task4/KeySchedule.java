@@ -1,4 +1,4 @@
-package centralUnit;
+package task4;
 
 public class KeySchedule {
     private final int[][] firstPermutionMatrix = {

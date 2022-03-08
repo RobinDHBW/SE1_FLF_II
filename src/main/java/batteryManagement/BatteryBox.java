@@ -12,7 +12,7 @@ public class BatteryBox {
     public BatteryBox(Integer width, Integer height) {
 
         for (int i = 0; i < width * height; i++) {
-            batteryStore.add(new Battery(new Coulomb(), 100, 10, 100));
+            batteryStore.add(new Battery(100, 10, 100));
         }
     }
 
@@ -23,7 +23,6 @@ public class BatteryBox {
             Integer toFill = (cap >= quantity) ? quantity : cap;
             b.fill(new Coulomb(), toFill);
             quantity -= toFill;
-            //b.fill(new Coulomb(), quantity / batteryStore.size());
         }
     }
 
