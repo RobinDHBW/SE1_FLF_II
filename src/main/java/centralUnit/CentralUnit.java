@@ -68,7 +68,7 @@ public class CentralUnit {
         this.busdoorRight = busdoorRight;
 
         this.cryptoUnit = switch (encryptionStrategy) {
-            case AES -> new CryptoStrategyAES();
+            case AES -> new CryptoStrategyAES(Configuration.instance.cuSalt);
             case RSA -> new CryptoStrategyRSA();
             default -> new CryptoStrategyDES();
         };
