@@ -104,6 +104,7 @@ public class Battery implements IStoreMedium {
 
     @Override
     public Integer getAbsoluteFillState() {
+        Integer fill1 = mainCells.get(1).getAbsoluteFillState();
         Integer fill = mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
         return mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
     }

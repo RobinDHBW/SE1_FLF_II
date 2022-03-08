@@ -61,6 +61,10 @@ public class Cell {
         }
     }
 
+    public void addCell(Cell c){
+        this.cells.add(c);
+    }
+
     public Boolean isEmpty() {
         return Objects.isNull(energy);
     }
@@ -75,6 +79,7 @@ public class Cell {
     }
 
     public Integer getAbsoluteFillState() {
-        return cells.stream().filter(cell -> !cell.isComposite()).filter(cell -> !cell.isEmpty()).mapToInt(Cell::getCapacity).sum();
+        if(!isComposite() && !isEmpty()) return 1;
+        return this.cells.stream().mapToInt(Cell::getAbsoluteFillState).sum();
     }
 }
