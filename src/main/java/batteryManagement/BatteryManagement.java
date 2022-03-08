@@ -1,5 +1,7 @@
 package batteryManagement;
 
+import task3.Coulomb;
+
 import java.util.List;
 
 public enum BatteryManagement {

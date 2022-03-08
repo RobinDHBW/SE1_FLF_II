@@ -1,6 +1,5 @@
 package task3;
 
-import batteryManagement.Coulomb;
 import store.IStoreMedium;
 
 import java.util.ArrayList;

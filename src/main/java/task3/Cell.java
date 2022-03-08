@@ -1,7 +1,5 @@
 package task3;
 
-import batteryManagement.Coulomb;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,10 +37,10 @@ public class Cell {
             List<Object> removed = new ArrayList<>();
             if (isComposite()) {
                 if (getAbsoluteFillState() < quantity) throw new Exception("Not enough stored!");
-                for(Cell c : cells){
-                    if(quantity == 0) break;
+                for (Cell c : cells) {
+                    if (quantity == 0) break;
                     Integer fillState = c.getAbsoluteFillState();
-                    if(fillState == 0)continue;
+                    if (fillState == 0) continue;
                     Integer toRemove = fillState >= quantity ? quantity : fillState;
                     removed.addAll(c.remove(toRemove));
                     quantity -= toRemove;
@@ -61,7 +59,7 @@ public class Cell {
         }
     }
 
-    public void addCell(Cell c){
+    public void addCell(Cell c) {
         this.cells.add(c);
     }
 
@@ -79,7 +77,7 @@ public class Cell {
     }
 
     public Integer getAbsoluteFillState() {
-        if(!isComposite() && !isEmpty()) return 1;
+        if (!isComposite() && !isEmpty()) return 1;
         return this.cells.stream().mapToInt(Cell::getAbsoluteFillState).sum();
     }
 }

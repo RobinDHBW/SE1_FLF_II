@@ -1,6 +1,6 @@
 package testTask3;
 
-import batteryManagement.Coulomb;
+import task3.Coulomb;
 import configuration.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
