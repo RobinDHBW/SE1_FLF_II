@@ -18,12 +18,12 @@ public class MixingUnitMediator {
 
     public MixingUnitMediator(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDieSelfprotection, Tank foamTank, Tank waterTank){
         this.loader = new Comp_loader();
-        this.port = loader.getPort();
+        this.port = loader.loadComponent();
     }
 
     public void changeMixingRate() {
         try {
-            Method method = port.getClass().getMethod("changeMixingRate");
+            Method method = port.getClass().getDeclaredMethod("changeMixingRate");
             method.invoke(port);
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,7 +32,7 @@ public class MixingUnitMediator {
 
     public void fill(TankSubject input, Integer quantity) {
         try {
-            Method method = port.getClass().getMethod("fill", Enum.class, Integer.class);
+            Method method = port.getClass().getDeclaredMethod("fill", Enum.class, Integer.class);
             method.invoke(port, input, quantity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class MixingUnitMediator {
 
     public void fillComplete(TankSubject input) {
         try {
-            Method method = port.getClass().getMethod("fillComplete", Enum.class);
+            Method method = port.getClass().getDeclaredMethod("fillComplete", Enum.class);
             method.invoke(port, input);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class MixingUnitMediator {
 
     public void toggle(CannonIdentifier ident) {
         try {
-            Method method = port.getClass().getMethod("toggle", Enum.class);
+            Method method = port.getClass().getDeclaredMethod("toggle", Enum.class);
             method.invoke(port, ident);
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class MixingUnitMediator {
 
     public void setSprayCapacityPerlIteration(CannonIdentifier cannonRoof, Integer amountPerIteration) {
         try {
-            Method method = port.getClass().getMethod("setSprayCapacityPerlIteration", Enum.class, Integer.class);
+            Method method = port.getClass().getDeclaredMethod("setSprayCapacityPerlIteration", Enum.class, Integer.class);
             method.invoke(port, cannonRoof, amountPerIteration);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class MixingUnitMediator {
 
     public void spray(CannonIdentifier ident) {
         try {
-            Method method = port.getClass().getMethod("spray", Enum.class);
+            Method method = port.getClass().getDeclaredMethod("spray", Enum.class);
             method.invoke(port, ident);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class MixingUnitMediator {
 
     public Boolean getCannonState(CannonIdentifier ident) {
         try {
-            Method method = port.getClass().getMethod("getCannonState", CannonIdentifier.class);
+            Method method = port.getClass().getDeclaredMethod("getCannonState", CannonIdentifier.class);
             return (Boolean) method.invoke(port, ident);
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class MixingUnitMediator {
 
     public MixingRate getMixingRate() {
         try {
-            Method method = port.getClass().getMethod("getMixingRate");
-            return (MixingRate)method.invoke(port);
+            Method method = port.getClass().getDeclaredMethod("getMixingRate");
+            return (MixingRate) method.invoke(port);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -97,7 +97,7 @@ public class MixingUnitMediator {
 
     public Integer getMixingRateValue() {
         try {
-            Method method = port.getClass().getMethod("getMixingRateValue");
+            Method method = port.getClass().getDeclaredMethod("getMixingRateValue");
            return(Integer) method.invoke(port);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class MixingUnitMediator {
 
     public Double getTankFillState(TankSubject foam) {
         try {
-            Method method = port.getClass().getMethod("getTankFillState", TankSubject.class);
+            Method method = port.getClass().getDeclaredMethod("getTankFillState", TankSubject.class);
            return (Double) method.invoke(port, foam);
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class MixingUnitMediator {
 
     public Integer getAbsoluteFillState(TankSubject water) {
         try {
-            Method method = port.getClass().getMethod("getAbsoluteFillState", TankSubject.class);
+            Method method = port.getClass().getDeclaredMethod("getAbsoluteFillState", TankSubject.class);
            return (Integer) method.invoke(port, water);
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +127,7 @@ public class MixingUnitMediator {
 
     public Integer getSprayCapacity(CannonIdentifier cannonSelfprotection) {
         try {
-            Method method = port.getClass().getMethod("getSprayCapacity", CannonIdentifier.class);
+            Method method = port.getClass().getDeclaredMethod("getSprayCapacity", CannonIdentifier.class);
             return (Integer)method.invoke(port, cannonSelfprotection);
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class MixingUnitMediator {
     @SuppressWarnings("unchecked")
     public HashMap<WaterCannon,Boolean> checkCannons(ICannonVisitor visitor) {
         try {
-            Method method = port.getClass().getMethod("checkCannons", ICannonVisitor.class);
+            Method method = port.getClass().getDeclaredMethod("checkCannons", ICannonVisitor.class);
             return (HashMap<WaterCannon,Boolean>) method.invoke(port, visitor);
         }catch (Exception ex){
             System.err.println(ex.getMessage());
@@ -149,7 +149,7 @@ public class MixingUnitMediator {
 
     public void resetCannonSelfCheck(){
         try{
-            Method method = port.getClass().getMethod("resetCannonSelfCheck");
+            Method method = port.getClass().getDeclaredMethod("resetCannonSelfCheck");
             method.invoke(port);
         }catch (Exception ex){
             System.err.println(ex.getMessage());
@@ -160,7 +160,7 @@ public class MixingUnitMediator {
     @SuppressWarnings("unchecked")
     public List<Boolean> getSelfCheckState(CannonIdentifier ident){
         try{
-            Method method = port.getClass().getMethod("getSelfCheckState", CannonIdentifier.class);
+            Method method = port.getClass().getDeclaredMethod("getSelfCheckState", CannonIdentifier.class);
             return (List<Boolean>)method.invoke(port, ident);
         }catch (Exception ex){
             System.err.println(ex.getMessage());

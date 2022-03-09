@@ -1,13 +1,10 @@
-package mixingUnit;
-
-import firefighting.CannonIdentifier;
-import firefighting.Tank;
-import firefighting.WaterCannonFront;
-import firefighting.WaterCannonRoof;
-import firefighting.WaterDieSelfprotection;
+import firefighting.*;
+import mixingUnit.IPort;
+import mixingUnit.MixingRate;
 import task9.ICannonVisitor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -44,7 +41,7 @@ public class MixingProcessor {
         };
     }
 
-    private List<TankSubject> innermix(Integer quantity) {
+    private List<TankSubject> innerMix(Integer quantity) {
         Integer foamPortion = innercalcFoamPortion(quantity);
 
         return Stream.concat(
@@ -53,11 +50,7 @@ public class MixingProcessor {
 
     }
 
-    public boolean innercheckCannons(ICannonVisitor visitor){
-        return true;
-    }
-
-    public void innerchangeMixingRate() {
+    public void innerChangeMixingRate() {
         this.mixingRate = switch (this.mixingRate) {
             case NULL -> MixingRate.THREE;
             case THREE -> MixingRate.FIVE;
@@ -67,7 +60,7 @@ public class MixingProcessor {
 
     }
 
-    public void innerfill(Enum<?> input, Integer quantity) {
+    public void innerFill(Enum<?> input, Integer quantity) {
 
         if (input.equals(TankSubject.FOAM)) {
             foamTank.fill(input, quantity);
@@ -76,7 +69,7 @@ public class MixingProcessor {
         }
     }
 
-    public void innerfillComplete(Enum<?> input) {
+    public void innerFillComplete(Enum<?> input) {
         int toFill;
         Integer actualFillState = input.equals(TankSubject.FOAM) ? foamTank.getAbsoluteFillState() : waterTank.getAbsoluteFillState();
 
@@ -86,10 +79,10 @@ public class MixingProcessor {
             toFill = waterTank.getCapacity() - actualFillState;
         }
 
-        this.innerfill(input, toFill);
+        this.innerFill(input, toFill);
     }
 
-    public void innertoggle(CannonIdentifier ident) {
+    public void innerToggle(CannonIdentifier ident) {
         switch (ident) {
             case CANNON_ROOF -> this.waterCannonRoof.toggle();
             case CANNON_FRONT -> this.waterCannonFront.toggle();
@@ -111,10 +104,10 @@ public class MixingProcessor {
     /**
      * @param identifier - id of the Person
      */
-    public void innerspray(CannonIdentifier identifier) {
+    public void innerSpray(CannonIdentifier identifier) {
         switch (identifier) {
-            case CANNON_FRONT -> this.waterCannonFront.spray(this.innermix(this.waterCannonFront.getSprayCapacityPerlIteration()));
-            case CANNON_ROOF -> this.waterCannonRoof.spray(this.innermix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
+            case CANNON_FRONT -> this.waterCannonFront.spray(this.innerMix(this.waterCannonFront.getSprayCapacityPerlIteration()));
+            case CANNON_ROOF -> this.waterCannonRoof.spray(this.innerMix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
             case CANNON_SELFPROTECTION -> {
                 for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
                     die.spray(this.waterTank.remove(this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration()).stream().map(e -> (TankSubject) e).collect(Collectors.toList()));
@@ -161,8 +154,36 @@ public class MixingProcessor {
         };
     }
 
+    public HashMap<WaterCannon,Boolean> innerCheckCannons(ICannonVisitor visitor) {
+        HashMap<WaterCannon,Boolean> cannonStates = new HashMap<>();
+        cannonStates.put(this.waterCannonFront, this.waterCannonFront.selfCheck(visitor));
+        cannonStates.put(this.waterCannonRoof, this.waterCannonRoof.selfCheck(visitor));
+        for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+            cannonStates.put(die, die.selfCheck(visitor));
+        }
+        return cannonStates;
+    }
 
-    public class Port implements IPort{
+    public void innerResetCannonSelfCheck(){
+        this.waterCannonRoof.setSelfCheckPassed(false);
+        this.waterCannonFront.setSelfCheckPassed(false);
+        for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+            die.setSelfCheckPassed(false);
+        }
+    }
+
+    public List<Boolean> innerGetSelfCheckState(CannonIdentifier ident){
+        List<Boolean> selfCheckStates = new ArrayList<>();
+        switch (ident){
+            case CANNON_FRONT -> selfCheckStates.add(waterCannonFront.getSelfCheckPassed());
+            case CANNON_ROOF -> selfCheckStates.add(waterCannonRoof.getSelfCheckPassed());
+            case CANNON_SELFPROTECTION -> selfCheckStates.addAll(waterDiesSelfprotection.stream().map(WaterCannon::getSelfCheckPassed).collect(Collectors.toList()));
+        };
+        return selfCheckStates;
+    }
+
+
+    public class Port implements IPort {
 
         @Override
         public Integer getSprayCapacity(CannonIdentifier ci){return innergetSprayCapacity(ci);}
@@ -183,24 +204,36 @@ public class MixingProcessor {
         public Boolean getCannonState(CannonIdentifier ident){return innergetCannonState(ident);}
 
         @Override
-        public void spray(CannonIdentifier identifier){innerspray(identifier);}
+        public void spray(CannonIdentifier identifier){innerSpray(identifier);}
 
         @Override
         public void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount){innersetSprayCapacityPerlIteration(ident, amount);}
 
         @Override
-        public void toggle(CannonIdentifier ident){innertoggle(ident);}
+        public void toggle(CannonIdentifier ident){innerToggle(ident);}
 
         @Override
-        public void fillComplete(Enum<?> input){innerfillComplete(input);}
+        public void fillComplete(Enum<?> input){innerFillComplete(input);}
 
         @Override
-        public void fill(Enum<?> input, Integer quantity){innerfill(input, quantity);}
+        public void fill(Enum<?> input, Integer quantity){innerFill(input, quantity);}
 
         @Override
-        public void changeMixingRate(){innerchangeMixingRate();}
+        public void changeMixingRate(){innerChangeMixingRate();}
 
         @Override
-        public boolean Cannons(ICannonVisitor visitor){return innercheckCannons(visitor);}
+        public HashMap<WaterCannon, Boolean> checkCannons(ICannonVisitor visitor) {
+            return innerCheckCannons(visitor);
+        }
+
+        @Override
+        public void resetCannonSelfCheck() {
+            innerResetCannonSelfCheck();
+        }
+
+        @Override
+        public List<Boolean> getSelfCheckState(CannonIdentifier ident) {
+            return innerGetSelfCheckState(ident);
+        }
     }
 }
