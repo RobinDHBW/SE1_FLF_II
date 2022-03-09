@@ -1,4 +1,4 @@
-package centralUnit;
+package task8;
 
 import cabin.Busdoor;
 import cabin.VehicleSide;

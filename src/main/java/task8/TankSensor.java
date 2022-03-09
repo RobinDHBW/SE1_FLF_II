@@ -3,9 +3,10 @@ package task8;
 import tank.TankSubject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TankSensor {
-    private final ArrayList<ITankSensorListener> listeners;
+    private final List<ITankSensorListener> listeners;
 
     public TankSensor() {
         this.listeners = new ArrayList<>();

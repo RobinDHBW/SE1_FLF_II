@@ -1,7 +1,7 @@
 package cabin;
 
 import button.*;
-import centralUnit.CentralUnit;
+import task8.CentralUnit;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import instruments.SteeringWheel;

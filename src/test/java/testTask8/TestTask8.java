@@ -148,7 +148,7 @@ public class TestTask8 {
 //            this.operator.spray();
 //        }
 //        assertEquals(LEDColor.RED, this.flf.getWaterTankLEDColor());
-        System.out.println("LED for FoamTank will never toggle, because the foam tank can loose max. 10% of its capacity due to the mixing rate, until the WaterTank is empty");
+        System.out.println("LED for FoamTank will never toggle, because the foam tank can loose max. 10.125 units (10% of the WaterTanks capacity)  due to the mixing rate, until the WaterTank is empty");
         assertFalse(this.flf.getFoamTankLEDState());
     }
 

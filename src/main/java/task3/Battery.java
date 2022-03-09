@@ -1,6 +1,6 @@
 package task3;
 
-import store.IStoreMedium;
+import task8.IStoreMedium;
 
 import java.util.ArrayList;
 import java.util.List;
