@@ -1,86 +1,41 @@
 package mixingUnit;
 
-import utilities.CannonIdentifier;
-import utilities.Tank;
-import utilities.TankSubject;
-import utilities.WaterCannonFront;
-import utilities.WaterCannonRoof;
-import utilities.WaterDieSelfprotection;
+import firefighting.CannonIdentifier;
+import firefighting.Tank;
+import firefighting.WaterCannonFront;
+import firefighting.WaterCannonRoof;
+import firefighting.WaterDieSelfprotection;
+import task9.ICannonVisitor;
 
-import javax.sound.sampled.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static utilities.TankSubject.FOAM;
+import tank.*;
 
 public class MixingProcessor {
 
-    private static final MixingProcessor instance = new MixingProcessor();
     public Port port;
+
+    private static final MixingProcessor instance = new MixingProcessor();
 
     private final WaterCannonRoof waterCannonRoof = new WaterCannonRoof();
     private final WaterCannonFront waterCannonFront = new WaterCannonFront(90);
     private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection = new ArrayList<>();
-    private final Tank foamTank = new Tank(FOAM, 75, 45, 10);
+    private final Tank foamTank = new Tank(TankSubject.FOAM, 75, 45, 10);
     private final Tank waterTank = new Tank(TankSubject.WATER, 75, 45, 30);
     private MixingRate mixingRate = MixingRate.NULL;
 
-    public MixingProcessor() {
-        this.port = new Port() {
-            @Override
-            public Line.Info getLineInfo() {
-                return null;
-            }
-
-            @Override
-            public void open() throws LineUnavailableException {
-
-            }
-
-            @Override
-            public void close() {
-
-            }
-
-            @Override
-            public boolean isOpen() {
-                return false;
-            }
-
-            @Override
-            public Control[] getControls() {
-                return new Control[0];
-            }
-
-            @Override
-            public boolean isControlSupported(Control.Type control) {
-                return false;
-            }
-
-            @Override
-            public Control getControl(Control.Type control) {
-                return null;
-            }
-
-            @Override
-            public void addLineListener(LineListener listener) {
-
-            }
-
-            @Override
-            public void removeLineListener(LineListener listener) {
-
-            }
-        };
+    private MixingProcessor() {
+        port = new Port();
     }
 
     public static MixingProcessor getInstance() {
         return instance;
     }
 
-    private Integer calcFoamPortion(Integer quantity) {
+    private Integer innercalcFoamPortion(Integer quantity) {
         return switch (this.mixingRate) {
             case NULL -> 0;
             case THREE -> (quantity / 100) * 3;
@@ -89,8 +44,8 @@ public class MixingProcessor {
         };
     }
 
-    private List<TankSubject> mix(Integer quantity) {
-        Integer foamPortion = calcFoamPortion(quantity);
+    private List<TankSubject> innermix(Integer quantity) {
+        Integer foamPortion = innercalcFoamPortion(quantity);
 
         return Stream.concat(
                 foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).toList().stream(),
@@ -98,7 +53,11 @@ public class MixingProcessor {
 
     }
 
-    public void changeMixingRate() {
+    public boolean innercheckCannons(ICannonVisitor visitor){
+        return true;
+    }
+
+    public void innerchangeMixingRate() {
         this.mixingRate = switch (this.mixingRate) {
             case NULL -> MixingRate.THREE;
             case THREE -> MixingRate.FIVE;
@@ -108,29 +67,29 @@ public class MixingProcessor {
 
     }
 
-    public void fill(Enum<?> input, Integer quantity) {
+    public void innerfill(Enum<?> input, Integer quantity) {
 
-        if (input.equals(FOAM)) {
+        if (input.equals(TankSubject.FOAM)) {
             foamTank.fill(input, quantity);
         } else {
             waterTank.fill(input, quantity);
         }
     }
 
-    public void fillComplete(Enum<?> input) {
+    public void innerfillComplete(Enum<?> input) {
         int toFill;
-        Integer actualFillState = input.equals(FOAM) ? foamTank.getAbsoluteFillState() : waterTank.getAbsoluteFillState();
+        Integer actualFillState = input.equals(TankSubject.FOAM) ? foamTank.getAbsoluteFillState() : waterTank.getAbsoluteFillState();
 
-        if (input.equals(FOAM)) {
+        if (input.equals(TankSubject.FOAM)) {
             toFill = foamTank.getCapacity() - actualFillState;
         } else {
             toFill = waterTank.getCapacity() - actualFillState;
         }
 
-        this.fill(input, toFill);
+        this.innerfill(input, toFill);
     }
 
-    public void toggle(CannonIdentifier ident) {
+    public void innertoggle(CannonIdentifier ident) {
         switch (ident) {
             case CANNON_ROOF -> this.waterCannonRoof.toggle();
             case CANNON_FRONT -> this.waterCannonFront.toggle();
@@ -142,7 +101,7 @@ public class MixingProcessor {
         }
     }
 
-    public void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount) {
+    public void innersetSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount) {
         switch (ident) {
             case CANNON_ROOF -> this.waterCannonRoof.setSprayCapacityPerlIteration(amount);
             case CANNON_FRONT -> this.waterCannonFront.setSprayCapacityPerlIteration(amount);
@@ -152,10 +111,10 @@ public class MixingProcessor {
     /**
      * @param identifier - id of the Person
      */
-    public void spray(CannonIdentifier identifier) {
+    public void innerspray(CannonIdentifier identifier) {
         switch (identifier) {
-            case CANNON_FRONT -> this.waterCannonFront.spray(this.mix(this.waterCannonFront.getSprayCapacityPerlIteration()));
-            case CANNON_ROOF -> this.waterCannonRoof.spray(this.mix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
+            case CANNON_FRONT -> this.waterCannonFront.spray(this.innermix(this.waterCannonFront.getSprayCapacityPerlIteration()));
+            case CANNON_ROOF -> this.waterCannonRoof.spray(this.innermix(this.waterCannonRoof.getSprayCapacityPerlIteration()));
             case CANNON_SELFPROTECTION -> {
                 for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
                     die.spray(this.waterTank.remove(this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration()).stream().map(e -> (TankSubject) e).collect(Collectors.toList()));
@@ -164,7 +123,7 @@ public class MixingProcessor {
         }
     }
 
-    public Boolean getCannonState(CannonIdentifier ident) {
+    public Boolean innergetCannonState(CannonIdentifier ident) {
         return switch (ident) {
             case CANNON_ROOF -> this.waterCannonRoof.getState();
             case CANNON_FRONT -> this.waterCannonFront.getState();
@@ -172,33 +131,76 @@ public class MixingProcessor {
         };
     }
 
-    public MixingRate getMixingRate() {
+    public MixingRate innergetMixingRate() {
         return mixingRate;
     }
 
-    public Integer getMixingRateValue() {
-        return calcFoamPortion(100);
+    public Integer innergetMixingRateValue() {
+        return innercalcFoamPortion(100);
     }
 
-    public Double getTankFillState(TankSubject ts) {
+    public Double innergetTankFillState(TankSubject ts) {
         return switch (ts) {
             case FOAM -> this.foamTank.getRelativeFillState();
             case WATER -> this.waterTank.getRelativeFillState();
         };
     }
 
-    public Integer getAbsoluteFillState(TankSubject ts) {
+    public Integer innergetAbsoluteFillState(TankSubject ts) {
         return switch (ts) {
             case FOAM -> this.foamTank.getAbsoluteFillState();
             case WATER -> this.waterTank.getAbsoluteFillState();
         };
     }
 
-    public Integer getSprayCapacity(CannonIdentifier ci) {
+    public Integer innergetSprayCapacity(CannonIdentifier ci) {
         return switch (ci) {
             case CANNON_FRONT -> this.waterCannonFront.getSprayCapacityPerlIteration();
             case CANNON_ROOF -> this.waterCannonRoof.getSprayCapacityPerlIteration();
             case CANNON_SELFPROTECTION -> this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration();
         };
+    }
+
+
+    public class Port implements IPort{
+
+        @Override
+        public Integer getSprayCapacity(CannonIdentifier ci){return innergetSprayCapacity(ci);}
+
+        @Override
+        public Integer AbsoluteFillState(TankSubject ts){return innergetAbsoluteFillState(ts);}
+
+        @Override
+        public Double getTankFillState(TankSubject ts){return innergetTankFillState(ts);}
+
+        @Override
+        public Integer getMixingRateValue(){return innergetMixingRateValue();}
+
+        @Override
+        public MixingRate getMixingRate(){return innergetMixingRate();}
+
+        @Override
+        public Boolean getCannonState(CannonIdentifier ident){return innergetCannonState(ident);}
+
+        @Override
+        public void spray(CannonIdentifier identifier){innerspray(identifier);}
+
+        @Override
+        public void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount){innersetSprayCapacityPerlIteration(ident, amount);}
+
+        @Override
+        public void toggle(CannonIdentifier ident){innertoggle(ident);}
+
+        @Override
+        public void fillComplete(Enum<?> input){innerfillComplete(input);}
+
+        @Override
+        public void fill(Enum<?> input, Integer quantity){innerfill(input, quantity);}
+
+        @Override
+        public void changeMixingRate(){innerchangeMixingRate();}
+
+        @Override
+        public boolean Cannons(ICannonVisitor visitor){return innercheckCannons(visitor);}
     }
 }
