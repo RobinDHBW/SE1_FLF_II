@@ -1,6 +1,6 @@
 package tank;
 
-import task8.StoreMedium;
+import store.StoreMedium;
 import task8.TankSensor;
 
 import java.util.List;

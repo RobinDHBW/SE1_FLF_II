@@ -5,7 +5,7 @@ import cabin.Busdoor;
 import cabin.Cabin;
 import cabin.ControlPanel;
 import cabin.VehicleSide;
-import task8.CentralUnit;
+import centralUnit.CentralUnit;
 import configuration.Configuration;
 import drive.Drive;
 import firefighting.CannonIdentifier;

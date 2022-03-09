@@ -1,8 +1,5 @@
 package batteryManagement;
 
-import task3.Battery;
-import task3.Coulomb;
-
 import java.util.ArrayList;
 import java.util.List;
 

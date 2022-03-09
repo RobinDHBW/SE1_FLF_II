@@ -1,4 +1,4 @@
-package task8;
+package store;
 
 import java.util.List;
 
