@@ -12,7 +12,8 @@ public enum LightPosition {
     ROOF_BACK_RIGHT,
     FRONT_AREA,
     RIGHT_SIDE,
-    LEFT_SIDE
+    LEFT_SIDE,
+    CONTROL_PANEL
 
 
 }

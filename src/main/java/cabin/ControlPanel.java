@@ -1,6 +1,9 @@
 package cabin;
 
 import button.ButtonSwitch;
+import lights.LEDLight;
+
+import java.util.List;
 
 
 public class ControlPanel {
@@ -11,6 +14,7 @@ public class ControlPanel {
     private final ButtonSwitch btnSwitchRooflight;
     private final ButtonSwitch btnSwitchSidelight;
     private final ButtonSwitch btnSwitchSelfProtection;
+    private final List<LEDLight> tankSensorLEDs;
 
     public ControlPanel(Builder builder) {
         //ControlPanel built = builder.build();
@@ -21,6 +25,7 @@ public class ControlPanel {
         this.btnSwitchRooflight = builder.btnSwitchRooflight;
         this.btnSwitchSidelight = builder.btnSwitchSidelight;
         this.btnSwitchSelfProtection = builder.btnSwitchSelfProtection;
+        this.tankSensorLEDs = builder.tankSensorLEDs;
 
     }
 
@@ -64,6 +69,7 @@ public class ControlPanel {
         private final ButtonSwitch btnSwitchRooflight;
         private final ButtonSwitch btnSwitchSidelight;
         private final ButtonSwitch btnSwitchSelfProtection;
+        private final List<LEDLight> tankSensorLEDs;
 
         public Builder(
                 ButtonSwitch btnSwitchEngines,
@@ -72,7 +78,8 @@ public class ControlPanel {
                 ButtonSwitch btnSwitchFrontlight,
                 ButtonSwitch btnSwitchRooflight,
                 ButtonSwitch btnSwitchSidelight,
-                ButtonSwitch btnSwitchSelfProtection
+                ButtonSwitch btnSwitchSelfProtection,
+                List<LEDLight> tankSensorLEDs
         ) {
             this.btnSwitchEngines = btnSwitchEngines;
             this.btnSwitchWarnlight = btnSwitchWarnlight;
@@ -81,6 +88,7 @@ public class ControlPanel {
             this.btnSwitchRooflight = btnSwitchRooflight;
             this.btnSwitchSidelight = btnSwitchSidelight;
             this.btnSwitchSelfProtection = btnSwitchSelfProtection;
+            this.tankSensorLEDs = tankSensorLEDs;
         }
 
         public ControlPanel build() {

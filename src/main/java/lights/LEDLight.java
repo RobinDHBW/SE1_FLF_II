@@ -12,4 +12,10 @@ public class LEDLight extends Light {
             ledComposition.add(new LED(color));
         }
     }
+
+    public void changeLEDColor(LEDColor color){
+        for(LED l: ledComposition){
+            l.setColor(color);
+        }
+    }
 }

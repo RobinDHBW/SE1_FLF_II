@@ -11,13 +11,16 @@ import lights.*;
 import person.Person;
 import tank.MixingProcessor;
 import task4.*;
+import task8.ITankSensorListener;
+import task8.TankLevel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
-public class CentralUnit {
+public class CentralUnit implements ITankSensorListener {
     private final List<WarningLight> warningLights;
     private final List<FlashingBlueLight> flashingBlueLights;
     private final List<SearchLight> searchLightsFront;
@@ -34,6 +37,7 @@ public class CentralUnit {
     private final List<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
     private final Busdoor busdoorRight;
+    private final List<LEDLight> tankSensorLEDs;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -50,7 +54,8 @@ public class CentralUnit {
             ArrayList<Person> authorizedPersons,
             Busdoor busdoorLeft,
             Busdoor busdoorRight,
-            EncryptionStrategy encryptionStrategy
+            EncryptionStrategy encryptionStrategy,
+            List<LEDLight> tankSensorLEDs
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -66,6 +71,7 @@ public class CentralUnit {
         this.authorizedPersons = authorizedPersons;
         this.busdoorLeft = busdoorLeft;
         this.busdoorRight = busdoorRight;
+        this.tankSensorLEDs = tankSensorLEDs;
 
         this.cryptoUnit = switch (encryptionStrategy) {
             case AES -> new CryptoStrategyAES(Configuration.instance.cuSalt);
@@ -188,6 +194,23 @@ public class CentralUnit {
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));
+        }
+    }
+
+    @Override
+    public void tankLevelChanged(TankLevel level) {
+        LEDColor color = switch (level) {
+            case TEN -> LEDColor.RED;
+            case TWENTYFIVE -> LEDColor.ORANGE;
+            case FIFTY -> LEDColor.YELLOW;
+            default -> null;
+        };
+        for (LEDLight l : this.tankSensorLEDs) {
+            if (Objects.isNull(color)) {
+                if (l.getState()) l.toggle();
+            } else {
+                l.changeLEDColor(color);
+            }
         }
     }
 }
