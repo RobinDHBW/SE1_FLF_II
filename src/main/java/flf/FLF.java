@@ -224,6 +224,8 @@ public class FLF {
         private Tank foamTank;
         private Tank waterTank;
         private CentralUnit centralUnit;
+        private TankSensor waterTankSensor = new TankSensor();
+        private TankSensor foamTankSensor = new TankSensor();
 
         public Builder(ArrayList<Person> authorizedPersons) {
 
@@ -237,7 +239,8 @@ public class FLF {
             Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
             centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy, waterTankSensorLED, foamTankSensorLED);
-
+            this.waterTankSensor.addListener(centralUnit);
+            this.foamTankSensor.addListener(centralUnit);
 
             ButtonPush doorToggleLeftInside = new ButtonPush(centralUnit) {
                 @Override
@@ -389,15 +392,11 @@ public class FLF {
         }
 
         private void buildFirefighting() {
-            TankSensor waterSensor = new TankSensor();
-            waterSensor.addListener(this.centralUnit);
-            TankSensor foamSensor = new TankSensor();
-            foamSensor.addListener(this.centralUnit);
 
             this.waterCannonFront = new WaterCannonFront(90);
             this.waterCannonRoof = new WaterCannonRoof();
-            this.foamTank = new Tank(TankSubject.FOAM, 75, 45, 10, foamSensor);
-            this.waterTank = new Tank(TankSubject.WATER, 75, 45, 30, waterSensor);
+            this.foamTank = new Tank(TankSubject.FOAM, 75, 45, 10, this.foamTankSensor);
+            this.waterTank = new Tank(TankSubject.WATER, 75, 45, 30, this.waterTankSensor);
 
             //add Waterdies
             for (int i = 0; i < 7; i++) {
