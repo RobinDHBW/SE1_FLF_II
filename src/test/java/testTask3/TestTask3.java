@@ -1,10 +1,10 @@
 package testTask3;
 
-import task3.Coulomb;
+import batteryManagement.Coulomb;
 import configuration.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import task3.Battery;
+import batteryManagement.Battery;
 
 import static org.junit.jupiter.api.Assertions.*;
 
