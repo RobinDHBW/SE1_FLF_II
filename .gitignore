@@ -25,3 +25,4 @@ gradle/
 *.bak_004d
 *.bak_000d
 *.bak_001f
+task1/build/
