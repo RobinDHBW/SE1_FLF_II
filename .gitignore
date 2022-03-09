@@ -26,3 +26,4 @@ gradle/
 *.bak_000d
 *.bak_001f
 task1/build/
+task1/jar/task1.jar
