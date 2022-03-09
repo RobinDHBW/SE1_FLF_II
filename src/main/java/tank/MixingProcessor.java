@@ -158,4 +158,22 @@ public class MixingProcessor {
         }
         return cannonStates;
     }
+
+    public void resetCannonSelfCheck(){
+        this.waterCannonRoof.setSelfCheckPassed(false);
+        this.waterCannonFront.setSelfCheckPassed(false);
+        for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+            die.setSelfCheckPassed(false);
+        }
+    }
+
+    public List<Boolean> getSelfCheckState(CannonIdentifier ident){
+        List<Boolean> selfCheckStates = new ArrayList<>();
+         switch (ident){
+            case CANNON_FRONT -> selfCheckStates.add(waterCannonFront.getSelfCheckPassed());
+             case CANNON_ROOF -> selfCheckStates.add(waterCannonRoof.getSelfCheckPassed());
+             case CANNON_SELFPROTECTION -> selfCheckStates.addAll(waterDiesSelfprotection.stream().map(WaterCannon::getSelfCheckPassed).collect(Collectors.toList()));
+        };
+         return selfCheckStates;
+    }
 }

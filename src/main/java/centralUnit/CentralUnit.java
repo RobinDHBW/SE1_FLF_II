@@ -113,6 +113,8 @@ public class CentralUnit implements ITankSensorListener {
         this.drive.toggleEngine();
         if (drive.getEngineState()) {
             cannonCheck();
+        }else {
+            this.mixingProcessor.resetCannonSelfCheck();
         }
     }
 
