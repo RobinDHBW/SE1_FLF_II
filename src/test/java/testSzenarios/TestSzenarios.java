@@ -289,6 +289,8 @@ public class TestSzenarios {
         }
 
         Double battFull = this.flf.getDrive().getRelativeFillState();
+        Double waterTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER);
+        Double foamTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM);
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
                 DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
@@ -298,8 +300,8 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check SideLights", () -> assertTrue(this.flf.getSearchLightSideState())),
                 DynamicTest.dynamicTest("check WarnLights", () -> assertTrue(this.flf.getWarnLightsState())),
                 DynamicTest.dynamicTest("check BlueLights", () -> assertTrue(this.flf.getBlueLightState())),
-                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
-                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, waterTankFull)),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, foamTankFull)),
                 DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 
@@ -403,6 +405,8 @@ public class TestSzenarios {
         }
 
         Double battFull = this.flf.getDrive().getRelativeFillState();
+        Double waterTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER);
+        Double foamTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM);
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
                 DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
@@ -412,8 +416,8 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check SideLights", () -> assertTrue(this.flf.getSearchLightSideState())),
                 DynamicTest.dynamicTest("check WarnLights", () -> assertTrue(this.flf.getWarnLightsState())),
                 DynamicTest.dynamicTest("check BlueLights", () -> assertTrue(this.flf.getBlueLightState())),
-                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
-                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, waterTankFull)),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, foamTankFull)),
                 DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 
@@ -533,6 +537,8 @@ public class TestSzenarios {
         }
 
         Double battFull = this.flf.getDrive().getRelativeFillState();
+        Double waterTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER);
+        Double foamTankFull = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM);
         Collections.addAll(tests,
                 DynamicTest.dynamicTest("check LeftDoor", () -> assertFalse(this.flf.getCabin().getBusDoorLeft().getOpen())),
                 DynamicTest.dynamicTest("check RightDoor", () -> assertFalse(this.flf.getCabin().getBusDoorRight().getOpen())),
@@ -542,8 +548,8 @@ public class TestSzenarios {
                 DynamicTest.dynamicTest("check SideLights", () -> assertTrue(this.flf.getSearchLightSideState())),
                 DynamicTest.dynamicTest("check WarnLights", () -> assertTrue(this.flf.getWarnLightsState())),
                 DynamicTest.dynamicTest("check BlueLights", () -> assertTrue(this.flf.getBlueLightState())),
-                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER))),
-                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM))),
+                DynamicTest.dynamicTest("check WaterTank", () -> assertEquals(1, waterTankFull)),
+                DynamicTest.dynamicTest("check FoamTank", () -> assertEquals(1, foamTankFull)),
                 DynamicTest.dynamicTest("check Batteries", () -> assertEquals(1, battFull))
         );
 

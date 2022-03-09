@@ -1,7 +1,5 @@
 package batteryManagement;
 
-import task3.Coulomb;
-
 import java.util.List;
 
 public enum BatteryManagement {
@@ -17,8 +15,6 @@ public enum BatteryManagement {
     }
 
     public void fillComplete() {
-        Integer cap = batteryBox.getCapacity();
-        Integer fill = batteryBox.getAbsoluteFillState();
         this.fill(batteryBox.getCapacity() - batteryBox.getAbsoluteFillState());
     }
 

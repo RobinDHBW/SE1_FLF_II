@@ -1,6 +1,9 @@
 package cabin;
 
 import button.ButtonSwitch;
+import lights.LEDLight;
+
+import java.util.List;
 
 
 public class ControlPanel {
@@ -11,6 +14,8 @@ public class ControlPanel {
     private final ButtonSwitch btnSwitchRooflight;
     private final ButtonSwitch btnSwitchSidelight;
     private final ButtonSwitch btnSwitchSelfProtection;
+    private final LEDLight waterTankSensorLED;
+    private final LEDLight foamTankSensorLED;
 
     public ControlPanel(Builder builder) {
         //ControlPanel built = builder.build();
@@ -21,6 +26,8 @@ public class ControlPanel {
         this.btnSwitchRooflight = builder.btnSwitchRooflight;
         this.btnSwitchSidelight = builder.btnSwitchSidelight;
         this.btnSwitchSelfProtection = builder.btnSwitchSelfProtection;
+        this.waterTankSensorLED = builder.waterTankSensorLED;
+        this.foamTankSensorLED = builder.foamTankSensorLED;
 
     }
 
@@ -56,6 +63,14 @@ public class ControlPanel {
         return btnSwitchSelfProtection;
     }
 
+    public LEDLight getWaterTankSensorLED() {
+        return waterTankSensorLED;
+    }
+
+    public LEDLight getFoamTankSensorLED() {
+        return foamTankSensorLED;
+    }
+
     public static class Builder {
         private final ButtonSwitch btnSwitchEngines;
         private final ButtonSwitch btnSwitchWarnlight;
@@ -64,6 +79,8 @@ public class ControlPanel {
         private final ButtonSwitch btnSwitchRooflight;
         private final ButtonSwitch btnSwitchSidelight;
         private final ButtonSwitch btnSwitchSelfProtection;
+        private final LEDLight waterTankSensorLED;
+        private final LEDLight foamTankSensorLED;
 
         public Builder(
                 ButtonSwitch btnSwitchEngines,
@@ -72,7 +89,9 @@ public class ControlPanel {
                 ButtonSwitch btnSwitchFrontlight,
                 ButtonSwitch btnSwitchRooflight,
                 ButtonSwitch btnSwitchSidelight,
-                ButtonSwitch btnSwitchSelfProtection
+                ButtonSwitch btnSwitchSelfProtection,
+                LEDLight waterTankSensorLED,
+                LEDLight foamTankSensorLED
         ) {
             this.btnSwitchEngines = btnSwitchEngines;
             this.btnSwitchWarnlight = btnSwitchWarnlight;
@@ -81,6 +100,8 @@ public class ControlPanel {
             this.btnSwitchRooflight = btnSwitchRooflight;
             this.btnSwitchSidelight = btnSwitchSidelight;
             this.btnSwitchSelfProtection = btnSwitchSelfProtection;
+            this.waterTankSensorLED = waterTankSensorLED;
+            this.foamTankSensorLED = foamTankSensorLED;
         }
 
         public ControlPanel build() {

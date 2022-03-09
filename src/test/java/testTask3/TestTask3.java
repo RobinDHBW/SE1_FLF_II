@@ -1,10 +1,10 @@
 package testTask3;
 
-import task3.Coulomb;
+import batteryManagement.Coulomb;
 import configuration.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import task3.Battery;
+import batteryManagement.Battery;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +14,7 @@ public class TestTask3 {
 
     @BeforeEach
     void initRoutine() {
-        battery = new Battery(new Coulomb(),Configuration.instance.mainCellPerBatterie, Configuration.instance.cellPerSubCell, Configuration.instance.subCellPerMainCell);
+        battery = new Battery(Configuration.instance.mainCellPerBatterie, Configuration.instance.cellPerSubCell, Configuration.instance.subCellPerMainCell);
     }
 
     @Test

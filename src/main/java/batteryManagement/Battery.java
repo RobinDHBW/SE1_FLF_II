@@ -1,5 +1,8 @@
-package task3;
+package batteryManagement;
 
+import task3.Cell;
+import task3.MainCell;
+import task3.SubCell;
 import store.IStoreMedium;
 
 import java.util.ArrayList;
@@ -8,7 +11,7 @@ import java.util.List;
 public class Battery implements IStoreMedium {
     private List<MainCell> mainCells;
 
-    public Battery(Object subject, Integer length, Integer height, Integer width) {
+    public Battery(Integer length, Integer height, Integer width) {
         this.mainCells = new ArrayList<>();
 
         //Instanziierung Topdown
@@ -81,17 +84,6 @@ public class Battery implements IStoreMedium {
             ex.printStackTrace();
             return null;
         }
-//        List<Object> removedList = new ArrayList<>();
-//        Integer count = 0;
-//        for (MainCell m : mainCells) {
-//            Integer cap = m.getAbsoluteFillState();
-//
-//        }
-//
-//        for (int i = 0; i < count; i++) {
-//            removedList.add(new Coulomb());
-//        }
-//        return removedList;
     }
 
     @Override
@@ -103,8 +95,6 @@ public class Battery implements IStoreMedium {
 
     @Override
     public Integer getAbsoluteFillState() {
-        Integer fill1 = mainCells.get(1).getAbsoluteFillState();
-        Integer fill = mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
         return mainCells.stream().mapToInt(MainCell::getAbsoluteFillState).sum();
     }
 

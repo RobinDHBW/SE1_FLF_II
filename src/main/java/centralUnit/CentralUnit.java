@@ -5,18 +5,22 @@ import cabin.VehicleSide;
 import configuration.Configuration;
 import drive.Drive;
 import firefighting.CannonIdentifier;
+import firefighting.WaterCannon;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import lights.*;
 import person.Person;
 import task1_imp.MixingUnitMediator;
+import tank.TankSubject;
+import task4.*;
+import task8.ITankSensorListener;
+import task8.TankLevel;
+import task9.CannonVisitor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Stream;
 
-public class CentralUnit {
+public class CentralUnit implements ITankSensorListener {
     private final List<WarningLight> warningLights;
     private final List<FlashingBlueLight> flashingBlueLights;
     private final List<SearchLight> searchLightsFront;
@@ -28,11 +32,13 @@ public class CentralUnit {
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
-    private final CryptoUnit cryptoUnit = new CryptoUnit();
+    private final ICryptoStrategy cryptoUnit;
     private final String cryptoCode = Configuration.instance.cuCode;
-    private final ArrayList<Person> authorizedPersons;
+    private final List<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
     private final Busdoor busdoorRight;
+    private final LEDLight waterTankSensorLED;
+    private final LEDLight foamTankSensorLED;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -48,7 +54,10 @@ public class CentralUnit {
             BatteryIndicator batteryIndicator,
             ArrayList<Person> authorizedPersons,
             Busdoor busdoorLeft,
-            Busdoor busdoorRight
+            Busdoor busdoorRight,
+            EncryptionStrategy encryptionStrategy,
+            LEDLight waterTankSensorLED,
+            LEDLight foamTankSensorLED
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -64,6 +73,16 @@ public class CentralUnit {
         this.authorizedPersons = authorizedPersons;
         this.busdoorLeft = busdoorLeft;
         this.busdoorRight = busdoorRight;
+        this.waterTankSensorLED = waterTankSensorLED;
+        this.foamTankSensorLED = foamTankSensorLED;
+
+        this.cryptoUnit = switch (encryptionStrategy) {
+            case AES -> new CryptoStrategyAES(Configuration.instance.cuSalt);
+            case RSA -> new CryptoStrategyRSA();
+            default -> new CryptoStrategyDES();
+        };
+
+
     }
 
     private Boolean validateAuth(String input) {
@@ -78,8 +97,25 @@ public class CentralUnit {
         return false;
     }
 
+    private void cannonCheck() {
+        try {
+            HashMap<WaterCannon, Boolean> cannonStates = this.mixingProcessor.checkCannons(new CannonVisitor());
+            for (Map.Entry<WaterCannon, Boolean> entry : cannonStates.entrySet()) {
+                if (!entry.getValue()) throw new Exception("Malfunction at Cannon: " + entry.getKey());
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
     public void switchEngines() {
         this.drive.toggleEngine();
+        if (drive.getEngineState()) {
+            cannonCheck();
+        }else {
+            this.mixingProcessor.resetCannonSelfCheck();
+        }
     }
 
     public void switchWarningLight() {
@@ -179,5 +215,27 @@ public class CentralUnit {
             System.err.println(ex.getMessage());
             System.err.println(Arrays.toString(ex.getStackTrace()));
         }
+    }
+
+    @Override
+    public void tankLevelChanged(TankLevel level, Object subject) {
+        LEDLight light = switch ((TankSubject) subject) {
+            case FOAM -> foamTankSensorLED;
+            case WATER -> waterTankSensorLED;
+        };
+
+        if (Objects.isNull(level)) {
+            if (light.getState()) light.toggle();
+            return;
+        }
+
+        LEDColor color = switch (level) {
+            case TEN -> LEDColor.RED;
+            case TWENTYFIVE -> LEDColor.ORANGE;
+            case FIFTY -> LEDColor.YELLOW;
+        };
+        light.changeLEDColor(color);
+
+
     }
 }
