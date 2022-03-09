@@ -5,6 +5,7 @@ import cabin.VehicleSide;
 import configuration.Configuration;
 import drive.Drive;
 import firefighting.CannonIdentifier;
+import firefighting.WaterCannon;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import lights.*;
@@ -14,11 +15,9 @@ import tank.TankSubject;
 import task4.*;
 import task8.ITankSensorListener;
 import task8.TankLevel;
+import task9.CannonVisitor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class CentralUnit implements ITankSensorListener {
@@ -98,8 +97,25 @@ public class CentralUnit implements ITankSensorListener {
         return false;
     }
 
+    private void cannonCheck() {
+        try {
+            HashMap<WaterCannon, Boolean> cannonStates = this.mixingProcessor.checkCannons(new CannonVisitor());
+            for (Map.Entry<WaterCannon, Boolean> entry : cannonStates.entrySet()) {
+                if (!entry.getValue()) throw new Exception("Malfunction at Cannon: " + entry.getKey());
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
     public void switchEngines() {
         this.drive.toggleEngine();
+        if (drive.getEngineState()) {
+            cannonCheck();
+        }else {
+            this.mixingProcessor.resetCannonSelfCheck();
+        }
     }
 
     public void switchWarningLight() {
