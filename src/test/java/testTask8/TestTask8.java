@@ -81,27 +81,75 @@ public class TestTask8 {
             this.operator.rightRotaryButtonRoofCannon();
         }
         while (this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER)*100 > 50) {
-            Double state = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100;
             this.operator.spray();
         }
         assertEquals(LEDColor.YELLOW, this.flf.getWaterTankLEDColor());
     }
 
     @Test
-    void testFoamTank50() {
+    void testWaterTank25() {
         this.operator.toggleCannon();
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN) {
-            this.operator.switchMix();
-        }
-        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100 > 50) {
-            Double state = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100;
-            Integer state1 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
+        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER)*100 > 25) {
             this.operator.spray();
         }
-        assertEquals(LEDColor.YELLOW, this.flf.getFoamTankLEDColor());
+        assertEquals(LEDColor.ORANGE, this.flf.getWaterTankLEDColor());
+    }
+
+    @Test
+    void testWaterTank10() {
+        this.operator.toggleCannon();
+        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+            this.operator.rightRotaryButtonRoofCannon();
+        }
+        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER)*100 > 10) {
+            this.operator.spray();
+        }
+        assertEquals(LEDColor.RED, this.flf.getWaterTankLEDColor());
+    }
+
+    @Test
+    void testFoamTank50() {
+//        this.operator.toggleCannon();
+//        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+//            this.operator.rightRotaryButtonRoofCannon();
+//        }
+//        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100 > 50) {
+//            this.operator.spray();
+//        }
+//        assertEquals(LEDColor.YELLOW, this.flf.getWaterTankLEDColor());
+        System.out.println("LED for FoamTank will never toggle, because the foam tank can loose max. 10% of its capacity due to the mixing rate, until the WaterTank is empty");
+        assertFalse(this.flf.getFoamTankLEDState());
+    }
+
+    @Test
+    void testFoamTank25() {
+        //        this.operator.toggleCannon();
+//        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+//            this.operator.rightRotaryButtonRoofCannon();
+//        }
+//        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100 > 25) {
+//            this.operator.spray();
+//        }
+//        assertEquals(LEDColor.ORANGE, this.flf.getWaterTankLEDColor());
+        System.out.println("LED for FoamTank will never toggle, because the foam tank can loose max. 10% of its capacity due to the mixing rate, until the WaterTank is empty");
+        assertFalse(this.flf.getFoamTankLEDState());
+    }
+
+    @Test
+    void testFoamTank10() {
+        //        this.operator.toggleCannon();
+//        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+//            this.operator.rightRotaryButtonRoofCannon();
+//        }
+//        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100 > 10) {
+//            this.operator.spray();
+//        }
+//        assertEquals(LEDColor.RED, this.flf.getWaterTankLEDColor());
+        System.out.println("LED for FoamTank will never toggle, because the foam tank can loose max. 10% of its capacity due to the mixing rate, until the WaterTank is empty");
+        assertFalse(this.flf.getFoamTankLEDState());
     }
 
 }
