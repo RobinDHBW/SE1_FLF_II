@@ -18,4 +18,8 @@ public class LEDLight extends Light {
             l.setColor(color);
         }
     }
+
+    public LEDColor getLEDColor(){
+        return ledComposition.get(0).getColor();
+    }
 }

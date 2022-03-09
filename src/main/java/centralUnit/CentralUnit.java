@@ -10,6 +10,7 @@ import instruments.Speedometer;
 import lights.*;
 import person.Person;
 import tank.MixingProcessor;
+import tank.TankSubject;
 import task4.*;
 import task8.ITankSensorListener;
 import task8.TankLevel;
@@ -37,7 +38,8 @@ public class CentralUnit implements ITankSensorListener {
     private final List<Person> authorizedPersons;
     private final Busdoor busdoorLeft;
     private final Busdoor busdoorRight;
-    private final List<LEDLight> tankSensorLEDs;
+    private final LEDLight waterTankSensorLED;
+    private final LEDLight foamTankSensorLED;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -55,7 +57,8 @@ public class CentralUnit implements ITankSensorListener {
             Busdoor busdoorLeft,
             Busdoor busdoorRight,
             EncryptionStrategy encryptionStrategy,
-            List<LEDLight> tankSensorLEDs
+            LEDLight waterTankSensorLED,
+            LEDLight foamTankSensorLED
     ) {
         this.warningLights = warningLights;
         this.flashingBlueLights = flashingBlueLights;
@@ -71,7 +74,8 @@ public class CentralUnit implements ITankSensorListener {
         this.authorizedPersons = authorizedPersons;
         this.busdoorLeft = busdoorLeft;
         this.busdoorRight = busdoorRight;
-        this.tankSensorLEDs = tankSensorLEDs;
+        this.waterTankSensorLED = waterTankSensorLED;
+        this.foamTankSensorLED = foamTankSensorLED;
 
         this.cryptoUnit = switch (encryptionStrategy) {
             case AES -> new CryptoStrategyAES(Configuration.instance.cuSalt);
@@ -198,19 +202,24 @@ public class CentralUnit implements ITankSensorListener {
     }
 
     @Override
-    public void tankLevelChanged(TankLevel level) {
+    public void tankLevelChanged(TankLevel level, Object subject) {
         LEDColor color = switch (level) {
             case TEN -> LEDColor.RED;
             case TWENTYFIVE -> LEDColor.ORANGE;
             case FIFTY -> LEDColor.YELLOW;
             default -> null;
         };
-        for (LEDLight l : this.tankSensorLEDs) {
-            if (Objects.isNull(color)) {
-                if (l.getState()) l.toggle();
-            } else {
-                l.changeLEDColor(color);
-            }
+
+        LEDLight light = switch ((TankSubject)subject) {
+            case FOAM -> foamTankSensorLED;
+            case WATER -> waterTankSensorLED;
+        };
+
+        if (Objects.isNull(color)) {
+            if (light.getState()) light.toggle();
+        } else {
+            light.changeLEDColor(color);
         }
+
     }
 }

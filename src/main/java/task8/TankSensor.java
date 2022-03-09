@@ -1,6 +1,6 @@
 package task8;
 
-import store.StoreMedium;
+import tank.TankSubject;
 
 import java.util.ArrayList;
 
@@ -11,17 +11,17 @@ public class TankSensor {
         this.listeners = new ArrayList<>();
     }
 
-    public void checkFillingLevel(Double fillState) {
+    public void checkFillingLevel(Double fillState, TankSubject subject) {
         //Double fillState = this.store.getRelativeFillState();
         for (ITankSensorListener l : listeners) {
             if (fillState > 25 && fillState < 50) {
-                l.tankLevelChanged(TankLevel.FIFTY);
+                l.tankLevelChanged(TankLevel.FIFTY, subject);
             } else if (fillState > 10 && fillState < 25) {
-                l.tankLevelChanged(TankLevel.TWENTYFIVE);
+                l.tankLevelChanged(TankLevel.TWENTYFIVE, subject);
             } else if (fillState < 10) {
-                l.tankLevelChanged(TankLevel.TEN);
+                l.tankLevelChanged(TankLevel.TEN, subject);
             } else {
-                l.tankLevelChanged(null);
+                l.tankLevelChanged(null, subject);
             }
         }
     }

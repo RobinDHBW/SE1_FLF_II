@@ -151,6 +151,22 @@ public class FLF {
         return this.warningLights.get(0).getState();
     }
 
+    public Boolean getWaterTankLEDState() {
+        return this.cabin.getCtrlPanel().getWaterTankSensorLED().getState();
+    }
+
+    public Boolean getFoamTankLEDState() {
+        return this.cabin.getCtrlPanel().getFoamTankSensorLED().getState();
+    }
+
+    public LEDColor getWaterTankLEDColor() {
+        return this.cabin.getCtrlPanel().getWaterTankSensorLED().getLEDColor();
+    }
+
+    public LEDColor getFoamTankLEDColor() {
+        return this.cabin.getCtrlPanel().getFoamTankSensorLED().getLEDColor();
+    }
+
     public void enterFLF(Person enterer, Boolean isLeft) {
         this.cabin.enterCabin(enterer, isLeft);
     }
@@ -198,7 +214,9 @@ public class FLF {
 
         private final Drive drive = new Drive();
         private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
-        private final List<LEDLight> tankSensorLEDs = new ArrayList<>();
+        private final LEDLight waterTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
+        private final LEDLight foamTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
+
 
         private MixingProcessor mixingProcessor;
         private WaterCannonFront waterCannonFront;
@@ -218,7 +236,7 @@ public class FLF {
             Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
             Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
-            centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy, tankSensorLEDs);
+            centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy, waterTankSensorLED, foamTankSensorLED);
 
 
             ButtonPush doorToggleLeftInside = new ButtonPush(centralUnit) {
@@ -368,11 +386,6 @@ public class FLF {
             for (int i = 0; i < 2; i++) {
                 this.warningLights.add(new WarningLight(i < 1 ? LightPosition.ROOF_FRONT_LEFT : LightPosition.ROOF_BACK_RIGHT));
             }
-
-            //add TankSensorLED
-            for(int i =0; i<2; i++){
-                this.tankSensorLEDs.add(new LEDLight(LightPosition.CONTROL_PANEL, 1,LEDColor.RED));
-            }
         }
 
         private void buildFirefighting() {
@@ -506,7 +519,7 @@ public class FLF {
                 }
             };
 
-            return new ControlPanel.Builder(btnEngines, btnWarnLight, btnBlueLight, btnFrontLight, btnRoofLight, btnSideLight, btnSelfProtection, tankSensorLEDs).build();
+            return new ControlPanel.Builder(btnEngines, btnWarnLight, btnBlueLight, btnFrontLight, btnRoofLight, btnSideLight, btnSelfProtection, waterTankSensorLED, foamTankSensorLED).build();
         }
 
         /**

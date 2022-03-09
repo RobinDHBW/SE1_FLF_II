@@ -1,5 +1,6 @@
 package store;
 
+import tank.TankSubject;
 import task8.TankSensor;
 
 import java.util.*;
@@ -95,7 +96,7 @@ public abstract class StoreMedium implements IStoreMedium {
         if (!isFull) {
             fillLoop(input, quantity);
         }
-        this.sensor.checkFillingLevel(this.getRelativeFillState());
+        this.sensor.checkFillingLevel(this.getRelativeFillState(), (TankSubject) this.subject);
     }
 
     /**
@@ -106,7 +107,7 @@ public abstract class StoreMedium implements IStoreMedium {
         if (isEmpty || quantity > getAbsoluteFillState())
             throw new RuntimeException("Not enough stored in medium - Needed: " + quantity + " stored: " + getAbsoluteFillState());
         List<Object> removed = removeLoop(quantity);
-        this.sensor.checkFillingLevel(this.getRelativeFillState());
+        this.sensor.checkFillingLevel(this.getRelativeFillState(), (TankSubject) this.subject);
         return removed;
     }
 

@@ -10,7 +10,6 @@ public class Tank extends StoreMedium {
 
     public Tank(TankSubject subject, Integer length, Integer height, Integer width, TankSensor sensor) {
         super(length, height, width, subject, sensor);
-
     }
 
     @Override
