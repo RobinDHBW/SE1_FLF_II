@@ -55,6 +55,7 @@ public class Comp_loader {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void loadComponent() {
         try {
             URLClassLoader loader = new URLClassLoader(new URL[]{new File("task1\\jar\\task1.jar").toURI().toURL()});

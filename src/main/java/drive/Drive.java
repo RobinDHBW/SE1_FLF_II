@@ -2,6 +2,8 @@ package drive;
 
 import batteryManagement.BatteryManagement;
 import task3.Coulomb;
+import task5.AdapterSocket;
+import task5.ICharger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,8 @@ public class Drive {
     private final List<Axle> axles = new ArrayList<>();
     private final BatteryManagement batteryManagement = BatteryManagement.instance;
     private Integer speed = 0;
+
+    private final ICharger adapterSocket = new AdapterSocket(batteryManagement);
 
     public Drive() {
         for (int i = 0; i < 2; i++) {
@@ -88,4 +92,7 @@ public class Drive {
     public Integer getCapacity() {
         return batteryManagement.getCapacity();
     }
+
+    public void load1000(){adapterSocket.loadonepole(1000);}
+
 }

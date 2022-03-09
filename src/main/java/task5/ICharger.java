@@ -2,6 +2,6 @@ package task5;
 
 public interface ICharger {
 
-    public void loadonepole(int amount);
+    public int loadonepole(int amount);
 
 }
