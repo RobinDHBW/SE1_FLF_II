@@ -9,7 +9,7 @@ import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import lights.*;
 import person.Person;
-import tank.MixingProcessor;
+import task1_imp.MixingUnitMediator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class CentralUnit {
     private final List<SearchLight> searchLightsSide;
     private final List<DirectionIndicator> indicatorsLeft;
     private final List<DirectionIndicator> indicatorsRight;
-    private final MixingProcessor mixingProcessor;
+    private final MixingUnitMediator mixingProcessor;
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
@@ -42,7 +42,7 @@ public class CentralUnit {
             List<SearchLight> searchLightsSide,
             List<DirectionIndicator> indicatorsLeft,
             List<DirectionIndicator> indicatorsRight,
-            MixingProcessor mixingProcessor,
+            MixingUnitMediator mixingProcessor,
             Drive drive,
             Speedometer speedometer,
             BatteryIndicator batteryIndicator,

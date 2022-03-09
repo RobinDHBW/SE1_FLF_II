@@ -1,11 +1,12 @@
 package button;
 
 import tank.MixingProcessor;
+import task1_imp.MixingUnitMediator;
 
 public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private RoofCannonMode mode = RoofCannonMode.A;
 
-    public ButtonRotaryWaterCannonRoof(MixingProcessor o) {
+    public ButtonRotaryWaterCannonRoof(MixingUnitMediator o) {
         super(o, 500);
 
     }

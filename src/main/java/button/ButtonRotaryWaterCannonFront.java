@@ -1,12 +1,13 @@
 package button;
 
 import tank.MixingProcessor;
+import task1_imp.MixingUnitMediator;
 
 public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private final Integer stepSize = 500;
     private Integer mode = 1;
 
-    public ButtonRotaryWaterCannonFront(MixingProcessor o) {
+    public ButtonRotaryWaterCannonFront(MixingUnitMediator o) {
         super(o, 500);
     }
 
