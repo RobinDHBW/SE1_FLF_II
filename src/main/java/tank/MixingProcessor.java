@@ -1,11 +1,10 @@
 package tank;
 
-import firefighting.CannonIdentifier;
-import firefighting.WaterCannonFront;
-import firefighting.WaterCannonRoof;
-import firefighting.WaterDieSelfprotection;
+import firefighting.*;
+import task9.ICannonVisitor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -148,5 +147,15 @@ public class MixingProcessor {
             case CANNON_ROOF -> this.waterCannonRoof.getSprayCapacityPerlIteration();
             case CANNON_SELFPROTECTION -> this.waterDiesSelfprotection.get(0).getSprayCapacityPerlIteration();
         };
+    }
+
+    public HashMap<WaterCannon,Boolean> checkCannons(ICannonVisitor visitor) {
+        HashMap<WaterCannon,Boolean> cannonStates = new HashMap<>();
+        cannonStates.put(this.waterCannonFront, this.waterCannonFront.selfCheck(visitor));
+        cannonStates.put(this.waterCannonRoof, this.waterCannonRoof.selfCheck(visitor));
+        for (WaterDieSelfprotection die : this.waterDiesSelfprotection) {
+            cannonStates.put(die, die.selfCheck(visitor));
+        }
+        return cannonStates;
     }
 }

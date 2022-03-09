@@ -2,12 +2,14 @@ package firefighting;
 
 import tank.TankSubject;
 import task9.ICannonCheck;
+import task9.ICannonVisitor;
 
 import java.util.List;
 
 public abstract class WaterCannon implements IWaterCannon, ICannonCheck {
     protected Boolean state = false;
     protected Integer sprayCapacityPerlIteration = 500;
+    protected Boolean selfCheckPassed = false;
 
     public WaterCannon() {
 
@@ -26,17 +28,8 @@ public abstract class WaterCannon implements IWaterCannon, ICannonCheck {
     }
 
     @Override
-    public Boolean selfCheck() {
-        try{
-            this.toggle();
-            if (!this.state) throw new Exception("Cannon malfunction!");
-            this.toggle();
-            return true;
-        } catch (Exception ex){
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        }
+    public Boolean selfCheck(ICannonVisitor visitor) {
+        return visitor.visit(this);
     }
 
     public Integer getSprayCapacityPerlIteration() {
@@ -49,5 +42,13 @@ public abstract class WaterCannon implements IWaterCannon, ICannonCheck {
 
     public Boolean getState() {
         return state;
+    }
+
+    public Boolean getSelfCheckPassed() {
+        return selfCheckPassed;
+    }
+
+    public void setSelfCheckPassed(Boolean selfCheckPassed) {
+        this.selfCheckPassed = selfCheckPassed;
     }
 }
