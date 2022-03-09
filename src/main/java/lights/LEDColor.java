@@ -1,5 +1,5 @@
 package lights;
 
 public enum LEDColor {
-    BLUE, ORANGE
+    BLUE, ORANGE, YELLOW, RED
 }

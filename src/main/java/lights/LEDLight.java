@@ -3,7 +3,7 @@ package lights;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LEDLight extends Light {
+public class LEDLight extends Light {
     protected final List<LED> ledComposition = new ArrayList<>();
 
     public LEDLight(LightPosition position, Integer ledCount, LEDColor color) {
