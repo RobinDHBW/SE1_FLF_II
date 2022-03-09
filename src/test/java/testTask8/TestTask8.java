@@ -1,18 +1,17 @@
 package testTask8;
 
 import button.RoofCannonMode;
-import configuration.Configuration;
 import firefighting.CannonIdentifier;
 import flf.FLF;
+import lights.LEDColor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import person.Driver;
 import person.EmployeeFirebase;
 import person.Operator;
 import person.Person;
-import tank.Tank;
+import tank.MixingRate;
 import tank.TankSubject;
-import task8.TankSensor;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestTask8 {
-   private FLF flf;
+    private FLF flf;
     private Driver driver;
     private Operator operator;
 
@@ -66,23 +65,43 @@ public class TestTask8 {
     }
 
     @Test
-    void testWaterTankHigh(){
+    void testWaterTankHigh() {
         assertFalse(this.flf.getWaterTankLEDState());
     }
+
     @Test
-    void testFoamTankHigh(){
+    void testFoamTankHigh() {
         assertFalse(this.flf.getFoamTankLEDState());
     }
 
-//    @Test
-//    void testWaterTank50(){
-//
-//
-//        assertFalse(this.flf.getWaterTankLEDState());
-//    }
-//    @Test
-//    void testFoamTank50(){
-//        assertFalse(this.flf.getFoamTankLEDState());
-//    }
+    @Test
+    void testWaterTank50() {
+        this.operator.toggleCannon();
+        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+            this.operator.rightRotaryButtonRoofCannon();
+        }
+        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.WATER)*100 > 50) {
+            Double state = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100;
+            this.operator.spray();
+        }
+        assertEquals(LEDColor.YELLOW, this.flf.getWaterTankLEDColor());
+    }
+
+    @Test
+    void testFoamTank50() {
+        this.operator.toggleCannon();
+        while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
+            this.operator.rightRotaryButtonRoofCannon();
+        }
+        while (this.flf.getMixingProcessor().getMixingRate() != MixingRate.TEN) {
+            this.operator.switchMix();
+        }
+        while (this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100 > 50) {
+            Double state = this.flf.getMixingProcessor().getTankFillState(TankSubject.FOAM)*100;
+            Integer state1 = this.flf.getMixingProcessor().getAbsoluteFillState(TankSubject.FOAM);
+            this.operator.spray();
+        }
+        assertEquals(LEDColor.YELLOW, this.flf.getFoamTankLEDColor());
+    }
 
 }

@@ -12,6 +12,7 @@ public class TankSensor {
     }
 
     public void checkFillingLevel(Double fillState, TankSubject subject) {
+        fillState*=100;
         for (ITankSensorListener l : listeners) {
             if (fillState > 25 && fillState < 50) {
                 l.tankLevelChanged(TankLevel.FIFTY, subject);

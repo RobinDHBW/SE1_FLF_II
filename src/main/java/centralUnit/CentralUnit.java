@@ -203,23 +203,23 @@ public class CentralUnit implements ITankSensorListener {
 
     @Override
     public void tankLevelChanged(TankLevel level, Object subject) {
-        LEDColor color = switch (level) {
-            case TEN -> LEDColor.RED;
-            case TWENTYFIVE -> LEDColor.ORANGE;
-            case FIFTY -> LEDColor.YELLOW;
-            default -> null;
-        };
-
-        LEDLight light = switch ((TankSubject)subject) {
+        LEDLight light = switch ((TankSubject) subject) {
             case FOAM -> foamTankSensorLED;
             case WATER -> waterTankSensorLED;
         };
 
-        if (Objects.isNull(color)) {
+        if (Objects.isNull(level)) {
             if (light.getState()) light.toggle();
-        } else {
-            light.changeLEDColor(color);
+            return;
         }
+
+        LEDColor color = switch (level) {
+            case TEN -> LEDColor.RED;
+            case TWENTYFIVE -> LEDColor.ORANGE;
+            case FIFTY -> LEDColor.YELLOW;
+        };
+        light.changeLEDColor(color);
+
 
     }
 }

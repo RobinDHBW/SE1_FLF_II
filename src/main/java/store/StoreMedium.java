@@ -118,7 +118,7 @@ public abstract class StoreMedium implements IStoreMedium {
         Integer count = this.countSlots();
 
         if (count == 0) return 0.0;
-        return 1.0 / ((xLength * yLength * zLength) / count);
+        return 1.0 / ((xLength * yLength * zLength) / count.doubleValue());
     }
 
     public Integer getAbsoluteFillState() {
