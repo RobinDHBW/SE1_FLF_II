@@ -2,7 +2,6 @@ package tank;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MixingProcessor implements IMixingProcessor{
@@ -17,7 +16,7 @@ public class MixingProcessor implements IMixingProcessor{
             Integer check = (amount1 + amount1) / mixingRate;
             if (check == amount2) return true;
         }else {
-            if(amount1 == 0) return true;
+            if(amount2 == 0) return true;
         }
         return false;
     }
@@ -28,7 +27,7 @@ public class MixingProcessor implements IMixingProcessor{
             if(!checkInputAmount(input1.size(), input2.size())) throw new Exception("Wrong input amount!");
             //TODO check (input1+input2)/mixingRate=input2.size --> Anteil stimmt
 
-            return null;
+            return Stream.concat(input1.stream(), input2.stream()).toList();
         }catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();
