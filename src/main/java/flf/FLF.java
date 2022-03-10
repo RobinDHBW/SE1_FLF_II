@@ -20,10 +20,10 @@ import joystick.JoystickType;
 import lights.*;
 import person.EmployeeFirebase;
 import person.Person;
-import tank.MixingProcessor;
+import tank.PipeDistribution;
 import tank.Tank;
 import tank.TankSubject;
-import task1_imp.MixingUnitMediator;
+import task1.MixingProcessorReflector;
 import task8.TankSensor;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class FLF {
 
     private final Drive drive;
 
-    private final MixingProcessor mixingProcessor;
+    private final PipeDistribution pipeDistribution;
     private final WaterCannonFront waterCannonFront;
     private final WaterCannonRoof waterCannonRoof;
     private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
@@ -75,7 +75,7 @@ public class FLF {
 
         this.drive = builder.drive;
 
-        this.mixingProcessor = builder.mixingProcessor;
+        this.pipeDistribution = builder.pipeDistribution;
         this.waterCannonFront = builder.waterCannonFront;
         this.waterCannonRoof = builder.waterCannonRoof;
         this.waterDieSelfprotection = builder.waterDieSelfprotection;
@@ -128,8 +128,8 @@ public class FLF {
         return drive;
     }
 
-    public MixingProcessor getMixingProcessor() {
-        return mixingProcessor;
+    public PipeDistribution getPipeDistribution() {
+        return pipeDistribution;
     }
 
     public Boolean getSearchLightFrontState() {
@@ -180,7 +180,7 @@ public class FLF {
         if (this.maintenanceState) {
             eFB.uneqip();
         } else {
-            eFB.equip(this.mixingProcessor, this.drive);
+            eFB.equip(this.pipeDistribution, this.drive);
         }
         this.maintenanceState = !this.maintenanceState;
     }
@@ -215,7 +215,7 @@ public class FLF {
 
         private final Drive drive = new Drive();
         private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
-        private MixingProcessor mixingProcessor;
+        private PipeDistribution pipeDistribution;
         private final LEDLight waterTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
         private final LEDLight foamTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
 
@@ -239,7 +239,7 @@ public class FLF {
             Busdoor busdoorLeft = new Busdoor(VehicleSide.LEFT);
             Busdoor busdoorRight = new Busdoor(VehicleSide.RIGHT);
 
-            centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, mixingProcessor, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy, waterTankSensorLED, foamTankSensorLED);
+            centralUnit = new CentralUnit(warningLights, flashingBlueLights, searchLightsFront, searchLightsRoof, searchLightsSide, directionIndicatorsLeft, directionIndicatorsRight, pipeDistribution, drive, speedometer, batteryIndicator, authorizedPersons, busdoorLeft, busdoorRight, Configuration.instance.encryptionStrategy, waterTankSensorLED, foamTankSensorLED);
             this.waterTankSensor.addListener(centralUnit);
             this.foamTankSensor.addListener(centralUnit);
 
@@ -282,16 +282,16 @@ public class FLF {
                 }
             };
 
-            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.mixingProcessor) {
+            ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.pipeDistribution) {
                 @Override
                 public void operateDevice() {
-                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_FRONT, this.amountPerIteration);
+                    ((PipeDistribution) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_FRONT, this.amountPerIteration);
                 }
             };
-            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.mixingProcessor) {
+            ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.pipeDistribution) {
                 @Override
                 public void operateDevice() {
-                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_ROOF, this.amountPerIteration);
+                    ((PipeDistribution) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_ROOF, this.amountPerIteration);
                 }
             };
 
@@ -403,7 +403,7 @@ public class FLF {
             for (int i = 0; i < 7; i++) {
                 this.waterDieSelfprotection.add(new WaterDieSelfprotection(100));
             }
-            this.mixingProcessor = new MixingProcessor(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
+            this.pipeDistribution = new PipeDistribution(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
         }
 
         private Joystick buildJoystick(Boolean isDriver, JoystickType joystickType) {
@@ -416,49 +416,49 @@ public class FLF {
 
             switch (joystickType) {
                 case CLASSIC -> {
-                    btnPressLeft = new ButtonPress(this.mixingProcessor) {
+                    btnPressLeft = new ButtonPress(this.pipeDistribution) {
                         @Override
                         public void operateDevice() {
-                            ((MixingProcessor) this.operatingDevice).toggle(ident);
+                            ((PipeDistribution) this.operatingDevice).toggle(ident);
                         }
                     };
-                    btnPressRight = new ButtonPress(this.mixingProcessor) {
+                    btnPressRight = new ButtonPress(this.pipeDistribution) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingUnitMediator) this.operatingDevice).changeMixingRate();
+                            if (((PipeDistribution) this.operatingDevice).getCannonState(ident)) {
+                                ((PipeDistribution) this.operatingDevice).changeMixingRate();
                             }
                         }
                     };
-                    btnPush = new ButtonPush(this.mixingProcessor) {
+                    btnPush = new ButtonPush(this.pipeDistribution) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingProcessor) this.operatingDevice).spray(ident);
+                            if (((PipeDistribution) this.operatingDevice).getCannonState(ident)) {
+                                ((PipeDistribution) this.operatingDevice).spray(ident);
                             }
                         }
                     };
                     joystick = new Joystick(JoystickType.CLASSIC, btnPush, btnPressLeft, btnPressRight);
                 }
                 case INTELLIGENT -> {
-                    btnPress = new ButtonPress(this.mixingProcessor) {
+                    btnPress = new ButtonPress(this.pipeDistribution) {
                         @Override
                         public void operateDevice() {
                             if (isHeld5seconds()) {
-                                ((MixingProcessor) this.operatingDevice).toggle(ident);
+                                ((PipeDistribution) this.operatingDevice).toggle(ident);
                             } else if (hold5sec()) {
-                                ((MixingProcessor) this.operatingDevice).toggle(ident);
+                                ((PipeDistribution) this.operatingDevice).toggle(ident);
                             }
-                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingProcessor) this.operatingDevice).changeMixingRate();
+                            if (((PipeDistribution) this.operatingDevice).getCannonState(ident)) {
+                                ((PipeDistribution) this.operatingDevice).changeMixingRate();
                             }
                         }
                     };
-                    btnPush = new ButtonPush(this.mixingProcessor) {
+                    btnPush = new ButtonPush(this.pipeDistribution) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingProcessor) this.operatingDevice).spray(ident);
+                            if (((PipeDistribution) this.operatingDevice).getCannonState(ident)) {
+                                ((PipeDistribution) this.operatingDevice).spray(ident);
                             }
                         }
                     };

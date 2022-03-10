@@ -1,6 +1,7 @@
 package tank;
 
 import firefighting.*;
+import task1.MixingProcessorReflector;
 import task9.ICannonVisitor;
 
 import java.util.ArrayList;
@@ -11,15 +12,17 @@ import java.util.stream.Stream;
 
 import static tank.TankSubject.FOAM;
 
-public class MixingProcessor {
+public class PipeDistribution {
     private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();
     private final WaterCannonFront waterCannonFront;// = new WaterCannonFront(90);
     private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection; // = new ArrayList<>();
     private final Tank foamTank;// = new Tank(FOAM, 75, 45, 10);
     private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
     private MixingRate mixingRate = MixingRate.NULL;
+    private final MixingProcessorReflector mixingProcessor = new MixingProcessorReflector();
 
-    public MixingProcessor(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
+
+    public PipeDistribution(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
         this.waterCannonFront = waterCannonFront;
         this.waterCannonRoof = waterCannonRoof;
         this.waterDiesSelfprotection = waterDiesSelfprotection;
@@ -27,22 +30,20 @@ public class MixingProcessor {
         this.waterTank = waterTank;
     }
 
-    private Integer calcFoamPortion(Integer quantity) {
-        return switch (this.mixingRate) {
-            case NULL -> 0;
-            case THREE -> (quantity / 100) * 3;
-            case FIVE -> (quantity / 100) * 5;
-            case TEN -> (quantity / 100) * 10;
+
+    private void setMixingRate() {
+        switch (this.mixingRate) {
+            case NULL -> mixingProcessor.setMixingRate(0);
+            case THREE -> mixingProcessor.setMixingRate(3);
+            case FIVE -> mixingProcessor.setMixingRate(5);
+            case TEN -> mixingProcessor.setMixingRate(10);
         };
     }
 
     private List<TankSubject> mix(Integer quantity) {
-        Integer foamPortion = calcFoamPortion(quantity);
-
-        return Stream.concat(
-                foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).toList().stream(),
-                waterTank.remove(quantity - foamPortion).stream().map(e -> (TankSubject) e).toList().stream()).collect(Collectors.toList());
-
+        setMixingRate();
+        List<Integer> ratios = mixingProcessor.calcRatio(quantity);
+        return this.mixingProcessor.mixTwoInputs(waterTank.remove(ratios.get(0)).stream().toList(), foamTank.remove(ratios.get(1)).stream().toList()).stream().map(e -> (TankSubject)e).toList();
     }
 
     public void changeMixingRate() {
@@ -124,7 +125,7 @@ public class MixingProcessor {
     }
 
     public Integer getMixingRateValue() {
-        return calcFoamPortion(100);
+        return mixingProcessor.getMixingRate();
     }
 
     public Double getTankFillState(TankSubject ts) {

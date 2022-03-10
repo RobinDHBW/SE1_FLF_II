@@ -10,8 +10,7 @@ import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import lights.*;
 import person.Person;
-import tank.MixingProcessor;
-import task1_imp.MixingUnitMediator;
+import tank.PipeDistribution;
 import tank.TankSubject;
 import task2.centralUnitUtils.*;
 import task4.*;
@@ -33,7 +32,7 @@ public class CentralUnit implements ITankSensorListener {
     private final List<SearchLight> searchLightsSide;
     private final List<DirectionIndicator> indicatorsLeft;
     private final List<DirectionIndicator> indicatorsRight;
-    private final MixingProcessor mixingProcessor;
+    private final PipeDistribution pipeDistribution;
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
@@ -55,7 +54,7 @@ public class CentralUnit implements ITankSensorListener {
             List<SearchLight> searchLightsSide,
             List<DirectionIndicator> indicatorsLeft,
             List<DirectionIndicator> indicatorsRight,
-            MixingProcessor mixingProcessor,
+            PipeDistribution pipeDistribution,
             Drive drive,
             Speedometer speedometer,
             BatteryIndicator batteryIndicator,
@@ -73,7 +72,7 @@ public class CentralUnit implements ITankSensorListener {
         this.searchLightsSide = searchLightsSide;
         this.indicatorsLeft = indicatorsLeft;
         this.indicatorsRight = indicatorsRight;
-        this.mixingProcessor = mixingProcessor;
+        this.pipeDistribution = pipeDistribution;
         this.drive = drive;
         this.speedometer = speedometer;
         this.batteryIndicator = batteryIndicator;
@@ -126,7 +125,7 @@ public class CentralUnit implements ITankSensorListener {
 
     private void cannonCheck() {
         try {
-            HashMap<WaterCannon, Boolean> cannonStates = this.mixingProcessor.checkCannons(new CannonVisitor());
+            HashMap<WaterCannon, Boolean> cannonStates = this.pipeDistribution.checkCannons(new CannonVisitor());
             for (Map.Entry<WaterCannon, Boolean> entry : cannonStates.entrySet()) {
                 if (!entry.getValue()) throw new Exception("Malfunction at Cannon: " + entry.getKey());
             }
@@ -155,9 +154,6 @@ public class CentralUnit implements ITankSensorListener {
     public void switchSideLight() {this.eventBus.post(new SideLightToggleEvent(searchLightsSide));}
 
     public void switchSelfprotection() {//zu ergänzen wenn TASK1 funktioniert
-        this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
-        this.mixingProcessor.spray(CannonIdentifier.CANNON_SELFPROTECTION);
-        this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
     }
 
     //ENDE TASK2

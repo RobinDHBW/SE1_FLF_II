@@ -55,8 +55,8 @@ public class TestTask9 {
         this.flf.enterFLF(driver, true);
         this.driver.toggleDoor();
 
-        if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
-        if (this.flf.getMixingProcessor().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
+        if (this.flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_FRONT)) this.driver.toggleCannon();
+        if (this.flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_ROOF)) this.operator.toggleCannon();
 
         while (this.flf.getCabin().getBtnRotaryWaterCannonFront().getMode() > 1 && this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.A) {
             this.operator.leftRotaryButtonFrontCannon();
@@ -69,10 +69,10 @@ public class TestTask9 {
         ArrayList<DynamicTest> tests = new ArrayList<>();
         this.operator.toggleEngines();
         Collections.addAll(tests,
-                DynamicTest.dynamicTest("check CannonRoof", () -> assertTrue(this.flf.getMixingProcessor().getSelfCheckState(CannonIdentifier.CANNON_ROOF).get(0))),
-                DynamicTest.dynamicTest("check CannonFront", () -> assertTrue(this.flf.getMixingProcessor().getSelfCheckState(CannonIdentifier.CANNON_FRONT).get(0)))
+                DynamicTest.dynamicTest("check CannonRoof", () -> assertTrue(this.flf.getPipeDistribution().getSelfCheckState(CannonIdentifier.CANNON_ROOF).get(0))),
+                DynamicTest.dynamicTest("check CannonFront", () -> assertTrue(this.flf.getPipeDistribution().getSelfCheckState(CannonIdentifier.CANNON_FRONT).get(0)))
         );
-        List<Boolean> selfProtectionSelfCheckState = this.flf.getMixingProcessor().getSelfCheckState(CannonIdentifier.CANNON_SELFPROTECTION);
+        List<Boolean> selfProtectionSelfCheckState = this.flf.getPipeDistribution().getSelfCheckState(CannonIdentifier.CANNON_SELFPROTECTION);
         Integer index = 0;
         for (Boolean b : selfProtectionSelfCheckState) {
             tests.add(DynamicTest.dynamicTest("check WaterDieSelfProtection #" + ++index, () -> assertTrue(b)));
