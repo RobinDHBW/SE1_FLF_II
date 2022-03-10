@@ -6,7 +6,7 @@ import task1_imp.MixingUnitMediator;
 public class ButtonRotaryWaterCannonRoof extends ButtonRotary {
     private RoofCannonMode mode = RoofCannonMode.A;
 
-    public ButtonRotaryWaterCannonRoof(MixingUnitMediator o) {
+    public ButtonRotaryWaterCannonRoof(MixingProcessor o) {
         super(o, 500);
 
     }

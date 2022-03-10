@@ -10,6 +10,7 @@ import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import lights.*;
 import person.Person;
+import tank.MixingProcessor;
 import task1_imp.MixingUnitMediator;
 import tank.TankSubject;
 import task4.*;
@@ -28,7 +29,7 @@ public class CentralUnit implements ITankSensorListener {
     private final List<SearchLight> searchLightsSide;
     private final List<DirectionIndicator> indicatorsLeft;
     private final List<DirectionIndicator> indicatorsRight;
-    private final MixingUnitMediator mixingProcessor;
+    private final MixingProcessor mixingProcessor;
     private final Drive drive;
     private final Speedometer speedometer;
     private final BatteryIndicator batteryIndicator;
@@ -48,7 +49,7 @@ public class CentralUnit implements ITankSensorListener {
             List<SearchLight> searchLightsSide,
             List<DirectionIndicator> indicatorsLeft,
             List<DirectionIndicator> indicatorsRight,
-            MixingUnitMediator mixingProcessor,
+            MixingProcessor mixingProcessor,
             Drive drive,
             Speedometer speedometer,
             BatteryIndicator batteryIndicator,
