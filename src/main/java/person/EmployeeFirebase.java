@@ -1,20 +1,21 @@
 package person;
 
 import drive.Drive;
+import tank.MixingProcessor;
 import task1_imp.MixingUnitMediator;
 import tank.TankSubject;
 import task1_imp.MixingUnitMediator;
 
 public class EmployeeFirebase extends Person {
 
-    MixingUnitMediator mixingProcessor;
+    MixingProcessor mixingProcessor;
     Drive drive;
 
     public EmployeeFirebase(String name) {
         super(name);
     }
 
-    public void equip(MixingUnitMediator mixer, Drive drive) {
+    public void equip(MixingProcessor mixer, Drive drive) {
         this.mixingProcessor = mixer;
         this.drive = drive;
     }

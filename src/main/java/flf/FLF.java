@@ -20,6 +20,7 @@ import joystick.JoystickType;
 import lights.*;
 import person.EmployeeFirebase;
 import person.Person;
+import tank.MixingProcessor;
 import tank.Tank;
 import tank.TankSubject;
 import task1_imp.MixingUnitMediator;
@@ -47,7 +48,7 @@ public class FLF {
 
     private final Drive drive;
 
-    private final MixingUnitMediator mixingProcessor;
+    private final MixingProcessor mixingProcessor;
     private final WaterCannonFront waterCannonFront;
     private final WaterCannonRoof waterCannonRoof;
     private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection;
@@ -127,7 +128,7 @@ public class FLF {
         return drive;
     }
 
-    public MixingUnitMediator getMixingProcessor() {
+    public MixingProcessor getMixingProcessor() {
         return mixingProcessor;
     }
 
@@ -214,7 +215,7 @@ public class FLF {
 
         private final Drive drive = new Drive();
         private final ArrayList<WaterDieSelfprotection> waterDieSelfprotection = new ArrayList<>();
-        private MixingUnitMediator mixingProcessor;
+        private MixingProcessor mixingProcessor;
         private final LEDLight waterTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
         private final LEDLight foamTankSensorLED = new LEDLight(LightPosition.CONTROL_PANEL, 1, LEDColor.RED);
 
@@ -284,13 +285,13 @@ public class FLF {
             ButtonRotaryWaterCannonFront btnCannonFront = new ButtonRotaryWaterCannonFront(this.mixingProcessor) {
                 @Override
                 public void operateDevice() {
-                    ((MixingUnitMediator) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_FRONT, this.amountPerIteration);
+                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_FRONT, this.amountPerIteration);
                 }
             };
             ButtonRotaryWaterCannonRoof btnCannonRoof = new ButtonRotaryWaterCannonRoof(this.mixingProcessor) {
                 @Override
                 public void operateDevice() {
-                    ((MixingUnitMediator) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_ROOF, this.amountPerIteration);
+                    ((MixingProcessor) this.operatingDevice).setSprayCapacityPerlIteration(CannonIdentifier.CANNON_ROOF, this.amountPerIteration);
                 }
             };
 
@@ -402,7 +403,7 @@ public class FLF {
             for (int i = 0; i < 7; i++) {
                 this.waterDieSelfprotection.add(new WaterDieSelfprotection(100));
             }
-            this.mixingProcessor = new MixingUnitMediator(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
+            this.mixingProcessor = new MixingProcessor(this.waterCannonRoof, this.waterCannonFront, this.waterDieSelfprotection, this.foamTank, this.waterTank);
         }
 
         private Joystick buildJoystick(Boolean isDriver, JoystickType joystickType) {
@@ -418,13 +419,13 @@ public class FLF {
                     btnPressLeft = new ButtonPress(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
-                            ((MixingUnitMediator) this.operatingDevice).toggle(ident);
+                            ((MixingProcessor) this.operatingDevice).toggle(ident);
                         }
                     };
                     btnPressRight = new ButtonPress(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingUnitMediator) this.operatingDevice).getCannonState(ident)) {
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
                                 ((MixingUnitMediator) this.operatingDevice).changeMixingRate();
                             }
                         }
@@ -432,8 +433,8 @@ public class FLF {
                     btnPush = new ButtonPush(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingUnitMediator) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingUnitMediator) this.operatingDevice).spray(ident);
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).spray(ident);
                             }
                         }
                     };
@@ -444,20 +445,20 @@ public class FLF {
                         @Override
                         public void operateDevice() {
                             if (isHeld5seconds()) {
-                                ((MixingUnitMediator) this.operatingDevice).toggle(ident);
+                                ((MixingProcessor) this.operatingDevice).toggle(ident);
                             } else if (hold5sec()) {
-                                ((MixingUnitMediator) this.operatingDevice).toggle(ident);
+                                ((MixingProcessor) this.operatingDevice).toggle(ident);
                             }
-                            if (((MixingUnitMediator) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingUnitMediator) this.operatingDevice).changeMixingRate();
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).changeMixingRate();
                             }
                         }
                     };
                     btnPush = new ButtonPush(this.mixingProcessor) {
                         @Override
                         public void operateDevice() {
-                            if (((MixingUnitMediator) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingUnitMediator) this.operatingDevice).spray(ident);
+                            if (((MixingProcessor) this.operatingDevice).getCannonState(ident)) {
+                                ((MixingProcessor) this.operatingDevice).spray(ident);
                             }
                         }
                     };

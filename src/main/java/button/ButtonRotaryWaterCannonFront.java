@@ -7,7 +7,7 @@ public class ButtonRotaryWaterCannonFront extends ButtonRotary {
     private final Integer stepSize = 500;
     private Integer mode = 1;
 
-    public ButtonRotaryWaterCannonFront(MixingUnitMediator o) {
+    public ButtonRotaryWaterCannonFront(MixingProcessor o) {
         super(o, 500);
     }
 
