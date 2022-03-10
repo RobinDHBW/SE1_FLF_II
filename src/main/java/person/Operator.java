@@ -32,30 +32,38 @@ public class Operator extends ActivePassenger {
 
     public void toggleEngines() {
         this.panel.getBtnSwitchEngines().operateDevice();
+        this.panel.getBtnSwitchEngines().switchButton();
     }
 
     public void toggleWarnlights() {
         this.panel.getBtnSwitchWarnlight().operateDevice();
+        this.panel.getBtnSwitchWarnlight().switchButton();
     }
 
     public void toggleBlueLights() {
         this.panel.getBtnSwitchBluelight().operateDevice();
+        this.panel.getBtnSwitchBluelight().switchButton();
     }
 
     public void toggleFrontLights() {
         this.panel.getBtnSwitchFrontlight().operateDevice();
+        this.panel.getBtnSwitchFrontlight().switchButton();
     }
 
     public void toggleRoofLights() {
         this.panel.getBtnSwitchRooflight().operateDevice();
+        this.panel.getBtnSwitchRooflight().switchButton();
     }
 
     public void toggleSideLights() {
         this.panel.getBtnSwitchSidelight().operateDevice();
+        this.panel.getBtnSwitchSidelight().switchButton();
     }
 
     public void toggleSelfProtection() {
         this.panel.getBtnSwitchSelfProtection().operateDevice();
+        this.panel.getBtnSwitchSelfProtection().switchButton();
+        this.panel.getBtnSwitchSelfProtection().switchButton();
     }
 
     public void leftRotaryButtonFrontCannon() {

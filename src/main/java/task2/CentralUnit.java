@@ -141,7 +141,14 @@ public class CentralUnit implements ITankSensorListener {
         eventBus.register(subscriber);
     }
 
-    public void switchEngines() {this.eventBus.post(new EngineToggleEvent(drive));}
+    public void switchEngines() {
+        this.eventBus.post(new EngineToggleEvent(drive));
+        if (drive.getEngineState()) {
+                cannonCheck();
+            } else {
+                this.pipeDistribution.resetCannonSelfCheck();
+            }
+    }
 
     public void switchWarningLight() {this.eventBus.post(new WarningLightToggleEvent(warningLights));}
 
@@ -238,7 +245,6 @@ public class CentralUnit implements ITankSensorListener {
             case FIFTY -> LEDColor.YELLOW;
         };
         light.changeLEDColor(color);
-
 
     }
 }

@@ -1,9 +1,7 @@
 package cabin;
 
-import button.ButtonSwitch;
+import task6.ButtonSwitch;
 import lights.LEDLight;
-
-import java.util.List;
 
 
 public class ControlPanel {

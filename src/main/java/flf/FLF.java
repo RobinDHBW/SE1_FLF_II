@@ -5,13 +5,10 @@ import cabin.Busdoor;
 import cabin.Cabin;
 import cabin.ControlPanel;
 import cabin.VehicleSide;
+import firefighting.*;
 import task2.CentralUnit;
 import configuration.Configuration;
 import drive.Drive;
-import firefighting.CannonIdentifier;
-import firefighting.WaterCannonFront;
-import firefighting.WaterCannonRoof;
-import firefighting.WaterDieSelfprotection;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import instruments.SteeringWheel;
@@ -23,7 +20,8 @@ import person.Person;
 import tank.PipeDistribution;
 import tank.Tank;
 import tank.TankSubject;
-import task1.MixingProcessorReflector;
+import task6.ButtonNotPushed;
+import task6.ButtonSwitch;
 import task8.TankSensor;
 
 import java.util.ArrayList;
@@ -470,49 +468,50 @@ public class FLF {
 
         private ControlPanel buildControlPanel(CentralUnit cu) {
             List<ButtonSwitch> switches = new ArrayList<>();
-            ButtonSwitch btnWarnLight = new ButtonSwitch(cu) {
+            ButtonSwitch btnWarnLight = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchWarningLight();
                 }
             };
 
-            ButtonSwitch btnBlueLight = new ButtonSwitch(cu) {
+            ButtonSwitch btnBlueLight = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchBlueLight();
                 }
             };
 
-            ButtonSwitch btnFrontLight = new ButtonSwitch(cu) {
+            ButtonSwitch btnFrontLight = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchFrontLight();
                 }
             };
 
-            ButtonSwitch btnRoofLight = new ButtonSwitch(cu) {
+            ButtonSwitch btnRoofLight = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchRoofLight();
                 }
             };
 
-            ButtonSwitch btnSideLight = new ButtonSwitch(cu) {
+            ButtonSwitch btnSideLight = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSideLight();
                 }
             };
 
-            ButtonSwitch btnSelfProtection = new ButtonSwitch(cu) {
+            ButtonSwitch btnSelfProtection = new ButtonSwitch(cu, new ButtonNotPushed()) {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSelfprotection();
                 }
             };
 
-            ButtonSwitch btnEngines = new ButtonSwitch(cu) {
+            ButtonSwitch btnEngines = new ButtonSwitch(cu, new ButtonNotPushed())
+            {
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchEngines();
