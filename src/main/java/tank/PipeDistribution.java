@@ -2,6 +2,7 @@ package tank;
 
 import firefighting.*;
 import task1.MixingProcessorReflector;
+import task2.centralUnitUtils.Subscriber;
 import task9.ICannonVisitor;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 
 import static tank.TankSubject.FOAM;
 
-public class PipeDistribution {
+public class PipeDistribution extends Subscriber {
     private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();
     private final WaterCannonFront waterCannonFront;// = new WaterCannonFront(90);
     private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection; // = new ArrayList<>();
@@ -23,6 +24,7 @@ public class PipeDistribution {
 
 
     public PipeDistribution(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
+        super(003);
         this.waterCannonFront = waterCannonFront;
         this.waterCannonRoof = waterCannonRoof;
         this.waterDiesSelfprotection = waterDiesSelfprotection;

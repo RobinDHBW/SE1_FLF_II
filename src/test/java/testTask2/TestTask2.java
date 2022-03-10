@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import person.Driver;
 import person.Operator;
 import person.Person;
-import task5.LoadingStation;
+import firefighting.*;
+import tank.TankSubject;
+
 
 import java.util.ArrayList;
 
@@ -17,7 +19,6 @@ public class TestTask2 {
     private FLF flf;
     private Driver driver;
     private Operator operator;
-    private LoadingStation loadingStation;
 
 
     @BeforeEach
@@ -28,7 +29,6 @@ public class TestTask2 {
         authorizedPersons.add(this.driver);
         authorizedPersons.add(this.operator);
         this.flf = new FLF.Builder(authorizedPersons).build();
-        this.loadingStation = new LoadingStation();
     }
 
     @Test
@@ -59,6 +59,15 @@ public class TestTask2 {
         assertFalse(flf.getDrive().getEngineState());
         flf.getCabin().getCentralUnit().switchEngines();
         assertTrue(flf.getDrive().getEngineState());
+    }
+
+    @Test
+    void testSelfdefence(){
+        flf.getPipeDistribution().fillComplete(TankSubject.FOAM);
+        flf.getPipeDistribution().fillComplete(TankSubject.WATER);
+        assertFalse(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION));
+        flf.getCabin().getCentralUnit().switchSelfprotection();
+        assertFalse(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION));
     }
 
 }

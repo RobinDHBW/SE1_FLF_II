@@ -153,8 +153,7 @@ public class CentralUnit implements ITankSensorListener {
 
     public void switchSideLight() {this.eventBus.post(new SideLightToggleEvent(searchLightsSide));}
 
-    public void switchSelfprotection() {//zu ergänzen wenn TASK1 funktioniert
-    }
+    public void switchSelfprotection() {this.eventBus.post(new SelfProtectionToggleEvent(pipeDistribution));}
 
     //ENDE TASK2
 
