@@ -23,7 +23,7 @@ import person.Person;
 import tank.PipeDistribution;
 import tank.Tank;
 import tank.TankSubject;
-import task1.MixingUnitMediator;
+import task1.MixingProcessorReflector;
 import task8.TankSensor;
 
 import java.util.ArrayList;
@@ -426,7 +426,7 @@ public class FLF {
                         @Override
                         public void operateDevice() {
                             if (((PipeDistribution) this.operatingDevice).getCannonState(ident)) {
-                                ((MixingUnitMediator) this.operatingDevice).changeMixingRate();
+                                ((PipeDistribution) this.operatingDevice).changeMixingRate();
                             }
                         }
                     };

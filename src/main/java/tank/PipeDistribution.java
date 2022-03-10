@@ -1,6 +1,7 @@
 package tank;
 
 import firefighting.*;
+import task1.MixingProcessorReflector;
 import task9.ICannonVisitor;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class PipeDistribution {
     private final Tank foamTank;// = new Tank(FOAM, 75, 45, 10);
     private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
     private MixingRate mixingRate = MixingRate.NULL;
-    private final MixingProcessor mixingProcessor = new MixingProcessor();
+    private final MixingProcessorReflector mixingProcessor = new MixingProcessorReflector();
 
 
     public PipeDistribution(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
