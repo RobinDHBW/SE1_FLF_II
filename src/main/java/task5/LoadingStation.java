@@ -2,8 +2,10 @@ package task5;
 
 public class LoadingStation {
 
-    LoadingStation(){
-        OnePoleSocket socket = new OnePoleSocket();
+    public OnePoleSocket socket;
+
+    public LoadingStation(){
+         socket = new OnePoleSocket();
     }
 
 }
