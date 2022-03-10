@@ -1,14 +1,18 @@
-package tank;
+
+
+import utils.IMixingProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class MixingProcessor implements IMixingProcessor{
+public class MixingProcessor {
     private Integer mixingRate = 0;
+    private static final MixingProcessor instance = new MixingProcessor();
+    public Port port;
 
-    public MixingProcessor(){
-
+    private MixingProcessor(){
+        //this.port
     }
 
     private Boolean checkInputAmount(Integer amount1, Integer amount2){
@@ -21,8 +25,7 @@ public class MixingProcessor implements IMixingProcessor{
         return false;
     }
 
-    @Override
-    public List<Object> mixTwoInputs(List<Object> primary, List<Object> secondary) {
+    public List<Object> innerMixTwoInputs(List<Object> primary, List<Object> secondary) {
         try {
             if(!checkInputAmount(primary.size(), secondary.size())) throw new Exception("Wrong input amount!");
 
@@ -34,18 +37,15 @@ public class MixingProcessor implements IMixingProcessor{
         }
     }
 
-    @Override
-    public void setMixingRate(Integer mixingRate) {
+    public void innerSetMixingRate(Integer mixingRate) {
         this.mixingRate = mixingRate;
     }
 
-    @Override
-    public Integer getMixingRate() {
+    public Integer innerGetMixingRate() {
         return mixingRate;
     }
 
-    @Override
-    public List<Integer> calcRatio(Integer quantity) {
+    public List<Integer> innerCalcRatio(Integer quantity) {
         List<Integer> ratios = new ArrayList<>();
         if(this.mixingRate>0) {
             Integer ratio = quantity / 100 * mixingRate;
@@ -57,4 +57,27 @@ public class MixingProcessor implements IMixingProcessor{
         }
         return ratios;
     }
+
+    public class Port  implements IMixingProcessor{
+        @Override
+        public List<Integer> calcRatio(Integer quantity) {
+            return innerCalcRatio(quantity);
+        }
+
+        @Override
+        public Integer getMixingRate() {
+            return innerGetMixingRate();
+        }
+
+        @Override
+        public void setMixingRate(Integer mixingRate) {
+            innerSetMixingRate(mixingRate);
+        }
+
+        @Override
+        public List<Object> mixTwoInputs(List<Object> input1, List<Object> input2) {
+            return innerMixTwoInputs(input1, input2);
+        }
+    }
+
 }

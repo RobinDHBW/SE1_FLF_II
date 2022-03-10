@@ -1,4 +1,4 @@
-package task1_imp;
+package task1;
 
 import firefighting.*;
 import tank.MixingRate;

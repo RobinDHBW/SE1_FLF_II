@@ -23,7 +23,7 @@ import person.Person;
 import tank.PipeDistribution;
 import tank.Tank;
 import tank.TankSubject;
-import task1_imp.MixingUnitMediator;
+import task1.MixingUnitMediator;
 import task8.TankSensor;
 
 import java.util.ArrayList;
