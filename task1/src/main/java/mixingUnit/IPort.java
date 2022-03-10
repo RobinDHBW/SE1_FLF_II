@@ -28,9 +28,9 @@ public interface IPort {
 
     void toggle(CannonIdentifier ident);
 
-    void fillComplete(TankSubject input);
+    void fillComplete(Enum<?> input);
 
-    void fill(TankSubject input, Integer quantity);
+    void fill(Enum<?> input, Integer quantity);
 
     void changeMixingRate();
 

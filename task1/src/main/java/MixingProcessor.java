@@ -213,10 +213,10 @@ public class MixingProcessor {
         public void toggle(CannonIdentifier ident){innerToggle(ident);}
 
         @Override
-        public void fillComplete(TankSubject input){innerFillComplete(input);}
+        public void fillComplete(Enum<?> input){innerFillComplete(input);}
 
         @Override
-        public void fill(TankSubject input, Integer quantity){innerFill(input, quantity);}
+        public void fill(Enum<?> input, Integer quantity){innerFill(input, quantity);}
 
         @Override
         public void changeMixingRate(){innerChangeMixingRate();}

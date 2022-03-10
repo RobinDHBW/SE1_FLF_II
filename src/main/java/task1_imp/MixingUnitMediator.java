@@ -32,7 +32,7 @@ public class MixingUnitMediator {
 
     public void fill(TankSubject input, Integer quantity) {
         try {
-            Method method = port.getClass().getDeclaredMethod("fill", TankSubject.class, Integer.class);
+            Method method = port.getClass().getDeclaredMethod("fill", Enum.class, Integer.class);
             method.invoke(port, input, quantity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class MixingUnitMediator {
 
     public void fillComplete(TankSubject input) {
         try {
-            Method method = port.getClass().getDeclaredMethod("fillComplete", TankSubject.class);
+            Method method = port.getClass().getDeclaredMethod("fillComplete", Enum.class);
             method.invoke(port, input);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,17 +50,16 @@ public class MixingUnitMediator {
 
     public void toggle(CannonIdentifier ident) {
         try {
-            Method method = port.getClass().getDeclaredMethod("toggle", CannonIdentifier.class);
+            Method method = port.getClass().getDeclaredMethod("toggle", Enum.class);
             method.invoke(port, ident);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
     public void setSprayCapacityPerlIteration(CannonIdentifier cannonRoof, Integer amountPerIteration) {
         try {
-            Method method = port.getClass().getDeclaredMethod("setSprayCapacityPerlIteration", CannonIdentifier.class, Integer.class);
+            Method method = port.getClass().getDeclaredMethod("setSprayCapacityPerlIteration", Enum.class, Integer.class);
             method.invoke(port, cannonRoof, amountPerIteration);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +68,7 @@ public class MixingUnitMediator {
 
     public void spray(CannonIdentifier ident) {
         try {
-            Method method = port.getClass().getDeclaredMethod("spray", CannonIdentifier.class);
+            Method method = port.getClass().getDeclaredMethod("spray", Enum.class);
             method.invoke(port, ident);
         } catch (Exception e) {
             e.printStackTrace();

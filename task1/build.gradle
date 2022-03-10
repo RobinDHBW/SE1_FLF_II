@@ -33,5 +33,4 @@ task build_jar(type: Jar) {
         from 'build/libs/task1.jar'
         into "jar"
     }
-    duplicatesStrategy = "exclude"
 }
