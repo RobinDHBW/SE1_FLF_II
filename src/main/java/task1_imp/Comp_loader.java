@@ -1,7 +1,5 @@
 package task1_imp;
 
-import configuration.Configuration;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -10,17 +8,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Objects;
 
 public class Comp_loader {
+    private Class mixingUnitClass;
+    private Object mixingUnitInstance;
+    private Object port;
 
-    private static Boolean checkComponent() {
+    public Comp_loader() {
+        checkComponent();
+        loadComponent();
+    }
+
+    private void checkComponent() {
         try {
-//            String javaHome = "C:\\Program Files\\Java\\jdk-17.0.2";
-//            if (System.getenv("JAVA_HOME") != null) {
-//                javaHome = System.getenv("JAVA_HOME");
-//            }
-            ProcessBuilder processBuilder = new ProcessBuilder(Configuration.instance.pathToJarsigner, "-verify", Configuration.instance.pathToJavaArchive);
+            String javaHome = "C:\\Program Files\\Java\\jdk-17.0.2";
+            if (System.getenv("JAVA_HOME") != null) {
+                javaHome = System.getenv("JAVA_HOME");
+            }
+            ProcessBuilder processBuilder = new ProcessBuilder(javaHome + "\\bin\\jarsigner", "-verify", "task1\\jar\\task1.jar");
             Process process = processBuilder.start();
             process.waitFor();
 
@@ -28,50 +33,46 @@ public class Comp_loader {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
-            //boolean isComponentAccepted = false;
+            boolean isComponentAccepted = false;
 
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);
                 if (line.contains("verified")) {
-                    return true;
+                    isComponentAccepted = true;
                 }
             }
-            return false;
-//            if (isComponentAccepted) {
-//                System.out.println("component accepted");
-//                return true;
-//            } else {
-//                throw new Exception("component rejected");
-//            }
+
+            if (isComponentAccepted) {
+                System.out.println("component accepted");
+            } else {
+                throw new RuntimeException("component rejected");
+            }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
-            //throw new RuntimeException("Maybe you need to define the JAVA_HOME environment variable!");
-            return false;
+            throw new RuntimeException("Maybe you need to define the JAVA_HOME environment variable!");
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static Object loadComponent() {
-        Object port = null;
+    private void loadComponent() {
         try {
-            if(!checkComponent()) throw new Exception("JAR not verified - aborting!");
-            URL[] urls=new URL[]{new File(Configuration.instance.pathToJavaArchive).toURI().toURL()};
-            URLClassLoader loader = new URLClassLoader(urls, Comp_loader.class.getClassLoader());
-            Class mixingUnitClass = Class.forName("MixingProcessor", true, loader);
-            Object mixingUnitInstance = mixingUnitClass.getMethod("getInstance").invoke(null);
+            URLClassLoader loader = new URLClassLoader(new URL[]{new File("task1\\jar\\task1.jar").toURI().toURL()});
+            mixingUnitClass = Class.forName("mixingUnit.MixingProcessor", true, loader);
+            mixingUnitInstance = mixingUnitClass.getMethod("getInstance").invoke(null);
             port = mixingUnitClass.getDeclaredField("port").get(mixingUnitInstance);
 
-            return port;
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
-            return null;
+        } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
         }
     }
 
-//    public Object getPort(){
-//        return port;
-//    }
+    public Object getPort(){
+        return port;
+    }
 }

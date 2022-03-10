@@ -1,44 +1,34 @@
 package mixingUnit;
 
 import firefighting.CannonIdentifier;
-import firefighting.WaterCannon;
-import tank.TankSubject;
 import task9.ICannonVisitor;
-
-import java.util.HashMap;
-import java.util.List;
-
+import tank.*;
 public interface IPort {
 
-    Integer getSprayCapacity(CannonIdentifier ci);
+    public Integer getSprayCapacity(CannonIdentifier ci);
 
-    Integer AbsoluteFillState(TankSubject ts);
+    public Integer AbsoluteFillState(TankSubject ts);
 
-    Double getTankFillState(TankSubject ts);
+    public Double getTankFillState(TankSubject ts);
 
-    Integer getMixingRateValue();
+    public Integer getMixingRateValue();
 
-    MixingRate getMixingRate();
+    public MixingRate getMixingRate();
 
-    Boolean getCannonState(CannonIdentifier ident);
+    public Boolean getCannonState(CannonIdentifier ident);
 
-    void spray(CannonIdentifier identifier);
+    public void spray(CannonIdentifier identifier);
 
-    void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount);
+    public void setSprayCapacityPerlIteration(CannonIdentifier ident, Integer amount);
 
-    void toggle(CannonIdentifier ident);
+    public void toggle(CannonIdentifier ident);
 
-    void fillComplete(Enum<?> input);
+    public void fillComplete(Enum<?> input);
 
-    void fill(Enum<?> input, Integer quantity);
+    public void fill(Enum<?> input, Integer quantity);
 
-    void changeMixingRate();
+    public void changeMixingRate();
 
-    HashMap<WaterCannon, Boolean> checkCannons(ICannonVisitor visitor);
-
-    void resetCannonSelfCheck();
-
-    List<Boolean> getSelfCheckState(CannonIdentifier ident);
-
+    public boolean Cannons(ICannonVisitor visitor);
 
 }
