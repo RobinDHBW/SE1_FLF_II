@@ -18,6 +18,8 @@ public class PipeDistribution {
     private final Tank foamTank;// = new Tank(FOAM, 75, 45, 10);
     private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
     private MixingRate mixingRate = MixingRate.NULL;
+    private final MixingProcessor mixingProcessor = new MixingProcessor();
+
 
     public PipeDistribution(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
         this.waterCannonFront = waterCannonFront;
@@ -27,7 +29,8 @@ public class PipeDistribution {
         this.waterTank = waterTank;
     }
 
-    private Integer calcFoamPortion(Integer quantity) {
+
+    private Integer calcPortion(Integer quantity) {
         return switch (this.mixingRate) {
             case NULL -> 0;
             case THREE -> (quantity / 100) * 3;
@@ -36,8 +39,8 @@ public class PipeDistribution {
         };
     }
 
-    private List<TankSubject> mix(Integer quantity) {
-        Integer foamPortion = calcFoamPortion(quantity);
+    private List<TankSubject> mixTwoInputs(Integer quantity) {
+        Integer foamPortion = calcPortion(quantity);
 
         return Stream.concat(
                 foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).toList().stream(),
@@ -45,15 +48,6 @@ public class PipeDistribution {
 
     }
 
-    public void changeMixingRate() {
-        this.mixingRate = switch (this.mixingRate) {
-            case NULL -> MixingRate.THREE;
-            case THREE -> MixingRate.FIVE;
-            case FIVE -> MixingRate.TEN;
-            default -> MixingRate.NULL;
-        };
-
-    }
 
     public void fill(Enum<?> input, Integer quantity) {
 
