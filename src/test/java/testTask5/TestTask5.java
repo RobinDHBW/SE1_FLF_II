@@ -1,17 +1,12 @@
 package testTask5;
 
-import button.RoofCannonMode;
-import firefighting.CannonIdentifier;
+
 import flf.FLF;
-import lights.LEDColor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import person.Driver;
-import person.EmployeeFirebase;
 import person.Operator;
 import person.Person;
-import tank.MixingRate;
-import tank.TankSubject;
 import task5.*;
 
 import java.util.ArrayList;
@@ -23,7 +18,6 @@ public class TestTask5 {
     private Driver driver;
     private Operator operator;
     private LoadingStation loadingStation;
-    private OnePoleSocket pole;
 
     @BeforeEach
     void initRoutine() {

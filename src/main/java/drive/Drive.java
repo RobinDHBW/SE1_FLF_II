@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Drive {
+import task2.centralUnitUtils.Subscriber;
+
+public class Drive extends Subscriber{
 
     private final List<ElectricEngine> engines = new ArrayList<>();
     private final List<AxleSteerable> steerables = new ArrayList<>();
@@ -20,6 +22,7 @@ public class Drive {
     private final ICharger adapterSocket = new AdapterSocket(batteryManagement);
 
     public Drive() {
+        super(001);
         for (int i = 0; i < 2; i++) {
             engines.add(new ElectricEngine(2));
             steerables.add(new AxleSteerable());

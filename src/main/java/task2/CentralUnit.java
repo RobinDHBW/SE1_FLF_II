@@ -1,4 +1,4 @@
-package centralUnit;
+package task2;
 
 import cabin.Busdoor;
 import cabin.VehicleSide;
@@ -13,6 +13,7 @@ import person.Person;
 import tank.MixingProcessor;
 import task1_imp.MixingUnitMediator;
 import tank.TankSubject;
+import task2.centralUnitUtils.*;
 import task4.*;
 import task8.ITankSensorListener;
 import task8.TankLevel;
@@ -21,7 +22,10 @@ import task9.CannonVisitor;
 import java.util.*;
 import java.util.stream.Stream;
 
+import com.google.common.eventbus.EventBus;
+
 public class CentralUnit implements ITankSensorListener {
+
     private final List<WarningLight> warningLights;
     private final List<FlashingBlueLight> flashingBlueLights;
     private final List<SearchLight> searchLightsFront;
@@ -40,6 +44,8 @@ public class CentralUnit implements ITankSensorListener {
     private final Busdoor busdoorRight;
     private final LEDLight waterTankSensorLED;
     private final LEDLight foamTankSensorLED;
+
+    private final EventBus eventBus;//Task2
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -81,9 +87,29 @@ public class CentralUnit implements ITankSensorListener {
             case AES -> new CryptoStrategyAES(Configuration.instance.cuSalt);
             case RSA -> new CryptoStrategyRSA();
             default -> new CryptoStrategyDES();
+
         };
 
-
+        //Task2
+        this.eventBus = new EventBus();
+        this.addSubscriber(this.drive);
+        for (Light l : this.warningLights) {
+            this.addSubscriber(l);
+        }
+        for (Light l : this.flashingBlueLights) {
+            this.addSubscriber(l);
+        }
+        for (Light l : this.searchLightsFront) {
+            this.addSubscriber(l);
+        }
+        for (Light l : this.searchLightsRoof) {
+            this.addSubscriber(l);
+        }
+        for (Light l : this.searchLightsSide) {
+            this.addSubscriber(l);
+        }
+        //this.addSubscriber(this.mixingProcessor);
+        //Task2
     }
 
     private Boolean validateAuth(String input) {
@@ -110,50 +136,31 @@ public class CentralUnit implements ITankSensorListener {
         }
     }
 
-    public void switchEngines() {
-        this.drive.toggleEngine();
-        if (drive.getEngineState()) {
-            cannonCheck();
-        }else {
-            this.mixingProcessor.resetCannonSelfCheck();
-        }
+    //EVENTBUS TASK2
+
+    public void addSubscriber(Subscriber subscriber) {
+        eventBus.register(subscriber);
     }
 
-    public void switchWarningLight() {
-        for (Light l : this.warningLights) {
-            l.toggle();
-        }
-    }
+    public void switchEngines() {this.eventBus.post(new EngineToggleEvent(drive));}
 
-    public void switchBlueLight() {
-        for (Light l : this.flashingBlueLights) {
-            l.toggle();
-        }
-    }
+    public void switchWarningLight() {this.eventBus.post(new WarningLightToggleEvent(warningLights));}
 
-    public void switchFrontLight() {
-        for (Light l : this.searchLightsFront) {
-            l.toggle();
-        }
-    }
+    public void switchBlueLight() {this.eventBus.post(new BlueLightsToggleEvent(flashingBlueLights));}
 
-    public void switchRoofLight() {
-        for (Light l : this.searchLightsRoof) {
-            l.toggle();
-        }
-    }
+    public void switchFrontLight() {this.eventBus.post(new FrontLightToggleEvent(searchLightsFront));}
 
-    public void switchSideLight() {
-        for (Light l : this.searchLightsSide) {
-            l.toggle();
-        }
-    }
+    public void switchRoofLight() {this.eventBus.post(new RoofLightToggleEvent(searchLightsRoof));}
 
-    public void switchSelfprotection() {
+    public void switchSideLight() {this.eventBus.post(new SideLightToggleEvent(searchLightsSide));}
+
+    public void switchSelfprotection() {//zu ergänzen wenn TASK1 funktioniert
         this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
         this.mixingProcessor.spray(CannonIdentifier.CANNON_SELFPROTECTION);
         this.mixingProcessor.toggle(CannonIdentifier.CANNON_SELFPROTECTION);
     }
+
+    //ENDE TASK2
 
     public void steer(Integer degree) {
         this.drive.steer(degree);
