@@ -1,27 +1,25 @@
 package person;
 
 import drive.Drive;
-import tank.MixingProcessor;
-import task1_imp.MixingUnitMediator;
+import tank.PipeDistribution;
 import tank.TankSubject;
-import task1_imp.MixingUnitMediator;
 
 public class EmployeeFirebase extends Person {
 
-    MixingProcessor mixingProcessor;
+    PipeDistribution pipeDistribution;
     Drive drive;
 
     public EmployeeFirebase(String name) {
         super(name);
     }
 
-    public void equip(MixingProcessor mixer, Drive drive) {
-        this.mixingProcessor = mixer;
+    public void equip(PipeDistribution mixer, Drive drive) {
+        this.pipeDistribution = mixer;
         this.drive = drive;
     }
 
     public void uneqip() {
-        this.mixingProcessor = null;
+        this.pipeDistribution = null;
         this.drive = null;
     }
 
@@ -30,10 +28,10 @@ public class EmployeeFirebase extends Person {
     }
 
     public void fillWaterTank() {
-        this.mixingProcessor.fillComplete(TankSubject.WATER);
+        this.pipeDistribution.fillComplete(TankSubject.WATER);
     }
 
     public void fillFoamTank() {
-        this.mixingProcessor.fillComplete(TankSubject.FOAM);
+        this.pipeDistribution.fillComplete(TankSubject.FOAM);
     }
 }

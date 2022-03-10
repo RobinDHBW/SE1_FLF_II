@@ -59,7 +59,7 @@ public class Comp_loader {
     private void loadComponent() {
         try {
             URLClassLoader loader = new URLClassLoader(new URL[]{new File("task1\\jar\\task1.jar").toURI().toURL()});
-            mixingUnitClass = Class.forName("mixingUnit.MixingProcessor", true, loader);
+            mixingUnitClass = Class.forName("mixingUnit.PipeDistribution", true, loader);
             mixingUnitInstance = mixingUnitClass.getMethod("getInstance").invoke(null);
 
         } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException e) {

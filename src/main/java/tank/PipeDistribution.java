@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static tank.TankSubject.FOAM;
 
-public class MixingProcessor {
+public class PipeDistribution {
     private final WaterCannonRoof waterCannonRoof;// = new WaterCannonRoof();
     private final WaterCannonFront waterCannonFront;// = new WaterCannonFront(90);
     private final ArrayList<WaterDieSelfprotection> waterDiesSelfprotection; // = new ArrayList<>();
@@ -19,7 +19,7 @@ public class MixingProcessor {
     private final Tank waterTank;// = new Tank(TankSubject.WATER, 75, 45, 30);
     private MixingRate mixingRate = MixingRate.NULL;
 
-    public MixingProcessor(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
+    public PipeDistribution(WaterCannonRoof waterCannonRoof, WaterCannonFront waterCannonFront, ArrayList<WaterDieSelfprotection> waterDiesSelfprotection, Tank foamTank, Tank waterTank) {
         this.waterCannonFront = waterCannonFront;
         this.waterCannonRoof = waterCannonRoof;
         this.waterDiesSelfprotection = waterDiesSelfprotection;
