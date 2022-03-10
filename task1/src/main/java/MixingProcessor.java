@@ -12,7 +12,11 @@ public class MixingProcessor {
     public Port port;
 
     private MixingProcessor(){
-        //this.port
+        this.port = new Port();
+    }
+
+    public static MixingProcessor getInstance() {
+        return instance;
     }
 
     private Boolean checkInputAmount(Integer amount1, Integer amount2){

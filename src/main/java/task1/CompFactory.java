@@ -30,26 +30,26 @@ public class CompFactory {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
 
     @SuppressWarnings("unchecked")
     public static Object build() {
-        Object compPort = null;
-
         try {
+            Object compPort;
             if(!checkComponent()) throw  new Exception("JAR not verified - aborting!");
             URL[] urls = {new File(Configuration.instance.pathToJavaArchive).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, CompFactory.class.getClassLoader());
             Class clazz = Class.forName("MixingProcessor", true, urlClassLoader);
             Object mixingProcessorInstance = clazz.getMethod("getInstance").invoke(null);
             compPort = clazz.getDeclaredField("port").get(mixingProcessorInstance);
+            return compPort;
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
+            return null;
         }
-
-        return compPort;
     }
 }
