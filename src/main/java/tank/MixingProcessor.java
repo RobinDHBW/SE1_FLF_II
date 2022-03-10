@@ -13,8 +13,12 @@ public class MixingProcessor implements IMixingProcessor{
     }
 
     private Boolean checkInputAmount(Integer amount1, Integer amount2){
-        Integer check = (amount1+amount1)/mixingRate;
-        if(check == amount2) return  true;
+        if(mixingRate>0) {
+            Integer check = (amount1 + amount1) / mixingRate;
+            if (check == amount2) return true;
+        }else {
+            if(amount1 == 0) return true;
+        }
         return false;
     }
 
@@ -33,15 +37,21 @@ public class MixingProcessor implements IMixingProcessor{
     }
 
     @Override
-    public Boolean setMixingRate() {
+    public Boolean setMixingRate(Integer mixingRate) {
         return null;
     }
 
     @Override
     public List<Integer> calcRatio(Integer quantity) {
         List<Integer> ratios = new ArrayList<>();
-        Integer ratio = quantity/mixingRate;
-        ratios.add(quantity-ratio, ratio);
+        if(this.mixingRate>0) {
+            Integer ratio = quantity / mixingRate;
+            ratios.add(quantity - ratio);
+            ratios.add(ratio);
+        }else{
+            ratios.add(quantity);
+            ratios.add(0);
+        }
         return ratios;
     }
 }

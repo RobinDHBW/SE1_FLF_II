@@ -30,24 +30,31 @@ public class PipeDistribution {
     }
 
 
-    private Integer calcPortion(Integer quantity) {
-        return switch (this.mixingRate) {
-            case NULL -> 0;
-            case THREE -> (quantity / 100) * 3;
-            case FIVE -> (quantity / 100) * 5;
-            case TEN -> (quantity / 100) * 10;
+    private void setMixingRate() {
+        switch (this.mixingRate) {
+            case NULL -> mixingProcessor.setMixingRate(0);
+            case THREE -> mixingProcessor.setMixingRate(3);
+            case FIVE -> mixingProcessor.setMixingRate(5);
+            case TEN -> mixingProcessor.setMixingRate(10);
         };
     }
 
-    private List<TankSubject> mixTwoInputs(Integer quantity) {
-        Integer foamPortion = calcPortion(quantity);
-
-        return Stream.concat(
-                foamTank.remove(foamPortion).stream().map(e -> (TankSubject) e).toList().stream(),
-                waterTank.remove(quantity - foamPortion).stream().map(e -> (TankSubject) e).toList().stream()).collect(Collectors.toList());
+    private List<TankSubject> mix(Integer quantity) {
+        setMixingRate();
+        List<Integer> ratios = mixingProcessor.calcRatio(quantity);
+        return this.mixingProcessor.mixTwoInputs(foamTank.remove(ratios.get(0)).stream().toList(),waterTank.remove(ratios.get(1)).stream().toList()).stream().map(e -> (TankSubject)e).toList();
 
     }
 
+    public void changeMixingRate() {
+        this.mixingRate = switch (this.mixingRate) {
+            case NULL -> MixingRate.THREE;
+            case THREE -> MixingRate.FIVE;
+            case FIVE -> MixingRate.TEN;
+            default -> MixingRate.NULL;
+        };
+
+    }
 
     public void fill(Enum<?> input, Integer quantity) {
 
@@ -118,8 +125,8 @@ public class PipeDistribution {
     }
 
     public Integer getMixingRateValue() {
-        return calcFoamPortion(100);
-    }
+        return 0;// calcFoamPortion(100);
+    } //TODO Get that right
 
     public Double getTankFillState(TankSubject ts) {
         return switch (ts) {
