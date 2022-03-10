@@ -17,6 +17,7 @@ public class Comp_loader {
     public Comp_loader() {
         checkComponent();
         loadComponent();
+        loadPort();
     }
 
     private void checkComponent() {
@@ -60,14 +61,19 @@ public class Comp_loader {
             URLClassLoader loader = new URLClassLoader(new URL[]{new File("task1\\jar\\task1.jar").toURI().toURL()});
             mixingUnitClass = Class.forName("mixingUnit.MixingProcessor", true, loader);
             mixingUnitInstance = mixingUnitClass.getMethod("getInstance").invoke(null);
-            port = mixingUnitClass.getDeclaredField("port").get(mixingUnitInstance);
 
         } catch (MalformedURLException | ClassNotFoundException | NoSuchMethodException e) {
             e.printStackTrace();
             throw new RuntimeException();
         } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        }
+    }
+
+    private void loadPort() {
+        try {
+            port = mixingUnitClass.getDeclaredField("port").get(mixingUnitInstance);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
