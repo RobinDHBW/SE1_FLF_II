@@ -42,7 +42,7 @@ public class PipeDistribution {
     private List<TankSubject> mix(Integer quantity) {
         setMixingRate();
         List<Integer> ratios = mixingProcessor.calcRatio(quantity);
-        return this.mixingProcessor.mixTwoInputs(foamTank.remove(ratios.get(0)).stream().toList(),waterTank.remove(ratios.get(1)).stream().toList()).stream().map(e -> (TankSubject)e).toList();
+        return this.mixingProcessor.mixTwoInputs(waterTank.remove(ratios.get(0)).stream().toList(), foamTank.remove(ratios.get(1)).stream().toList()).stream().map(e -> (TankSubject)e).toList();
     }
 
     public void changeMixingRate() {
