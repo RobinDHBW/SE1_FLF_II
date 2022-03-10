@@ -75,7 +75,7 @@ private FLF proto;
                 DynamicTest.dynamicTest("Check warningLights", () -> assertTrue(this.proto.getWarningLights().size() == 2 && this.proto.getWarningLights().get(0) != null)),
                 DynamicTest.dynamicTest("Check cabin", () -> assertNotNull(this.proto.getCabin())),
                 DynamicTest.dynamicTest("Check drive", () -> assertNotNull(this.proto.getDrive())),
-                DynamicTest.dynamicTest("Check mixingProcessor", () -> assertNotNull(this.proto.getMixingProcessor()))
+                DynamicTest.dynamicTest("Check mixingProcessor", () -> assertNotNull(this.proto.getPipeDistribution()))
         );
 
     }

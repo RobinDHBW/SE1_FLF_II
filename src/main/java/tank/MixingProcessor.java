@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class MixingProcessor implements IMixingProcessor{
-    Integer mixingRate = 0;
+    private Integer mixingRate = 0;
 
     public MixingProcessor(){
 
@@ -13,21 +13,20 @@ public class MixingProcessor implements IMixingProcessor{
 
     private Boolean checkInputAmount(Integer amount1, Integer amount2){
         if(mixingRate>0) {
-            Integer check = (amount1 + amount1) / mixingRate;
-            if (check == amount2) return true;
+            Integer check = (amount1 + amount2) / 100 * mixingRate;
+            if (check.equals(amount2)) return true;
         }else {
-            if(amount2 == 0) return true;
+            if(amount2.equals(0)) return true;
         }
         return false;
     }
 
     @Override
-    public List<Object> mixTwoInputs(List<Object> input1, List<Object> input2) {
+    public List<Object> mixTwoInputs(List<Object> primary, List<Object> secondary) {
         try {
-            if(!checkInputAmount(input1.size(), input2.size())) throw new Exception("Wrong input amount!");
-            //TODO check (input1+input2)/mixingRate=input2.size --> Anteil stimmt
+            if(!checkInputAmount(primary.size(), secondary.size())) throw new Exception("Wrong input amount!");
 
-            return Stream.concat(input1.stream(), input2.stream()).toList();
+            return Stream.concat(primary.stream(), secondary.stream()).toList();
         }catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();
@@ -36,15 +35,20 @@ public class MixingProcessor implements IMixingProcessor{
     }
 
     @Override
-    public Boolean setMixingRate(Integer mixingRate) {
-        return null;
+    public void setMixingRate(Integer mixingRate) {
+        this.mixingRate = mixingRate;
+    }
+
+    @Override
+    public Integer getMixingRate() {
+        return mixingRate;
     }
 
     @Override
     public List<Integer> calcRatio(Integer quantity) {
         List<Integer> ratios = new ArrayList<>();
         if(this.mixingRate>0) {
-            Integer ratio = quantity / mixingRate;
+            Integer ratio = quantity / 100 * mixingRate;
             ratios.add(quantity - ratio);
             ratios.add(ratio);
         }else{

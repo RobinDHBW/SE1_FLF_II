@@ -128,7 +128,7 @@ public class FLF {
         return drive;
     }
 
-    public PipeDistribution getMixingProcessor() {
+    public PipeDistribution getPipeDistribution() {
         return pipeDistribution;
     }
 

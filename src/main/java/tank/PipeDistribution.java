@@ -124,8 +124,8 @@ public class PipeDistribution {
     }
 
     public Integer getMixingRateValue() {
-        return 0;// calcFoamPortion(100);
-    } //TODO Get that right
+        return mixingProcessor.getMixingRate();
+    }
 
     public Double getTankFillState(TankSubject ts) {
         return switch (ts) {
