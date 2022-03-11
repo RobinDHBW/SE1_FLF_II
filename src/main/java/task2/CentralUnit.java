@@ -2,9 +2,9 @@ package task2;
 
 import cabin.Busdoor;
 import cabin.VehicleSide;
+import com.google.common.eventbus.EventBus;
 import configuration.Configuration;
 import drive.Drive;
-import firefighting.CannonIdentifier;
 import firefighting.WaterCannon;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
@@ -20,8 +20,6 @@ import task9.CannonVisitor;
 
 import java.util.*;
 import java.util.stream.Stream;
-
-import com.google.common.eventbus.EventBus;
 
 public class CentralUnit implements ITankSensorListener {
 
@@ -44,7 +42,7 @@ public class CentralUnit implements ITankSensorListener {
     private final LEDLight waterTankSensorLED;
     private final LEDLight foamTankSensorLED;
 
-    private final EventBus eventBus;//Task2
+    private final EventBus eventBus;
 
     public CentralUnit(
             List<WarningLight> warningLights,
@@ -107,8 +105,7 @@ public class CentralUnit implements ITankSensorListener {
         for (Light l : this.searchLightsSide) {
             this.addSubscriber(l);
         }
-        //this.addSubscriber(this.mixingProcessor);
-        //Task2
+        this.addSubscriber(this.pipeDistribution);
     }
 
     private Boolean validateAuth(String input) {
@@ -135,8 +132,6 @@ public class CentralUnit implements ITankSensorListener {
         }
     }
 
-    //EVENTBUS TASK2
-
     public void addSubscriber(Subscriber subscriber) {
         eventBus.register(subscriber);
     }
@@ -161,8 +156,6 @@ public class CentralUnit implements ITankSensorListener {
     public void switchSideLight() {this.eventBus.post(new SideLightToggleEvent(searchLightsSide));}
 
     public void switchSelfprotection() {this.eventBus.post(new SelfProtectionToggleEvent(pipeDistribution));}
-
-    //ENDE TASK2
 
     public void steer(Integer degree) {
         this.drive.steer(degree);

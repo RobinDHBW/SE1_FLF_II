@@ -1,7 +1,6 @@
 package cabin;
 
 import button.*;
-import task2.CentralUnit;
 import instruments.BatteryIndicator;
 import instruments.Speedometer;
 import instruments.SteeringWheel;
@@ -12,6 +11,7 @@ import person.Operator;
 import person.Person;
 import seating.Seat;
 import seating.SeatFirefighting;
+import task2.CentralUnit;
 
 import java.util.ArrayList;
 import java.util.Arrays;

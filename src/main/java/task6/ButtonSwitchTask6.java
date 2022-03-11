@@ -1,9 +1,8 @@
 package task6;
 
 import button.ButtonBoolean;
-import task6.IButtonState;
 
-public class ButtonSwitch extends ButtonBoolean {
+public class ButtonSwitchTask6 extends ButtonBoolean {
 
     boolean isOn;
     private IButtonState state;
@@ -18,7 +17,7 @@ public class ButtonSwitch extends ButtonBoolean {
 
     public void switchButton(){state.change(this);}
 
-    public ButtonSwitch(Object o, IButtonState sta) {
+    public ButtonSwitchTask6(Object o, IButtonState sta) {
         super(o);
         this.state = sta;
     }

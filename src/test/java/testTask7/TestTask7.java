@@ -1,4 +1,4 @@
-package testTask2;
+package testTask7;
 
 import button.RoofCannonMode;
 import firefighting.CannonIdentifier;
@@ -13,10 +13,9 @@ import tank.TankSubject;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestTask2 {
+public class TestTask7 {
 
     private FLF flf;
     private Driver driver;
@@ -66,40 +65,41 @@ public class TestTask2 {
 
     @Test
     void testLights(){
-        assertFalse(flf.getWarnLightsState());
-        flf.getCabin().getCentralUnit().switchWarningLight();
-        assertTrue(flf.getWarnLightsState());
+        assertEquals(flf.getWarnLightsState(), flf.getCabin().getCtrlPanel().getBtnSwitchWarnlight().isOn());
+        operator.toggleWarnlights();
+        assertEquals(flf.getWarnLightsState(), flf.getCabin().getCtrlPanel().getBtnSwitchWarnlight().isOn());
 
-        assertFalse(flf.getBlueLightState());
-        flf.getCabin().getCentralUnit().switchBlueLight();
-        assertTrue(flf.getBlueLightState());
+        assertEquals(flf.getBlueLightState(), flf.getCabin().getCtrlPanel().getBtnSwitchBluelight().isOn());
+        operator.toggleBlueLights();
+        assertEquals(flf.getBlueLightState(), flf.getCabin().getCtrlPanel().getBtnSwitchBluelight().isOn());
 
-        assertFalse(flf.getSearchLightFrontState());
-        flf.getCabin().getCentralUnit().switchFrontLight();
-        assertTrue(flf.getSearchLightFrontState());
+        assertEquals(flf.getSearchLightFrontState(), flf.getCabin().getCtrlPanel().getBtnSwitchFrontlight().isOn());
+        operator.toggleFrontLights();
+        assertEquals(flf.getSearchLightFrontState(), flf.getCabin().getCtrlPanel().getBtnSwitchFrontlight().isOn());
 
-        assertFalse(flf.getSearchLightRoofState());
-        flf.getCabin().getCentralUnit().switchRoofLight();
-        assertTrue(flf.getSearchLightRoofState());
+        assertEquals(flf.getSearchLightRoofState(), flf.getCabin().getCtrlPanel().getBtnSwitchRooflight().isOn());
+        operator.toggleRoofLights();
+        assertEquals(flf.getSearchLightRoofState(), flf.getCabin().getCtrlPanel().getBtnSwitchRooflight().isOn());
 
-        assertFalse(flf.getSearchLightSideState());
-        flf.getCabin().getCentralUnit().switchSideLight();
-        assertTrue(flf.getSearchLightSideState());
+        assertEquals(flf.getSearchLightSideState(), flf.getCabin().getCtrlPanel().getBtnSwitchSidelight().isOn());
+        operator.toggleSideLights();
+        assertEquals(flf.getSearchLightSideState(), flf.getCabin().getCtrlPanel().getBtnSwitchSidelight().isOn());
     }
 
     @Test
     void testEngine(){
-        assertFalse(flf.getDrive().getEngineState());
-        flf.getCabin().getCentralUnit().switchEngines();
-        assertTrue(flf.getDrive().getEngineState());
+        assertEquals(flf.getDrive().getEngineState(), flf.getCabin().getCtrlPanel().getBtnSwitchEngines().isOn());
+        operator.toggleEngines();
+        assertEquals(flf.getDrive().getEngineState(), flf.getCabin().getCtrlPanel().getBtnSwitchEngines().isOn());
     }
 
     @Test
     void testSelfdefence(){
         flf.getPipeDistribution().fillComplete(TankSubject.FOAM);
         flf.getPipeDistribution().fillComplete(TankSubject.WATER);
-        assertFalse(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION));
-        flf.getCabin().getCentralUnit().switchSelfprotection();
-        assertFalse(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION));
+        assertEquals(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION), flf.getCabin().getCtrlPanel().getBtnSwitchSelfProtection().isOn());
+        operator.toggleSelfProtection();
+        assertEquals(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION), flf.getCabin().getCtrlPanel().getBtnSwitchSelfProtection().isOn());
     }
+
 }

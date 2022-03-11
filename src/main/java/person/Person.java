@@ -1,11 +1,11 @@
 package person;
 
+import configuration.Configuration;
+import idCard.IDCard;
 import task4.CryptoStrategyAES;
 import task4.CryptoStrategyDES;
 import task4.CryptoStrategyRSA;
 import task4.ICryptoStrategy;
-import configuration.Configuration;
-import idCard.IDCard;
 
 public abstract class Person {
 

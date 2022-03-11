@@ -1,5 +1,4 @@
-package testTask5;
-
+package testTask1;
 
 import button.RoofCannonMode;
 import firefighting.CannonIdentifier;
@@ -10,18 +9,18 @@ import person.Driver;
 import person.EmployeeFirebase;
 import person.Operator;
 import person.Person;
-import task5.LoadingStation;
+import tank.MixingRate;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestTask5 {
+public class TestTask1 {
+
     private FLF flf;
     private Driver driver;
     private Operator operator;
-    private LoadingStation loadingStation;
+
 
     @BeforeEach
     void initRoutine() {
@@ -62,33 +61,14 @@ public class TestTask5 {
             this.operator.leftRotaryButtonFrontCannon();
             this.operator.leftRotaryButtonRoofCannon();
         }
-        this.loadingStation = new LoadingStation();
     }
 
     @Test
-    void testOnePoleSocketExist(){assertNotNull(loadingStation.socket);}
-
-    @Test
-    void testFillStateIsLessThenFull() {
-
-        this.flf.getDrive().getAbsoluteFillState();
-
-        assertEquals(1.0 , this.flf.getDrive().getRelativeFillState());
-
-        int i = 0;
-        this.flf.getDrive().accelerate();
-        while (i <= 9){
-            i++;
-            this.flf.getDrive().drive();
+    public void switchMixingRate(){
+        assertEquals(MixingRate.NULL, this.flf.getPipeDistribution().getMixingRate());
+        while (this.flf.getPipeDistribution().getMixingRate() != MixingRate.FIVE) {
+            this.driver.switchMix();
         }
-        this.flf.getDrive().brake();
-
-        System.out.println(this.flf.getDrive().getAbsoluteFillState());
-
-        this.flf.getDrive().load1000();
-
-        assertEquals(400000, this.flf.getDrive().getAbsoluteFillState());
+        assertEquals(MixingRate.FIVE, this.flf.getPipeDistribution().getMixingRate());
     }
-
 }
-

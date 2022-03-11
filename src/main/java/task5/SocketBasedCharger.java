@@ -5,33 +5,49 @@ import batteryManagement.BatteryManagement;
 
 public class SocketBasedCharger {
 
-    BatteryManagement batman;
+    BatteryManagement batteryManagement;
 
-    public SocketBasedCharger(BatteryManagement batteryManagement){
-        batman = batteryManagement;
+    public SocketBasedCharger(BatteryManagement yeet){
+        this.batteryManagement = yeet;
     }
 
     public void loadthreepoles(int amount, int polenumber) {
+
+        int amn;
+        int loaded;
+        int send;
+
         System.out.println("Start charging to: " + amount);
-        while(polenumber != 0){
+        amn = amount;
+
+        while(amn >= 299){
+
+            loaded = amn-300;
+
+            if(amn < 599){
+                send = amn;
+            }
+            else{
+                send = 300;
+            }
+            amn = loaded;
+
             switch (polenumber) {
                 case 3:
-                    System.out.println("Loading 300 Energy over Pole 1");
-                    int pole1Load = amount - 700;
-                    batman.fill(pole1Load);
+                    System.out.println("Loading " + send + " Energy over Pole 1");
+                    batteryManagement.fill(send);
                     break;
                 case 2:
-                    System.out.println("Loading 300 Energy over Pole 2");
-                    int pole2Load = amount - 700;
-                    batman.fill(pole2Load);
+                    System.out.println("Loading " + send + " Energy over Pole 2");
+                    batteryManagement.fill(send);
                     break;
                 case 1:
-                    System.out.println("Loading 400 Energy over Pole 3");
-                    int pole3Load = amount - 600;
-                    batman.fill(pole3Load);
+                    System.out.println("Loading " + send + " Energy over Pole 3");
+                    batteryManagement.fill(send);
                     break;
             }
-            polenumber--;
+            if(polenumber != 0) polenumber--;
+            else polenumber =3;
         }
         System.out.println("Charging completed");
     }

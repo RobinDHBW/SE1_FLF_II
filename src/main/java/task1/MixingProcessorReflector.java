@@ -1,14 +1,6 @@
 package task1;
 
-import firefighting.*;
-import tank.MixingRate;
-import tank.Tank;
-import tank.TankSubject;
-import task9.ICannonVisitor;
-
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MixingProcessorReflector {

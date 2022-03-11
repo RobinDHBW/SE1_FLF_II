@@ -1,6 +1,7 @@
 package testTask6;
 
 import button.RoofCannonMode;
+import firefighting.CannonIdentifier;
 import flf.FLF;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,13 +9,11 @@ import person.Driver;
 import person.EmployeeFirebase;
 import person.Operator;
 import person.Person;
-import firefighting.*;
 import tank.TankSubject;
-
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask6 {
 

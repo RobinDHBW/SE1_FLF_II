@@ -1,7 +1,6 @@
 package task4;
 
 import javax.crypto.Cipher;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;

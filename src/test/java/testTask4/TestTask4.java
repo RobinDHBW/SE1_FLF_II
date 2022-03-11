@@ -2,7 +2,6 @@ package testTask4;
 
 import configuration.Configuration;
 import org.junit.jupiter.api.Test;
-
 import task4.CryptoStrategyAES;
 import task4.CryptoStrategyDES;
 import task4.CryptoStrategyRSA;

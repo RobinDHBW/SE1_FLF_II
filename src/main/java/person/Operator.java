@@ -31,38 +31,31 @@ public class Operator extends ActivePassenger {
 
 
     public void toggleEngines() {
-        this.panel.getBtnSwitchEngines().operateDevice();
-        this.panel.getBtnSwitchEngines().switchButton();
+        this.panel.getBtnSwitchEngines().on(this.panel.getBtnSwitchEngines().getTyp());
     }
 
     public void toggleWarnlights() {
-        this.panel.getBtnSwitchWarnlight().operateDevice();
-        this.panel.getBtnSwitchWarnlight().switchButton();
+        this.panel.getBtnSwitchWarnlight().on(this.panel.getBtnSwitchWarnlight().getTyp());
     }
 
     public void toggleBlueLights() {
-        this.panel.getBtnSwitchBluelight().operateDevice();
-        this.panel.getBtnSwitchBluelight().switchButton();
+        this.panel.getBtnSwitchBluelight().on(this.panel.getBtnSwitchBluelight().getTyp());
     }
 
     public void toggleFrontLights() {
-        this.panel.getBtnSwitchFrontlight().operateDevice();
-        this.panel.getBtnSwitchFrontlight().switchButton();
+        this.panel.getBtnSwitchFrontlight().on(this.panel.getBtnSwitchFrontlight().getTyp());
     }
 
     public void toggleRoofLights() {
-        this.panel.getBtnSwitchRooflight().operateDevice();
-        this.panel.getBtnSwitchRooflight().switchButton();
+        this.panel.getBtnSwitchRooflight().on(this.panel.getBtnSwitchRooflight().getTyp());
     }
 
     public void toggleSideLights() {
-        this.panel.getBtnSwitchSidelight().operateDevice();
-        this.panel.getBtnSwitchSidelight().switchButton();
+        this.panel.getBtnSwitchSidelight().on(this.panel.getBtnSwitchSidelight().getTyp());
     }
 
     public void toggleSelfProtection() {
-        this.panel.getBtnSwitchSelfProtection().operateDevice();
-        this.panel.getBtnSwitchSelfProtection().switchButton();
+        this.panel.getBtnSwitchSelfProtection().on(this.panel.getBtnSwitchSelfProtection().getTyp());
         this.panel.getBtnSwitchSelfProtection().switchButton();
     }
 

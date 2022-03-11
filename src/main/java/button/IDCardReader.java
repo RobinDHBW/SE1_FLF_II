@@ -1,7 +1,7 @@
 package button;
 
-import task2.CentralUnit;
 import idCard.IDCard;
+import task2.CentralUnit;
 
 public class IDCardReader extends Button {
     public IDCardReader(CentralUnit centralUnit) {

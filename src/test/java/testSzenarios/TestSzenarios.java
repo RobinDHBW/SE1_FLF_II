@@ -1,8 +1,11 @@
 package testSzenarios;
 
 import button.RoofCannonMode;
-import flf.FLF;
 import firefighting.CannonIdentifier;
+import flf.FLF;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import person.Driver;
 import person.EmployeeFirebase;
 import person.Operator;
@@ -10,9 +13,6 @@ import person.Person;
 import seating.Seat;
 import tank.MixingRate;
 import tank.TankSubject;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;

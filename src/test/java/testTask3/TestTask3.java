@@ -1,12 +1,12 @@
 package testTask3;
 
+import batteryManagement.Battery;
 import batteryManagement.Coulomb;
 import configuration.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import batteryManagement.Battery;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask3 {
     private Battery battery;

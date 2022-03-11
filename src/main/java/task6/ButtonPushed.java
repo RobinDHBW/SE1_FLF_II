@@ -6,5 +6,5 @@ public class ButtonPushed implements IButtonState{
     public Boolean isOn(){return true;}
 
     @Override
-    public void change(ButtonSwitch buttonSwitch){buttonSwitch.setState(new ButtonNotPushed());}
+    public void change(ButtonSwitchTask6 buttonSwitch){buttonSwitch.setState(new ButtonNotPushed());}
 }

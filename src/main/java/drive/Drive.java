@@ -2,14 +2,13 @@ package drive;
 
 import batteryManagement.BatteryManagement;
 import batteryManagement.Coulomb;
+import task2.centralUnitUtils.Subscriber;
 import task5.AdapterSocket;
 import task5.ICharger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
-import task2.centralUnitUtils.Subscriber;
 
 public class Drive extends Subscriber{
 

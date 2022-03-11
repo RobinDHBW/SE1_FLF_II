@@ -12,5 +12,4 @@ public class BlueLightsToggleEvent {
             l.toggle();
         }
     }
-
 }

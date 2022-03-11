@@ -1,17 +1,17 @@
 package cabin;
 
-import task6.ButtonSwitch;
 import lights.LEDLight;
+import task7.ButtonSwitchTask7;
 
 
 public class ControlPanel {
-    private final ButtonSwitch btnSwitchEngines;
-    private final ButtonSwitch btnSwitchWarnlight;
-    private final ButtonSwitch btnSwitchBluelight;
-    private final ButtonSwitch btnSwitchFrontlight;
-    private final ButtonSwitch btnSwitchRooflight;
-    private final ButtonSwitch btnSwitchSidelight;
-    private final ButtonSwitch btnSwitchSelfProtection;
+    private final ButtonSwitchTask7 btnSwitchEngines;
+    private final ButtonSwitchTask7 btnSwitchWarnlight;
+    private final ButtonSwitchTask7 btnSwitchBluelight;
+    private final ButtonSwitchTask7 btnSwitchFrontlight;
+    private final ButtonSwitchTask7 btnSwitchRooflight;
+    private final ButtonSwitchTask7 btnSwitchSidelight;
+    private final ButtonSwitchTask7 btnSwitchSelfProtection;
     private final LEDLight waterTankSensorLED;
     private final LEDLight foamTankSensorLED;
 
@@ -33,33 +33,30 @@ public class ControlPanel {
      * Getter
      *********/
 
-    public ButtonSwitch getBtnSwitchEngines() {
-        return btnSwitchEngines;
-    }
+    public ButtonSwitchTask7 getBtnSwitchEngines() {return btnSwitchEngines;}
 
-    public ButtonSwitch getBtnSwitchWarnlight() {
+    public ButtonSwitchTask7 getBtnSwitchWarnlight() {
         return btnSwitchWarnlight;
     }
 
-    public ButtonSwitch getBtnSwitchBluelight() {
+    public ButtonSwitchTask7 getBtnSwitchBluelight() {
         return btnSwitchBluelight;
     }
 
-    public ButtonSwitch getBtnSwitchFrontlight() {
+    public ButtonSwitchTask7 getBtnSwitchFrontlight() {
         return btnSwitchFrontlight;
     }
 
-    public ButtonSwitch getBtnSwitchRooflight() {
+    public ButtonSwitchTask7 getBtnSwitchRooflight() {
         return btnSwitchRooflight;
     }
 
-    public ButtonSwitch getBtnSwitchSidelight() {
+    public ButtonSwitchTask7 getBtnSwitchSidelight() {
         return btnSwitchSidelight;
     }
 
-    public ButtonSwitch getBtnSwitchSelfProtection() {
-        return btnSwitchSelfProtection;
-    }
+    public ButtonSwitchTask7 getBtnSwitchSelfProtection() {
+        return btnSwitchSelfProtection;}
 
     public LEDLight getWaterTankSensorLED() {
         return waterTankSensorLED;
@@ -70,24 +67,24 @@ public class ControlPanel {
     }
 
     public static class Builder {
-        private final ButtonSwitch btnSwitchEngines;
-        private final ButtonSwitch btnSwitchWarnlight;
-        private final ButtonSwitch btnSwitchBluelight;
-        private final ButtonSwitch btnSwitchFrontlight;
-        private final ButtonSwitch btnSwitchRooflight;
-        private final ButtonSwitch btnSwitchSidelight;
-        private final ButtonSwitch btnSwitchSelfProtection;
+        private final ButtonSwitchTask7 btnSwitchEngines;
+        private final ButtonSwitchTask7 btnSwitchWarnlight;
+        private final ButtonSwitchTask7 btnSwitchBluelight;
+        private final ButtonSwitchTask7 btnSwitchFrontlight;
+        private final ButtonSwitchTask7 btnSwitchRooflight;
+        private final ButtonSwitchTask7 btnSwitchSidelight;
+        private final ButtonSwitchTask7 btnSwitchSelfProtection;
         private final LEDLight waterTankSensorLED;
         private final LEDLight foamTankSensorLED;
 
         public Builder(
-                ButtonSwitch btnSwitchEngines,
-                ButtonSwitch btnSwitchWarnlight,
-                ButtonSwitch btnSwitchBluelight,
-                ButtonSwitch btnSwitchFrontlight,
-                ButtonSwitch btnSwitchRooflight,
-                ButtonSwitch btnSwitchSidelight,
-                ButtonSwitch btnSwitchSelfProtection,
+                ButtonSwitchTask7 btnSwitchEngines,
+                ButtonSwitchTask7 btnSwitchWarnlight,
+                ButtonSwitchTask7 btnSwitchBluelight,
+                ButtonSwitchTask7 btnSwitchFrontlight,
+                ButtonSwitchTask7 btnSwitchRooflight,
+                ButtonSwitchTask7 btnSwitchSidelight,
+                ButtonSwitchTask7 btnSwitchSelfProtection,
                 LEDLight waterTankSensorLED,
                 LEDLight foamTankSensorLED
         ) {

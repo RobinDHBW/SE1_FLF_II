@@ -1,15 +1,18 @@
-
-import cabin.*;
+import cabin.Cabin;
+import cabin.ControlPanel;
 import flf.FLF;
-import person.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import person.Driver;
+import person.Operator;
+import person.Person;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFLFBuilder {
 private FLF proto;

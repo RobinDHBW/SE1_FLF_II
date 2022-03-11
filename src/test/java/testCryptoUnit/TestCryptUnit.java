@@ -1,14 +1,14 @@
 package testCryptoUnit;
 
-import task4.CryptoStrategyDES;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import task4.CryptoStrategyDES;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCryptUnit {
     private final CryptoStrategyDES cryptoUnit = new CryptoStrategyDES();
