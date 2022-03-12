@@ -7,17 +7,16 @@ import task6.IButtonState;
 public class ButtonSwitchTask7 extends ButtonSwitchTask6 {
 
     ButtonType type;
-
-    ICommand onOff;
+    ICommand command;
 
     public ButtonSwitchTask7(Object o, IButtonState sta, ButtonType typ) {
         super(o, sta);
-        this.onOff = new CommandOnOff((CentralUnit) o);
+        this.command = new CommandOnOff((CentralUnit) o);
         this.type = typ;
     }
 
-    public void on(ButtonType type){
-        onOff.execute(type);
+    public void onOff(){
+        command.execute(getTyp());
         switchButton();
     }
 

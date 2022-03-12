@@ -82,9 +82,6 @@ public class TestTask5 {
             this.flf.getDrive().drive();
         }
         this.flf.getDrive().brake();
-
-        System.out.println(this.flf.getDrive().getAbsoluteFillState());
-
         this.flf.getDrive().load1000();
 
         assertEquals(400000, this.flf.getDrive().getAbsoluteFillState());

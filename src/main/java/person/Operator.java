@@ -31,31 +31,31 @@ public class Operator extends ActivePassenger {
 
 
     public void toggleEngines() {
-        this.panel.getBtnSwitchEngines().on(this.panel.getBtnSwitchEngines().getTyp());
+        this.panel.getBtnSwitchEngines().onOff();
     }
 
     public void toggleWarnlights() {
-        this.panel.getBtnSwitchWarnlight().on(this.panel.getBtnSwitchWarnlight().getTyp());
+        this.panel.getBtnSwitchWarnlight().onOff();
     }
 
     public void toggleBlueLights() {
-        this.panel.getBtnSwitchBluelight().on(this.panel.getBtnSwitchBluelight().getTyp());
+        this.panel.getBtnSwitchBluelight().onOff();
     }
 
     public void toggleFrontLights() {
-        this.panel.getBtnSwitchFrontlight().on(this.panel.getBtnSwitchFrontlight().getTyp());
+        this.panel.getBtnSwitchFrontlight().onOff();
     }
 
     public void toggleRoofLights() {
-        this.panel.getBtnSwitchRooflight().on(this.panel.getBtnSwitchRooflight().getTyp());
+        this.panel.getBtnSwitchRooflight().onOff();
     }
 
     public void toggleSideLights() {
-        this.panel.getBtnSwitchSidelight().on(this.panel.getBtnSwitchSidelight().getTyp());
+        this.panel.getBtnSwitchSidelight().onOff();
     }
 
     public void toggleSelfProtection() {
-        this.panel.getBtnSwitchSelfProtection().on(this.panel.getBtnSwitchSelfProtection().getTyp());
+        this.panel.getBtnSwitchSelfProtection().onOff();
         this.panel.getBtnSwitchSelfProtection().switchButton();
     }
 

@@ -1,6 +1,6 @@
 package task6;
 
 public interface IButtonState {
-    Boolean isOn();
+    boolean isOn();
     void change(ButtonSwitchTask6 buttonSwitch);
 }

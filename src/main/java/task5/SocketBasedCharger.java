@@ -6,18 +6,21 @@ import batteryManagement.BatteryManagement;
 public class SocketBasedCharger {
 
     BatteryManagement batteryManagement;
+    int polenumber;
 
-    public SocketBasedCharger(BatteryManagement yeet){
-        this.batteryManagement = yeet;
+    protected SocketBasedCharger(BatteryManagement bat){
+        this.batteryManagement = bat;
     }
 
-    public void loadthreepoles(int amount, int polenumber) {
+    public void loadthreepoles(int amount, int plnb) {
 
         int amn;
         int loaded;
         int send;
 
-        System.out.println("Start charging to: " + amount);
+        this.polenumber = plnb;
+
+        //System.out.println("Start charging to: " + amount);
         amn = amount;
 
         while(amn >= 299){
@@ -34,22 +37,30 @@ public class SocketBasedCharger {
 
             switch (polenumber) {
                 case 3:
-                    System.out.println("Loading " + send + " Energy over Pole 1");
+                    //System.out.println("Loading " + send + " Energy over Pole 1");
                     batteryManagement.fill(send);
                     break;
                 case 2:
-                    System.out.println("Loading " + send + " Energy over Pole 2");
+                    //System.out.println("Loading " + send + " Energy over Pole 2");
                     batteryManagement.fill(send);
                     break;
                 case 1:
-                    System.out.println("Loading " + send + " Energy over Pole 3");
+                    //System.out.println("Loading " + send + " Energy over Pole 3");
                     batteryManagement.fill(send);
                     break;
             }
             if(polenumber != 0) polenumber--;
             else polenumber =3;
         }
-        System.out.println("Charging completed");
+        //System.out.println("Charging completed");
+    }
+
+    public int getPolenumber() {
+        return polenumber;
+    }
+
+    public void setPolenumber(int polenumber) {
+        this.polenumber = polenumber;
     }
 
 

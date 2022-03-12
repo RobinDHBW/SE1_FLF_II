@@ -23,7 +23,7 @@ import tank.PipeDistribution;
 import tank.Tank;
 import tank.TankSubject;
 import task2.CentralUnit;
-import task6.ButtonNotPushed;
+import task6.ButtonNotPushedState;
 import task7.ButtonSwitchTask7;
 import task7.ButtonType;
 import task8.TankSensor;
@@ -472,49 +472,49 @@ public class FLF {
 
         private ControlPanel buildControlPanel(CentralUnit cu) {
             List<ButtonSwitchTask7> switches = new ArrayList<>();
-            ButtonSwitchTask7 btnWarnLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.warningLight){
+            ButtonSwitchTask7 btnWarnLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.warningLight){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchWarningLight();
                 }
             };
 
-            ButtonSwitchTask7 btnBlueLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.blueLight){
+            ButtonSwitchTask7 btnBlueLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.blueLight){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchBlueLight();
                 }
             };
 
-            ButtonSwitchTask7 btnFrontLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.frontLight){
+            ButtonSwitchTask7 btnFrontLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.frontLight){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchFrontLight();
                 }
             };
 
-            ButtonSwitchTask7 btnRoofLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.roofLight){
+            ButtonSwitchTask7 btnRoofLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.roofLight){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchRoofLight();
                 }
             };
 
-            ButtonSwitchTask7 btnSideLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.sideLight){
+            ButtonSwitchTask7 btnSideLight = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.sideLight){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSideLight();
                 }
             };
 
-            ButtonSwitchTask7 btnSelfProtection = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.selfprotection){
+            ButtonSwitchTask7 btnSelfProtection = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.selfprotection){
                 @Override
                 public void operateDevice() {
                     ((CentralUnit) this.operatingDevice).switchSelfprotection();
                 }
             };
 
-            ButtonSwitchTask7 btnEngines = new task7.ButtonSwitchTask7(cu, new ButtonNotPushed(), ButtonType.engines)
+            ButtonSwitchTask7 btnEngines = new task7.ButtonSwitchTask7(cu, new ButtonNotPushedState(), ButtonType.engines)
             {
                 @Override
                 public void operateDevice() {

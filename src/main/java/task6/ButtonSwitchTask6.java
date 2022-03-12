@@ -4,8 +4,11 @@ import button.ButtonBoolean;
 
 public class ButtonSwitchTask6 extends ButtonBoolean {
 
-    boolean isOn;
-    private IButtonState state;
+
+    protected boolean isOn;
+    protected IButtonState state;
+
+
 
     public IButtonState getState() {
         return state;
@@ -15,6 +18,10 @@ public class ButtonSwitchTask6 extends ButtonBoolean {
         this.state = state;
     }
 
+    public void setOn(boolean onOff) {
+        isOn = onOff;
+    }
+
     public void switchButton(){state.change(this);}
 
     public ButtonSwitchTask6(Object o, IButtonState sta) {
@@ -22,8 +29,8 @@ public class ButtonSwitchTask6 extends ButtonBoolean {
         this.state = sta;
     }
 
-    public boolean isOn(){
-        isOn = state.isOn();
+    public Boolean isOn(){
+        setOn(state.isOn());
         return isOn;
     }
 }

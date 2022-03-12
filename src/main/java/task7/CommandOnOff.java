@@ -5,6 +5,7 @@ import task2.CentralUnit;
 public class CommandOnOff implements ICommand{
 
     CentralUnit centralUnit;
+    ButtonType type;
 
     public CommandOnOff(CentralUnit cu){
         this.centralUnit = cu;
@@ -12,7 +13,8 @@ public class CommandOnOff implements ICommand{
 
     @Override
     public void execute(ButtonType typ) {
-        switch (typ){
+        this.type = typ;
+        switch (type){
             case engines -> centralUnit.switchEngines();
             case warningLight -> centralUnit.switchWarningLight();
             case blueLight -> centralUnit.switchBlueLight();
