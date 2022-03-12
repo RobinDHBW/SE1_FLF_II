@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public class MixingProcessorReflector {
-    private Object port;
+    private final Object port;
 
     public MixingProcessorReflector(){
         this.port = CompFactory.build();
@@ -18,7 +18,7 @@ public class MixingProcessorReflector {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
-    };
+    }
     public Integer getMixingRate(){
         try {
             Method setPathMethod = port.getClass().getDeclaredMethod("getMixingRate");
@@ -28,7 +28,7 @@ public class MixingProcessorReflector {
             ex.printStackTrace();
             return null;
         }
-    };
+    }
 
     @SuppressWarnings("unchecked")
     public List<Object> mixTwoInputs(List<Object> input1, List<Object> input2){
@@ -40,7 +40,7 @@ public class MixingProcessorReflector {
             ex.printStackTrace();
             return null;
         }
-    };
+    }
 
     @SuppressWarnings("unchecked")
     public List<Integer> calcRatio(Integer quantity){
@@ -52,7 +52,7 @@ public class MixingProcessorReflector {
             ex.printStackTrace();
             return null;
         }
-    };
+    }
 
 
 }

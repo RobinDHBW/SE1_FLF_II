@@ -2,7 +2,7 @@ package task6;
 
 public class ButtonNotPushedState implements IButtonState{
 
-    private Boolean isOn = false;
+    private final Boolean isOn = false;
 
     @Override
     public boolean isOn(){return  isOn;}

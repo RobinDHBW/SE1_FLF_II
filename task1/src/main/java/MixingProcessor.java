@@ -22,11 +22,10 @@ public class MixingProcessor {
     private Boolean checkInputAmount(Integer amount1, Integer amount2){
         if(mixingRate>0) {
             Integer check = (amount1 + amount2) / 100 * mixingRate;
-            if (check.equals(amount2)) return true;
+            return check.equals(amount2);
         }else {
-            if(amount2.equals(0)) return true;
+            return amount2.equals(0);
         }
-        return false;
     }
 
     public List<Object> innerMixTwoInputs(List<Object> primary, List<Object> secondary) {

@@ -18,14 +18,14 @@ public class TestTask3 {
     }
 
     @Test
-    void testCompositeSize(){
-        assertEquals(Configuration.instance.mainCellPerBatterie* Configuration.instance.cellPerSubCell* Configuration.instance.subCellPerMainCell,this.battery.getCapacity());
+    void testCompositeSize() {
+        assertEquals(Configuration.instance.mainCellPerBatterie * Configuration.instance.cellPerSubCell * Configuration.instance.subCellPerMainCell, this.battery.getCapacity());
     }
 
     @Test
-    void testCompositeStructure(){
+    void testCompositeStructure() {
         Integer cap = this.battery.getCapacity();
         this.battery.fill(new Coulomb(), cap);
-        assertEquals(Configuration.instance.mainCellPerBatterie* Configuration.instance.cellPerSubCell* Configuration.instance.subCellPerMainCell,this.battery.getAbsoluteFillState());
+        assertEquals(Configuration.instance.mainCellPerBatterie * Configuration.instance.cellPerSubCell * Configuration.instance.subCellPerMainCell, this.battery.getAbsoluteFillState());
     }
 }

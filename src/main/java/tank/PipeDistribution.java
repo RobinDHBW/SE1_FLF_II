@@ -38,7 +38,7 @@ public class PipeDistribution extends Subscriber {
             case THREE -> mixingProcessor.setMixingRate(3);
             case FIVE -> mixingProcessor.setMixingRate(5);
             case TEN -> mixingProcessor.setMixingRate(10);
-        };
+        }
     }
 
     private List<TankSubject> mix(Integer quantity) {
@@ -175,7 +175,7 @@ public class PipeDistribution extends Subscriber {
             case CANNON_FRONT -> selfCheckStates.add(waterCannonFront.getSelfCheckPassed());
              case CANNON_ROOF -> selfCheckStates.add(waterCannonRoof.getSelfCheckPassed());
              case CANNON_SELFPROTECTION -> selfCheckStates.addAll(waterDiesSelfprotection.stream().map(WaterCannon::getSelfCheckPassed).collect(Collectors.toList()));
-        };
+        }
          return selfCheckStates;
     }
 }

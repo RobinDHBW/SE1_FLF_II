@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Battery implements IStoreMedium {
-    private List<MainCell> mainCells;
+    private final List<MainCell> mainCells;
 
     public Battery(Integer length, Integer height, Integer width) {
         this.mainCells = new ArrayList<>();

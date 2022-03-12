@@ -41,8 +41,6 @@ public class TestTask2 {
 
         this.flf.toggleMaintenance(employee);
         employee.loadBatteries();
-        //employee.fillWaterTank();
-        //employee.fillFoamTank();
         this.flf.toggleMaintenance(employee);
 
         if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
@@ -65,7 +63,7 @@ public class TestTask2 {
     }
 
     @Test
-    void testLights(){
+    void testLights() {
         assertFalse(flf.getWarnLightsState());
         flf.getCabin().getCentralUnit().switchWarningLight();
         assertTrue(flf.getWarnLightsState());
@@ -88,14 +86,14 @@ public class TestTask2 {
     }
 
     @Test
-    void testEngine(){
+    void testEngine() {
         assertFalse(flf.getDrive().getEngineState());
         flf.getCabin().getCentralUnit().switchEngines();
         assertTrue(flf.getDrive().getEngineState());
     }
 
     @Test
-    void testSelfdefence(){
+    void testSelfdefence() {
         flf.getPipeDistribution().fillComplete(TankSubject.FOAM);
         flf.getPipeDistribution().fillComplete(TankSubject.WATER);
         assertFalse(flf.getPipeDistribution().getCannonState(CannonIdentifier.CANNON_SELFPROTECTION));

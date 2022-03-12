@@ -40,8 +40,6 @@ public class TestTask8 {
 
         this.flf.toggleMaintenance(employee);
         employee.loadBatteries();
-        //employee.fillWaterTank();
-        //employee.fillFoamTank();
         this.flf.toggleMaintenance(employee);
 
         if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();
@@ -82,7 +80,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER)*100 > 50) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER) * 100 > 50) {
             this.operator.spray();
         }
         assertEquals(LEDColor.YELLOW, this.flf.getWaterTankLEDColor());
@@ -96,7 +94,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER)*100 > 25) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER) * 100 > 25) {
             this.operator.spray();
         }
         assertEquals(LEDColor.ORANGE, this.flf.getWaterTankLEDColor());
@@ -110,7 +108,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER)*100 > 10) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.WATER) * 100 > 10) {
             this.operator.spray();
         }
         assertEquals(LEDColor.RED, this.flf.getWaterTankLEDColor());
@@ -124,7 +122,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM)*100 > 50) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM) * 100 > 50) {
             this.operator.spray();
         }
         assertEquals(LEDColor.YELLOW, this.flf.getFoamTankLEDColor());
@@ -138,7 +136,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM)*100 > 25) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM) * 100 > 25) {
             this.operator.spray();
         }
         assertEquals(LEDColor.ORANGE, this.flf.getFoamTankLEDColor());
@@ -152,7 +150,7 @@ public class TestTask8 {
         while (this.flf.getCabin().getBtnRotaryWaterCannonRoof().getMode() != RoofCannonMode.C) {
             this.operator.rightRotaryButtonRoofCannon();
         }
-        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM)*100 > 10) {
+        while (this.flf.getPipeDistribution().getTankFillState(TankSubject.FOAM) * 100 > 10) {
             this.operator.spray();
         }
         assertEquals(LEDColor.RED, this.flf.getFoamTankLEDColor());

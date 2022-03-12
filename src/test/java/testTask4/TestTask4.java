@@ -10,25 +10,25 @@ import task4.ICryptoStrategy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTask4 {
+    private final String test = "The quick brown fox jumps over the lazy dog";
+    private final String cuCode = Configuration.instance.cuCode;
     private ICryptoStrategy cryptoStrategy;
-    private String test ="The quick brown fox jumps over the lazy dog";
-    private String cuCode = Configuration.instance.cuCode;
 
     @Test
-    void testAESStrategy(){
+    void testAESStrategy() {
         this.cryptoStrategy = new CryptoStrategyAES(Configuration.instance.cuSalt);
-        assertEquals(test,cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
+        assertEquals(test, cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
     }
 
     @Test
-    void testRSAStrategy(){
+    void testRSAStrategy() {
         this.cryptoStrategy = new CryptoStrategyRSA();
-        assertEquals(test,cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
+        assertEquals(test, cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
     }
 
     @Test
-    void testDESStrategy(){
+    void testDESStrategy() {
         this.cryptoStrategy = new CryptoStrategyDES();
-        assertEquals(test,cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
+        assertEquals(test, cryptoStrategy.decrypt(cryptoStrategy.encrypt(test, cuCode), cuCode));
     }
 }

@@ -64,7 +64,7 @@ public class TestTask1 {
     }
 
     @Test
-    public void switchMixingRate(){
+    public void switchMixingRate() {
         assertEquals(MixingRate.NULL, this.flf.getPipeDistribution().getMixingRate());
         while (this.flf.getPipeDistribution().getMixingRate() != MixingRate.FIVE) {
             this.driver.switchMix();

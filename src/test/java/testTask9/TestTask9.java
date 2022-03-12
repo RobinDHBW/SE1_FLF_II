@@ -41,8 +41,6 @@ public class TestTask9 {
 
         this.flf.toggleMaintenance(employee);
         employee.loadBatteries();
-        //employee.fillWaterTank();
-        //employee.fillFoamTank();
         this.flf.toggleMaintenance(employee);
 
         if (this.flf.getCabin().getBusDoorLeft().getLocked()) this.driver.toggleDoorLock();

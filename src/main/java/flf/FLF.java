@@ -226,9 +226,9 @@ public class FLF {
         private WaterCannonRoof waterCannonRoof;
         private Tank foamTank;
         private Tank waterTank;
-        private CentralUnit centralUnit;
-        private TankSensor waterTankSensor = new TankSensor();
-        private TankSensor foamTankSensor = new TankSensor();
+        private final CentralUnit centralUnit;
+        private final TankSensor waterTankSensor = new TankSensor();
+        private final TankSensor foamTankSensor = new TankSensor();
 
         public Builder(ArrayList<Person> authorizedPersons) {
 

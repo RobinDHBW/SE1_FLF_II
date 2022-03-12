@@ -15,20 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFLFBuilder {
-private FLF proto;
+    private FLF proto;
 
     @BeforeEach
-    void buildProto(){
+    void buildProto() {
         ArrayList<Person> authorizedPersons = new ArrayList<>();
         authorizedPersons.add(new Driver("Red Adair"));
         authorizedPersons.add(new Operator("Sam"));
-        this.proto=new FLF.Builder(authorizedPersons).build();
+        this.proto = new FLF.Builder(authorizedPersons).build();
     }
 
     @TestFactory
     Stream<DynamicTest> testCtrlPanelBuild() {
         ControlPanel ctrProto = this.proto.getCabin().getCtrlPanel();
-        return  Stream.of(
+        return Stream.of(
                 DynamicTest.dynamicTest("check btnSwitchEngines", () -> assertNotNull(ctrProto.getBtnSwitchEngines())),
                 DynamicTest.dynamicTest("check btnSwitchWarnlight", () -> assertNotNull(ctrProto.getBtnSwitchWarnlight())),
                 DynamicTest.dynamicTest("check btnSwitchBluelight", () -> assertNotNull(ctrProto.getBtnSwitchBluelight())),
@@ -43,20 +43,20 @@ private FLF proto;
     Stream<DynamicTest> testCabinBuild() {
         Cabin cabProto = this.proto.getCabin();
         return Stream.of(
-                DynamicTest.dynamicTest("check seatList", ()->assertTrue(cabProto.getSeatList().size()==4 && cabProto.getSeatList().get(0) != null)),
-                DynamicTest.dynamicTest("check batteryIndicator", ()-> assertNotNull(cabProto.getBatteryIndicator())),
-                DynamicTest.dynamicTest("check speedometer", ()-> assertNotNull(cabProto.getSpeedometer())),
-                DynamicTest.dynamicTest("check gasPedal", ()-> assertNotNull(cabProto.getGasPedal())),
-                DynamicTest.dynamicTest("check brakePedal", ()-> assertNotNull(cabProto.getBrakePedal())),
-                DynamicTest.dynamicTest("check steeringWheel", ()-> assertNotNull(cabProto.getSteeringWheel())),
-                DynamicTest.dynamicTest("check btnRotaryWaterCannonRoof", ()-> assertNotNull(cabProto.getBtnRotaryWaterCannonRoof())),
-                DynamicTest.dynamicTest("check btnRotaryWaterCannonFront", ()-> assertNotNull(cabProto.getBtnRotaryWaterCannonFront())),
-                DynamicTest.dynamicTest("check ctrlPanel", ()-> assertNotNull(cabProto.getCtrlPanel())),
-                DynamicTest.dynamicTest("check centralUnit", ()-> assertNotNull(cabProto.getCentralUnit())),
-                DynamicTest.dynamicTest("check joystickDriver", ()-> assertNotNull(cabProto.getJoystickDriver())),
-                DynamicTest.dynamicTest("check joystickOperator", ()-> assertNotNull(cabProto.getJoystickOperator())),
-                DynamicTest.dynamicTest("check busDoorLeft", ()-> assertNotNull(cabProto.getBusDoorLeft())),
-                DynamicTest.dynamicTest("check busDoorRight", ()-> assertNotNull(cabProto.getBusDoorRight()))
+                DynamicTest.dynamicTest("check seatList", () -> assertTrue(cabProto.getSeatList().size() == 4 && cabProto.getSeatList().get(0) != null)),
+                DynamicTest.dynamicTest("check batteryIndicator", () -> assertNotNull(cabProto.getBatteryIndicator())),
+                DynamicTest.dynamicTest("check speedometer", () -> assertNotNull(cabProto.getSpeedometer())),
+                DynamicTest.dynamicTest("check gasPedal", () -> assertNotNull(cabProto.getGasPedal())),
+                DynamicTest.dynamicTest("check brakePedal", () -> assertNotNull(cabProto.getBrakePedal())),
+                DynamicTest.dynamicTest("check steeringWheel", () -> assertNotNull(cabProto.getSteeringWheel())),
+                DynamicTest.dynamicTest("check btnRotaryWaterCannonRoof", () -> assertNotNull(cabProto.getBtnRotaryWaterCannonRoof())),
+                DynamicTest.dynamicTest("check btnRotaryWaterCannonFront", () -> assertNotNull(cabProto.getBtnRotaryWaterCannonFront())),
+                DynamicTest.dynamicTest("check ctrlPanel", () -> assertNotNull(cabProto.getCtrlPanel())),
+                DynamicTest.dynamicTest("check centralUnit", () -> assertNotNull(cabProto.getCentralUnit())),
+                DynamicTest.dynamicTest("check joystickDriver", () -> assertNotNull(cabProto.getJoystickDriver())),
+                DynamicTest.dynamicTest("check joystickOperator", () -> assertNotNull(cabProto.getJoystickOperator())),
+                DynamicTest.dynamicTest("check busDoorLeft", () -> assertNotNull(cabProto.getBusDoorLeft())),
+                DynamicTest.dynamicTest("check busDoorRight", () -> assertNotNull(cabProto.getBusDoorRight()))
         );
     }
 

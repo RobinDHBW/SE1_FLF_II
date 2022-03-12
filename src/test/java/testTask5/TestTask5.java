@@ -66,18 +66,20 @@ public class TestTask5 {
     }
 
     @Test
-    void testOnePoleSocketExist(){assertNotNull(loadingStation.socket);}
+    void testOnePoleSocketExist() {
+        assertNotNull(loadingStation.socket);
+    }
 
     @Test
     void testFillStateIsLessThenFull() {
 
         this.flf.getDrive().getAbsoluteFillState();
 
-        assertEquals(1.0 , this.flf.getDrive().getRelativeFillState());
+        assertEquals(1.0, this.flf.getDrive().getRelativeFillState());
 
         int i = 0;
         this.flf.getDrive().accelerate();
-        while (i <= 9){
+        while (i <= 9) {
             i++;
             this.flf.getDrive().drive();
         }

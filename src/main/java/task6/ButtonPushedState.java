@@ -3,7 +3,7 @@ package task6;
 public class ButtonPushedState implements IButtonState{
 
 
-    private Boolean isOn = true;
+    private final Boolean isOn = true;
 
     @Override
     public boolean isOn(){return isOn;}
